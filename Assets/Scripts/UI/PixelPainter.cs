@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -53,11 +54,25 @@ public class PixelPainter : MonoBehaviour,
     
     public void SetTexture(Texture2D tex)
     {
+        if(tex == null)
+        {
+            Debug.LogError("Texture cannot be null");
+            return;
+        }
+        
+        width = tex.width;
+        height = tex.height;
+        
         m_texPaint = new Texture2D(tex.width, tex.height, tex.format, false);
         m_texPaint.filterMode = FilterMode.Point;
         m_texPaint = tex;
         m_texPaint.Apply();
         m_rawImgPaint.texture = m_texPaint;
+    }
+    
+    public float[,] GetPaintMap()
+    {
+        return Util.GrayTexture2Array(m_texPaint);
     }
 
     public void OnPointerDown(PointerEventData e)

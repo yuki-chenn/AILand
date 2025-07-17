@@ -97,7 +97,7 @@ public class PerlinNoise
             {
                 float value = Mathf.InverseLerp(min, max, m_noiseMap[x, y]);
                 m_noiseMap[x, y] = value;
-                m_noiseTexture.SetPixel(x, y, new Color(value, value, value));
+                m_noiseTexture.SetPixel(y, m_height - 1 - x, new Color(value, value, value));
             }
         }
         
