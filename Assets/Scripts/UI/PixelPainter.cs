@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+using AILand.Utils;
+
 [RequireComponent(typeof(RawImage))]
 public class PixelPainter : MonoBehaviour,
     IPointerDownHandler, IDragHandler, IPointerUpHandler
