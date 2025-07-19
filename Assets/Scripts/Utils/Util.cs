@@ -144,6 +144,13 @@ namespace AILand.Utils
             return blockIndexX * Constants.BlockIDBase + blockIndexY;
         }
         
+        public static Vector2Int GetBlockIndexByID(int blockID)
+        {
+            int blockIndexX = blockID / Constants.BlockIDBase;
+            int blockIndexY = blockID % Constants.BlockIDBase;
+            return new Vector2Int(blockIndexX, blockIndexY);
+        }
+        
         /// <summary>
         /// 给定世界坐标，计算该坐标所在block的ID
         /// </summary>

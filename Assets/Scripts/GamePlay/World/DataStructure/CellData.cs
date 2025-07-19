@@ -11,15 +11,17 @@ namespace AILand.GamePlay.World
         private Vector2Int m_index;
         
         // Block内的位置
-        private Vector3 m_loaalPosition;
+        private Vector3 m_localPosition;
+        public Vector3 LocalPosition => m_localPosition;
 
         // 所有的方块数据
         private List<CubeData> m_cubes;
+        public List<CubeData> Cubes => m_cubes;
 
         public CellData(Vector2Int index, Vector3 localPosition)
         {
             m_index = index;
-            m_loaalPosition = localPosition;
+            m_localPosition = localPosition;
             m_cubes = new List<CubeData>();
         }
 

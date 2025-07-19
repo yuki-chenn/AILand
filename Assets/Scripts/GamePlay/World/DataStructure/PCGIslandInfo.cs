@@ -1,7 +1,18 @@
 using System;
+using System.Collections.Generic;
 
 namespace AILand.GamePlay.World
 {
+    
+    /// <summary>
+    /// 小于等于lowerBound的高度对应的Cube类型
+    /// </summary>
+    public struct CubeDistribution
+    {
+        public CubeType cubeType;
+        public int lowerBound; // 小于等于该值的高度
+    }
+    
     public class PCGIslandInfo
     {
         // 高度阈值
@@ -11,26 +22,63 @@ namespace AILand.GamePlay.World
         public float[,] heightMap;
         
         // 生成时最大高度
-        public float generateMaxHeight;
+        public int generateMaxHeight;
         
         // 将heightMap转换为高度的函数
         public Func<float,int> heightMapFunc;
         
-        // 方块类型
-        public CubeType[] CubeTypes;
+        // Cube分布
+        public List<CubeDistribution> cubeDistributions;
+
+        private CubeType[] m_cubesType;
+        public CubeType[] CubesType
+        {
+            get
+            {
+                if (m_cubesType == null) InitCubesType();
+                return m_cubesType;
+            }
+        }
         
-        // 方块分布 [a,b,c,d] 表示 0-a : 方块类型0, a-b : 方块类型1, b-c : 方块类型2, c-d : 方块类型3, d-1 : 方块类型4 ，以此类推
-        public int[] distribution;
         
         
-        
-        public PCGIslandInfo(float threshold, float[,] heightMap, float generateMaxHeight, Func<float,int> heightMapFunc)
+        public PCGIslandInfo(float threshold, float[,] heightMap, int generateMaxHeight, Func<float,int> heightMapFunc)
         {
             this.threshold = threshold;
             this.heightMap = heightMap;
             this.generateMaxHeight = generateMaxHeight;
             this.heightMapFunc = heightMapFunc;
         }
-        
+
+        private void InitCubesType()
+        {
+            if(cubeDistributions == null || cubeDistributions.Count == 0)
+            {
+                throw new Exception("Cube distributions are not initialized.");
+            }
+            
+            cubeDistributions.Sort((a, b) => a.lowerBound.CompareTo(b.lowerBound));
+            
+            m_cubesType = new CubeType[generateMaxHeight];
+            int currentIndex = 0;
+            for (int y = 0; y < generateMaxHeight; y++)
+            {
+                while(currentIndex < cubeDistributions.Count && y > cubeDistributions[currentIndex].lowerBound)
+                {
+                    currentIndex++;
+                }
+                
+                if (currentIndex < cubeDistributions.Count)
+                {
+                    m_cubesType[y] = cubeDistributions[currentIndex].cubeType;
+                }
+                else
+                {
+                    m_cubesType[y] = CubeType.None;
+                }
+            }
+        }
+
+
     }
 }
