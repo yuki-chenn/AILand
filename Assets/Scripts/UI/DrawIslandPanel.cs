@@ -10,7 +10,7 @@ using EventType = AILand.System.EventSystem.EventType;
 
 namespace AILand.UI
 {
-    public class DrawIslandPanel : MonoBehaviour
+    public class DrawIslandPanel : BaseUIPanel
     {
         private Button m_btnGenerate;
         private Button m_btnClear;
@@ -28,12 +28,25 @@ namespace AILand.UI
 
         private void Awake()
         {
+            EventCenter.AddListener(EventType.ShowDrawIslandPanelUI, Show);
+            
             BindUI();
+            
             pn = new PerlinNoise(m_blockWidth, m_blockHeight, 42);
             pn.oriAmplitude = 128;
             pn.oriFrequency = 4;
             pn.octaves = 3;
             pn.scale = 70f;
+        }
+
+        private void OnDestroy()
+        {
+            EventCenter.RemoveListener(EventType.ShowDrawIslandPanelUI, Show);
+        }
+
+        private void Start()
+        {
+            Hide();
         }
 
 
@@ -65,7 +78,7 @@ namespace AILand.UI
 
 
         /// <summary>
-        /// 获取地形的噪声图
+        /// 生成地形的噪声图
         /// </summary>
         /// <returns>size:blockHeight*blockWidth,value:[0,1]</returns>
         private float[,] GenerateTerrainNoiseMap()

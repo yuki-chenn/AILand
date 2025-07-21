@@ -49,7 +49,12 @@ public class WorldManager : Singleton<WorldManager>
         EventCenter.RemoveListener<int, float[,]>(EventType.PlayerCreateIsland, PlayerCreateIsland);
     }
 
-
+    
+    public void InitializeFirstBlock()
+    {
+        
+    }
+    
     public bool CreateBlock(Vector3 position)
     {
         // 根据position计算需要生成的Block位置
@@ -165,9 +170,7 @@ public class WorldManager : Singleton<WorldManager>
     }
 
     #endregion
-    
-    
-    
-    
+
+
     
 }
