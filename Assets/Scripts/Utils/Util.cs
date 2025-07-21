@@ -143,11 +143,20 @@ namespace AILand.Utils
         {
             return blockIndexX * Constants.BlockIDBase + blockIndexY;
         }
+        public static int GetBlockID(Vector2Int blockIndex)
+        {
+            return GetBlockID(blockIndex.x, blockIndex.y);
+        }
         
+        /// <summary>
+        /// 根据blockID获取block的index
+        /// </summary>
+        /// <param name="blockID"></param>
+        /// <returns></returns>
         public static Vector2Int GetBlockIndexByID(int blockID)
         {
-            int blockIndexX = blockID / Constants.BlockIDBase;
-            int blockIndexY = blockID % Constants.BlockIDBase;
+            int blockIndexX = Mathf.FloorToInt(blockID / (float)Constants.BlockIDBase);
+            int blockIndexY = blockID - blockIndexX * Constants.BlockIDBase;
             return new Vector2Int(blockIndexX, blockIndexY);
         }
         
@@ -166,6 +175,45 @@ namespace AILand.Utils
             
             return GetBlockID(blockX, blockY);
         }
+        
+        /// <summary>
+        /// 计算某个blockID在世界中的位置
+        /// </summary>
+        /// <param name="blockID"></param>
+        /// <param name="blockWidth"></param>
+        /// <param name="blockHeight"></param>
+        /// <returns></returns>
+        public static Vector3 GetBlockPositionByID(int blockID, int blockWidth, int blockHeight)
+        {
+            Vector2Int blockIndex = GetBlockIndexByID(blockID);
+            float x = blockIndex.x * blockWidth;
+            float z = blockIndex.y * blockHeight;
+            return new Vector3(x, 0, z);
+        }
+
+
+        /// <summary>
+        /// 获取指定blockID周围的blockID列表
+        /// </summary>
+        /// <param name="blockId"></param>
+        /// <param name="range">周围圈数，1就是周围8个，2就是周围24个</param>
+        /// <param name="res"></param>
+        public static void GetAroundBlockID(int blockId, int range,ref List<int> res)
+        {
+            res.Clear();
+            
+            Vector2Int blockIndex = GetBlockIndexByID(blockId);
+            for (int dx = -range; dx <= range; dx++)
+            {
+                for (int dy = -range; dy <= range; dy++)
+                {
+                    int newBlockId = GetBlockID(blockIndex.x + dx, blockIndex.y + dy);
+                    res.Add(newBlockId);
+                }
+            }
+        }
+
+
         
     }
 }

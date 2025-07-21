@@ -13,6 +13,7 @@ namespace AILand.GamePlay.World
     {
         // 区块的唯一标识符
         private int m_blockID;
+        public int BlockID => m_blockID;
         
         // 区块宽高
         private int m_width;
@@ -24,6 +25,7 @@ namespace AILand.GamePlay.World
         
         // block在世界中的坐标
         private Vector2Int m_worldIndex;
+        public Vector2Int WorldIndex => m_worldIndex;
 
         // 所有的Cell数据
         private CellData[,] m_cells;
@@ -34,24 +36,52 @@ namespace AILand.GamePlay.World
 
         // 该区块的岛屿是否由玩家创建
         private bool m_isPlayerCreated; // 是否由玩家创建
-        private Vector2 m_createrPosition; // creater在区块中的位置
-
+        public bool IsPlayerCreated => m_isPlayerCreated;
+        private Vector3 m_generatorPosition; // creater在区块中的位置
+        public Vector3 GeneratorPosition => m_generatorPosition;
+ 
         private bool m_isCreated; // 岛屿是否已经创建（玩家 or PCG）
         public bool IsCreated => m_isCreated;
+        
+        
+        // 游戏物体实例
+        private GameObject m_instanceGo;
+        public GameObject InstanceGo
+        {
+            get
+            {
+                if (!m_instanceGo) InstantiateBlock();
+                return m_instanceGo;
+            }
+        }
+        public Block BlockComponent => m_instanceGo.GetComponent<Block>();
 
         
-        public BlockData(int blockID, Vector3 worldPosition, int width, int height)
+        public BlockData(int blockID, int width, int height)
         {
             m_blockID = blockID;
-            m_worldPosition = worldPosition;
             m_width = width;
             m_height = height;
+            m_worldPosition = Util.GetBlockPositionByID(blockID, width, height);
             m_worldIndex = Util.GetBlockIndexByID(blockID);
             m_isCreated = false;
             m_isPlayerCreated = true;
+            m_generatorPosition = new Vector3(100, 0, 100); // 默认生成位置
         }
 
 
+        private void InstantiateBlock()
+        {
+            m_instanceGo = Object.Instantiate(WorldManager.Instance.blockPrefab, m_worldPosition, Quaternion.identity);
+            m_instanceGo.GetComponent<Block>().SetBlockData(this);
+        }
+
+
+        /// <summary>
+        /// 根据配置创建岛屿数据
+        /// </summary>
+        /// <param name="islandInfo">配置数据</param>
+        /// <returns></returns>
         public bool CreateIsland(PCGIslandInfo islandInfo)
         {
             if (m_isCreated)

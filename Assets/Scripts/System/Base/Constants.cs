@@ -1,7 +1,7 @@
 public class Constants
 {
     // blockID的base
-    public const int BlockIDBase = 1000000; 
+    public const int BlockIDBase = 10000; 
     
     
     
