@@ -18,7 +18,7 @@ namespace AILand.GamePlay.World
         // 高度阈值
         public float threshold;
         
-        // 地形图
+        // 地形图 0-1
         public float[,] heightMap;
         
         // 生成时最大高度

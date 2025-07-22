@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace AILand.GamePlay.World
@@ -7,11 +8,11 @@ namespace AILand.GamePlay.World
         public GameObject generatePlatform;
         public GameObject cubeHolder;
         public GameObject water;
-        public GameObject lowTerrain;
+        public Renderer lowTerrainRenderer;
         
         private BlockData m_blockData;
         public BlockData BlockData => m_blockData;
-        
+
         public void SetBlockData(BlockData blockData)
         {
             m_blockData = blockData;
@@ -24,13 +25,22 @@ namespace AILand.GamePlay.World
                 generatePlatform.SetActive(false);
             }
         }
-
-
-        public void ShowGeneratePlatform(bool show)
+        
+        public void SetBlockActive(bool active, bool isCreated)
         {
-            if (generatePlatform)
+            if (generatePlatform) generatePlatform.SetActive(active && !isCreated && m_blockData.IsPlayerCreated);
+            if (water) water.SetActive(false && active && isCreated);
+            if (lowTerrainRenderer) lowTerrainRenderer.gameObject.SetActive(active && isCreated);
+        }
+        
+        public void SetLowTerrainTexture(Texture color, Texture height)
+        {
+            color.filterMode = FilterMode.Point;
+            height.filterMode = FilterMode.Point;
+            if (lowTerrainRenderer)
             {
-                generatePlatform.SetActive(show);
+                lowTerrainRenderer.material.SetTexture("_ColorTex", color);
+                lowTerrainRenderer.material.SetTexture("_HeightTex", height);
             }
         }
         

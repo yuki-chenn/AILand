@@ -17,6 +17,10 @@ namespace AILand.GamePlay.World
         // 所有的方块数据
         private List<CubeData> m_cubes;
         public List<CubeData> Cubes => m_cubes;
+        
+        public CubeData TopCube => m_cubes.Count > 0 ? m_cubes[m_cubes.Count - 1] : null;
+
+        public int Height => m_cubes.Count;
 
         public CellData(Vector2Int index, Vector3 localPosition)
         {

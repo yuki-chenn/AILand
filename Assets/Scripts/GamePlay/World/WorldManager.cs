@@ -164,26 +164,64 @@ namespace AILand.GamePlay.World
             var block = m_worldData.GetBlock(blockID);
 
             block.InstanceGo.SetActive(true);
-
+            block.BlockComponent.SetBlockActive(true, block.IsCreated);
+            
             if (!block.IsCreated)
             {
-                if (block.IsPlayerCreated)
-                {
-                    block.BlockComponent.ShowGeneratePlatform(true);
-                }
-                else
-                {
-                    // TODO 生成PCG岛屿数据
+                // 岛屿数据还没有生成
 
-                }
             }
             else
             {
-                block.BlockComponent.ShowGeneratePlatform(false);
-                // 加载显示
+                // 岛屿数据已经生成
+                
+                // 加载显示远处地形
+                StartCoroutine(LoadBlockLowTerrainTextureCoroutine(blockID));
                 
                 yield break;
             }
+        }
+        
+        IEnumerator LoadBlockLowTerrainTextureCoroutine(int blockID)
+        {
+            var block = m_worldData.GetBlock(blockID);
+            if (block == null)
+            {
+                Debug.LogError($"Block {blockID} does not exist.");
+                yield break;
+            }
+            
+            Texture2D heightMap = new Texture2D(200, 200, TextureFormat.RGB24, false, true);
+            Texture2D colorMap = new Texture2D(200, 200, TextureFormat.RGB24, false, true);
+            for (int x = 0; x < m_blockWidth; x++)
+            {
+                for (int z = 0; z < m_blockHeight; z++)
+                {
+                    int height = block.Cells[x, z].Height;
+                    Color heightColor = new Color((height & 7) / 7.0f, ((height >> 3) & 7) / 7.0f,
+                        ((height >> 6) & 7) / 7.0f);
+                    if(height > 0) Debug.Log($"height:{height},{heightColor.ToString()}");
+                    Color mapColor = block.Cells[x, z].TopCube?.CubeType switch
+                    {
+                        CubeType.Sand => Color.yellow,
+                        CubeType.Dirt => new Color(0.545f, 0.271f, 0.075f),
+                        CubeType.Stone => Color.gray,
+                        CubeType.Snow => Color.white,
+                        _ => Color.clear
+                    };
+                    heightMap.SetPixel(z, m_blockHeight - 1 - x, heightColor);
+                    colorMap.SetPixel(z, m_blockHeight - 1 - x, mapColor);
+                }
+                yield return 1;
+            }
+
+            yield return 1;
+            colorMap.Apply();
+            
+            yield return 1;
+            heightMap.Apply();
+            
+            block.BlockComponent.SetLowTerrainTexture(colorMap, heightMap);
         }
 
         #endregion
