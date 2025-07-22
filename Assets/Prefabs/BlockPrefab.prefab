@@ -237,6 +237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 204847116603657941}
   - component: {fileID: -6929038868896676892}
+  - component: {fileID: -1607550936970748600}
   m_Layer: 0
   m_Name: BlockPrefab
   m_TagString: Untagged
@@ -277,9 +278,29 @@ MonoBehaviour:
   blockHolder: {fileID: 8660709906314719305}
   water: {fileID: 0}
   lowTerrain: {fileID: 0}
+--- !u!114 &-1607550936970748600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8492844173273106843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699eea0a3608418c8ea5e2c076b93e89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   showGizmos: 1
-  gizmosColor: {r: 1, g: 0, b: 0, a: 1}
-  showInGame: 1
+  borderColor: {r: 0, g: 1, b: 0, a: 1}
+  gridColor: {r: 0, g: 0, b: 1, a: 1}
+  selectedColor: {r: 1, g: 0, b: 0, a: 1}
+  showText: 1
+  textColor: {r: 0, g: 0, b: 0, a: 1}
+  fontSize: 15
+  textOffset: {x: 0, y: 0}
+  textHeight: 5
+  showWorldIndex: 1
+  showBlockID: 1
 --- !u!1 &8660709906314719305
 GameObject:
   m_ObjectHideFlags: 0

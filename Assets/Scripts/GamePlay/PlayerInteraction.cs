@@ -39,15 +39,6 @@ namespace AILand.GamePlay
                 }
             }
         }
-
-        // 在场景中可视化检测范围
-        void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, interactRadius);
-        }
-        
-        
         
     }
 }
