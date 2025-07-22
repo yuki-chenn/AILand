@@ -5,7 +5,7 @@ namespace AILand.GamePlay.World
     public class Block : MonoBehaviour
     {
         public GameObject generatePlatform;
-        public GameObject blockHolder;
+        public GameObject cubeHolder;
         public GameObject water;
         public GameObject lowTerrain;
         

@@ -74,6 +74,8 @@ namespace AILand.UI
             var id = Util.GetBlockIDByWorldPosition(pos, m_blockWidth, m_blockHeight);
 
             EventCenter.Broadcast(EventType.PlayerCreateIsland, id, terrainNoiseMap);
+            
+            Invoke("Hide",5);
         }
 
 
