@@ -15,7 +15,6 @@ namespace AILand.GamePlay.World
         [Header("Gizmos Settings")]
         [SerializeField] private bool showGizmos = true;
         [SerializeField] private Color gizmosColor = Color.red;
-        [SerializeField] private bool showInGame = true;
         
         public void SetBlockData(BlockData blockData)
         {
@@ -58,30 +57,6 @@ namespace AILand.GamePlay.World
             gizmosColor = Color.yellow;
             DrawBlockBounds();
             gizmosColor = originalColor;
-        }
-        
-        private void OnGUI()
-        {
-            if (!showInGame || !showGizmos) return;
-            
-            // 在Game视图中也显示边界
-            Camera cam = Camera.main;
-            if (cam == null) return;
-            
-            Vector3 blockCenter = transform.position + new Vector3(Constants.BlockWidth * 0.5f, 0, Constants.BlockHeight * 0.5f);
-            Vector3 screenPos = cam.WorldToScreenPoint(blockCenter);
-            
-            // 只在屏幕内显示
-            if (screenPos.z > 0 && screenPos.x >= 0 && screenPos.x <= Screen.width && 
-                screenPos.y >= 0 && screenPos.y <= Screen.height)
-            {
-                // 绘制边界框的四个角点
-                Vector3[] corners = GetBlockCorners();
-                DrawLineInGame(cam, corners[0], corners[1]);
-                DrawLineInGame(cam, corners[1], corners[2]);
-                DrawLineInGame(cam, corners[2], corners[3]);
-                DrawLineInGame(cam, corners[3], corners[0]);
-            }
         }
         
         private void DrawBlockBounds()
@@ -143,40 +118,6 @@ namespace AILand.GamePlay.World
                 Vector3 start = blockPos + new Vector3(0, 0, z);
                 Vector3 end = blockPos + new Vector3(Constants.BlockWidth, 0, z);
                 Gizmos.DrawLine(start, end);
-            }
-        }
-        
-        private Vector3[] GetBlockCorners()
-        {
-            Vector3 blockPos = transform.position;
-            return new Vector3[]
-            {
-                blockPos,
-                blockPos + new Vector3(Constants.BlockWidth, 0, 0),
-                blockPos + new Vector3(Constants.BlockWidth, 0, Constants.BlockHeight),
-                blockPos + new Vector3(0, 0, Constants.BlockHeight)
-            };
-        }
-        
-        private void DrawLineInGame(Camera cam, Vector3 worldStart, Vector3 worldEnd)
-        {
-            Vector3 screenStart = cam.WorldToScreenPoint(worldStart);
-            Vector3 screenEnd = cam.WorldToScreenPoint(worldEnd);
-            
-            // Unity的屏幕坐标系Y轴是从下往上，需要转换
-            screenStart.y = Screen.height - screenStart.y;
-            screenEnd.y = Screen.height - screenEnd.y;
-            
-            if (screenStart.z > 0 && screenEnd.z > 0)
-            {
-                GL.PushMatrix();
-                GL.LoadPixelMatrix();
-                GL.Begin(GL.LINES);
-                GL.Color(gizmosColor);
-                GL.Vertex3(screenStart.x, screenStart.y, 0);
-                GL.Vertex3(screenEnd.x, screenEnd.y, 0);
-                GL.End();
-                GL.PopMatrix();
             }
         }
 
