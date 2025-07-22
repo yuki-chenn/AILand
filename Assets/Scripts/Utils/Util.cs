@@ -141,7 +141,9 @@ namespace AILand.Utils
         /// <returns></returns>
         public static int GetBlockID(int blockIndexX, int blockIndexY)
         {
-            return blockIndexX * Constants.BlockIDBase + blockIndexY;
+            int offsetX = blockIndexX + Constants.BlockIDBase / 2;
+            int offsetY = blockIndexY + Constants.BlockIDBase / 2;
+            return offsetX * Constants.BlockIDBase + offsetY;
         }
         public static int GetBlockID(Vector2Int blockIndex)
         {
@@ -155,8 +157,12 @@ namespace AILand.Utils
         /// <returns></returns>
         public static Vector2Int GetBlockIndexByID(int blockID)
         {
-            int blockIndexX = Mathf.FloorToInt(blockID / (float)Constants.BlockIDBase);
-            int blockIndexY = blockID - blockIndexX * Constants.BlockIDBase;
+            int offsetX = blockID / Constants.BlockIDBase;
+            int offsetY = blockID % Constants.BlockIDBase;
+            
+            int blockIndexX = offsetX - Constants.BlockIDBase / 2;
+            int blockIndexY = offsetY - Constants.BlockIDBase / 2;
+            
             return new Vector2Int(blockIndexX, blockIndexY);
         }
         
@@ -217,4 +223,3 @@ namespace AILand.Utils
         
     }
 }
-

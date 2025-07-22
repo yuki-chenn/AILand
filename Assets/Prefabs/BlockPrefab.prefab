@@ -277,6 +277,9 @@ MonoBehaviour:
   blockHolder: {fileID: 8660709906314719305}
   water: {fileID: 0}
   lowTerrain: {fileID: 0}
+  showGizmos: 1
+  gizmosColor: {r: 1, g: 0, b: 0, a: 1}
+  showInGame: 1
 --- !u!1 &8660709906314719305
 GameObject:
   m_ObjectHideFlags: 0
