@@ -1,4 +1,5 @@
 
+using AILand.System.ObjectPoolSystem;
 using AILand.Utils;
 using UnityEngine;
 
@@ -72,7 +73,7 @@ namespace AILand.GamePlay.World
 
         private void InstantiateBlock()
         {
-            m_instanceGo = Object.Instantiate(WorldManager.Instance.blockPrefab, m_worldPosition, Quaternion.identity);
+            m_instanceGo = PoolManager.Instance.GetGameObject<Block>();
             m_instanceGo.GetComponent<Block>().SetBlockData(this);
         }
 

@@ -1,9 +1,10 @@
 using System;
+using AILand.System.ObjectPoolSystem;
 using UnityEngine;
 
 namespace AILand.GamePlay.World
 {
-    public class Block : MonoBehaviour
+    public class Block : MonoBehaviour, IPooledObject
     {
         public GameObject generatePlatform;
         public GameObject cubeHolder;
@@ -43,6 +44,21 @@ namespace AILand.GamePlay.World
                 lowTerrainRenderer.material.SetTexture("_HeightTex", height);
             }
         }
-        
+
+        public GameObject GameObject => gameObject;
+        public void OnGetFromPool()
+        {
+            
+        }
+
+        public void OnReleaseToPool()
+        {
+            
+        }
+
+        public void OnDestroyPoolObject()
+        {
+            
+        }
     }
 }
