@@ -100,7 +100,7 @@ namespace AILand.GamePlay.World
                 {
                     // 垂直的数据
                     var cellPosition = new Vector3(x, 0, z);
-                    var cell = new CellData(new Vector2Int(x,z), cellPosition);
+                    var cell = new CellData(this, new Vector2Int(x,z), cellPosition);
                     
                     // 计算一下高度
                     float heightMapValue = islandInfo.heightMap[x, z];
@@ -110,7 +110,7 @@ namespace AILand.GamePlay.World
                     // 创建CubeData
                     for (int y = 0; y < height; y++)
                     {
-                        var cubeData = new CubeData(islandInfo.CubesType[y], y);
+                        var cubeData = new CubeData(cell, islandInfo.CubesType[y], y);
                         cell.Cubes.Add(cubeData);
                     }
                     

@@ -9,23 +9,24 @@ using UnityEngine;
 using EventType = AILand.System.EventSystem.EventType;
 
 
-/// <summary>
-/// 控制世界的生成、动态加载卸载
-/// </summary>
+
 namespace AILand.GamePlay.World
 {
+    /// <summary>
+    /// 控制世界的生成、动态加载卸载
+    /// </summary>
     public class WorldManager : Singleton<WorldManager>
     {
         [Header("渲染设置")] public int blockLoadRange = 1;
         public int 每帧加载最多加载的方块数量 = 20;
-        public int 视野范围 = 30;
-
-        public GameObject blockPrefab;
+        public int sight = 30;
 
         public List<GameObject> cubePrefabs;
-
-
+        
+        
         private WorldData m_worldData;
+        private List<CellData> m_loadedCells = new List<CellData>();
+        
 
 
 
@@ -67,6 +68,15 @@ namespace AILand.GamePlay.World
 
         public void PlayerCreateIsland(int blockID, float[,] noiseMap)
         {
+            // TODO：传送玩家
+            var playerController = GameManager.Instance.player.GetComponent<CharacterController>();
+            if (playerController != null)
+            {
+                playerController.enabled = false;
+                GameManager.Instance.player.transform.position = new Vector3(100, 100, 100);
+                playerController.enabled = true;
+            }
+            
             var block = m_worldData.GetBlock(blockID);
             if (block == null)
             {
@@ -112,6 +122,10 @@ namespace AILand.GamePlay.World
 
             // 载入周围的Block
             LoadBlocksAroundPlayer(playerPosition);
+            
+            // 加载玩家附近区域的方块
+            LoadCubesAroundPlayer(playerPosition);
+            
         }
 
 
@@ -157,9 +171,7 @@ namespace AILand.GamePlay.World
                 m_lastBlockID = curBlockID;
             }
         }
-
-
-
+        
         IEnumerator LoadBlockCoroutine(int blockID)
         {
             var block = m_worldData.GetBlock(blockID);
@@ -225,6 +237,33 @@ namespace AILand.GamePlay.World
             block.BlockComponent.SetLowTerrainTexture(colorMap, heightMap);
         }
 
+        // 根据玩家的位置，载入周围的Cube
+        public void LoadCubesAroundPlayer(Vector3 playerPosition)
+        {
+            var localIndex = new Vector2Int();
+            var blockIndex = Util.GetBlockIndexByWorldPosition(playerPosition, m_blockWidth, m_blockHeight,ref localIndex);
+            
+            // 获取玩家所在的Block
+            var block = m_worldData.GetBlock(blockIndex);
+            
+            if(!block.IsCreated) return;
+            
+            for(int dx = -sight; dx <= sight; dx++)
+            {
+                for(int dz = -sight; dz <= sight; dz++)
+                {
+                    int sx = localIndex.x + dx;
+                    int sz = localIndex.y + dz;
+
+                    
+                    var cell = block.Cells[sx, sz];
+                    if(cell != null) cell.Load();
+                }
+            }
+            
+            
+        }
+        
         #endregion
 
 

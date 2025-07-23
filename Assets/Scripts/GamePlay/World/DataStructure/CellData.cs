@@ -6,9 +6,13 @@ namespace AILand.GamePlay.World
 {
     public class CellData
     {
+        
+        private BlockData m_blockData;
+        public BlockData BlockData => m_blockData;
 
         // Block内的坐标
         private Vector2Int m_index;
+        public Vector2Int Index => m_index;
         
         // Block内的位置
         private Vector3 m_localPosition;
@@ -22,11 +26,23 @@ namespace AILand.GamePlay.World
 
         public int Height => m_cubes.Count;
 
-        public CellData(Vector2Int index, Vector3 localPosition)
+        public CellData(BlockData blockData, Vector2Int index, Vector3 localPosition)
         {
+            m_blockData = blockData;
             m_index = index;
             m_localPosition = localPosition;
             m_cubes = new List<CubeData>();
+        }
+
+        private bool m_isLoad = false;
+        public void Load()
+        {
+            if (m_isLoad) return;
+            foreach (var cube in m_cubes)
+            {
+                cube.Load();
+            }
+            m_isLoad = true;
         }
 
     }

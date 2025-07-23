@@ -273,7 +273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 177638, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22451668, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_Pivot.x
@@ -574,6 +574,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolSettingsList:
   - prefab: {fileID: 8492844173273106843, guid: 2b7b5454c525f3f4cb71380aeb01d196, type: 3}
+    defaultCapacity: 10
+    maxSize: 100
+  - prefab: {fileID: 2568197078851905243, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
     defaultCapacity: 10
     maxSize: 100
 --- !u!4 &511311833
@@ -1279,8 +1282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockLoadRange: 1
   "\u6BCF\u5E27\u52A0\u8F7D\u6700\u591A\u52A0\u8F7D\u7684\u65B9\u5757\u6570\u91CF": 20
-  "\u89C6\u91CE\u8303\u56F4": 30
-  blockPrefab: {fileID: 8492844173273106843, guid: 2b7b5454c525f3f4cb71380aeb01d196, type: 3}
+  sight: 10
   cubePrefabs:
   - {fileID: 2568197078851905243, guid: 495f79fcb4fd5904080e1f3fb19c83c8, type: 3}
   - {fileID: 2568197078851905243, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}

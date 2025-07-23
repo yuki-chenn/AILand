@@ -1,5 +1,8 @@
 
 using System.Collections.Generic;
+using System.Numerics;
+using AILand.Utils;
+using UnityEngine;
 
 
 namespace AILand.GamePlay.World
@@ -18,23 +21,17 @@ namespace AILand.GamePlay.World
 
         public BlockData GetBlock(int blockId)
         {
-            if (m_blocks.TryGetValue(blockId, out BlockData blockData))
-            {
-                return blockData;
-            }
+            return m_blocks.GetValueOrDefault(blockId);
+        }
 
-            return null;
+        public BlockData GetBlock(Vector2Int index)
+        {
+            return GetBlock(Util.GetBlockID(index));
         }
 
         public bool AddBlock(int blockId, BlockData blockData)
         {
-            if (m_blocks.ContainsKey(blockId))
-            {
-                return false;
-            }
-
-            m_blocks[blockId] = blockData;
-            return true;
+            return m_blocks.TryAdd(blockId, blockData);
         }
 
         public bool ContainsBlock(int blockId)

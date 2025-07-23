@@ -1,15 +1,16 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace AILand.Utils
 {
-    public class Util
-    { 
+    public static class Util
+    {
         /// <summary>
         /// 计算距离图，计算map中每个为0的点到其他最近的不为0的点的曼哈顿距离
         /// </summary>
         /// <param name="map"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         /// <returns></returns>
         public static int[,] ComputeDistanceMap(in float[,] map, int width, int height)
         {
@@ -136,8 +137,8 @@ namespace AILand.Utils
         /// <summary>
         /// 获取block的ID
         /// </summary>
-        /// <param name="blockIndexX">block在世界的Xindex</param>
-        /// <param name="blockIndexY">block在世界的Yindex</param>
+        /// <param name="blockIndexX">block在世界的X index</param>
+        /// <param name="blockIndexY">block在世界的Y index</param>
         /// <returns></returns>
         public static int GetBlockID(int blockIndexX, int blockIndexY)
         {
@@ -167,6 +168,22 @@ namespace AILand.Utils
         }
         
         /// <summary>
+        /// 给定世界坐标，计算该坐标所在block的Index
+        /// </summary>
+        /// <param name="worldPos">世界坐标</param>
+        /// <param name="blockWidth"></param>
+        /// <param name="blockHeight"></param>
+        /// <returns></returns>
+        public static Vector2Int GetBlockIndexByWorldPosition(Vector3 worldPos, int blockWidth, int blockHeight)
+        {
+            // 计算区块的index
+            int blockX = Mathf.FloorToInt(worldPos.x / blockWidth);
+            int blockY = Mathf.FloorToInt(worldPos.z / blockHeight);
+            
+            return new Vector2Int(blockX, blockY);
+        }
+        
+        /// <summary>
         /// 给定世界坐标，计算该坐标所在block的ID
         /// </summary>
         /// <param name="worldPos">世界坐标</param>
@@ -175,11 +192,26 @@ namespace AILand.Utils
         /// <returns></returns>
         public static int GetBlockIDByWorldPosition(Vector3 worldPos, int blockWidth, int blockHeight)
         {
-            // 计算区块的index
-            int blockX = Mathf.FloorToInt(worldPos.x / blockWidth);
-            int blockY = Mathf.FloorToInt(worldPos.z / blockHeight);
+            return GetBlockID(GetBlockIndexByWorldPosition(worldPos, blockWidth, blockHeight));
+        }
+        
+        
+        public static Vector2Int GetBlockIndexByWorldPosition(Vector3 worldPos, int blockWidth, int blockHeight,ref Vector2Int indexInBlock)
+        {
+            Vector2Int blockIndex = GetBlockIndexByWorldPosition(worldPos, blockWidth, blockHeight);
             
-            return GetBlockID(blockX, blockY);
+            // block的位置
+            Vector2 blockPos = blockIndex * new Vector2(blockWidth, blockHeight);
+            
+            // block内相对位置
+            Vector2 relativePos = new Vector2(worldPos.x, worldPos.z) - blockPos;
+            
+            indexInBlock = new Vector2Int(
+                Mathf.FloorToInt(relativePos.x),
+                Mathf.FloorToInt(relativePos.y)
+            );
+
+            return blockIndex;
         }
         
         /// <summary>
@@ -219,7 +251,7 @@ namespace AILand.Utils
             }
         }
 
-
+        
         
     }
 }
