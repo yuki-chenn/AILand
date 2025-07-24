@@ -462,12 +462,12 @@ MonoBehaviour:
   gridColor: {r: 0, g: 0, b: 1, a: 1}
   selectedColor: {r: 1, g: 0, b: 0, a: 1}
   showText: 1
-  textColor: {r: 0, g: 0, b: 0, a: 1}
+  textColor: {r: 1, g: 1, b: 1, a: 1}
   fontSize: 15
   textOffset: {x: 0, y: 0}
   textHeight: 5
   showWorldIndex: 1
-  showBlockID: 1
+  showBlockID: 0
 --- !u!1 &8660709906314719305
 GameObject:
   m_ObjectHideFlags: 0

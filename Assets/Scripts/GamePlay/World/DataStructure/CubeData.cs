@@ -34,9 +34,7 @@ namespace AILand.GamePlay.World
         {
             if(m_isLoad) return;
             m_instanceGo = PoolManager.Instance.GetGameObject<Cube>();
-            // m_instanceGo.transform.SetParent(m_cellData.BlockData.BlockComponent.cubeHolder);
             m_instanceGo.transform.position = m_cellData.BlockData.WorldPosition + m_cellData.LocalPosition + new Vector3(0, m_YHeight, 0);
-            // m_instanceGo.transform.localPosition = m_cellData.LocalPosition + new Vector3(0, m_YHeight, 0);
             m_instanceGo.transform.localRotation = Quaternion.identity;
             m_instanceGo.name = $"{m_cellData.BlockData.BlockID}_{m_cellData.Index.x}_{m_cellData.Index.y}_{m_YHeight}_{m_cubeType}";
             var mat = m_instanceGo.GetComponent<MeshRenderer>().material;
@@ -58,6 +56,21 @@ namespace AILand.GamePlay.World
                     throw new NotImplementedException($"CubeType {m_cubeType} is not implemented.");
             }
             m_isLoad = true;
+        }
+
+        public void Unload()
+        {
+            if (!m_isLoad) return;
+            if (m_instanceGo != null)
+            {
+                PoolManager.Instance.Release(m_instanceGo);
+                m_instanceGo = null;
+                m_isLoad = false;
+            }
+            else
+            {
+                Debug.LogWarning($"CubeData Unload: {m_cellData.BlockData.BlockID}_{m_cellData.Index.x}_{m_cellData.Index.y}_{m_YHeight}_{m_cubeType} is already unloaded.");
+            }
         }
     }
 

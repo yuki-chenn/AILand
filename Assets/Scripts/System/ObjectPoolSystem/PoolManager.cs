@@ -24,8 +24,6 @@ namespace AILand.System.ObjectPoolSystem
         private List<PoolSettings> poolSettingsList = new List<PoolSettings>();
         
         private Dictionary<Type, ObjectPool<GameObject>> pools = new Dictionary<Type, ObjectPool<GameObject>>();
-        private Dictionary<Type, GameObject> prefabMap = new Dictionary<Type, GameObject>();
-        private Dictionary<Type, Transform> poolRootMap = new Dictionary<Type, Transform>();
         
         protected override void Awake()
         {
@@ -66,12 +64,10 @@ namespace AILand.System.ObjectPoolSystem
             );
             
             pools[type] = pool;
-            prefabMap[type] = settings.prefab;
             
             // 创建一个父物体
             var poolRoot = new GameObject($"Pool_{type.Name}");
             poolRoot.transform.SetParent(transform);
-            poolRootMap[type] = poolRoot.transform;
             
             // 先初始化出来
             var warmedObjects = new List<GameObject>();
@@ -82,7 +78,7 @@ namespace AILand.System.ObjectPoolSystem
         
         private GameObject CreatePooledObject(GameObject prefab,Type type)
         {
-            var go = Instantiate(prefab, poolRootMap[type]);
+            var go = Instantiate(prefab, transform);
             go.SetActive(false);
             return go;
         }
@@ -99,7 +95,7 @@ namespace AILand.System.ObjectPoolSystem
             var pooledObject = go.GetComponent<IPooledObject>();
             pooledObject?.OnReleaseToPool();
             go.SetActive(false);
-            go.transform.SetParent(poolRootMap[type]);
+            go.transform.SetParent(transform);
         }
         
         private void OnDestroyObject(GameObject go)

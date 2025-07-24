@@ -248,21 +248,47 @@ namespace AILand.GamePlay.World
             
             if(!block.IsCreated) return;
             
+            // 卸载不在视野内的cell
+            for (int i = m_loadedCells.Count - 1; i >= 0; i--)
+            {
+                var cell = m_loadedCells[i];
+                if (!isCellInSight(cell, localIndex))
+                {
+                    cell.Unload();
+                    m_loadedCells.RemoveAt(i);
+                }
+            }
+            
+            
+            // 加载在视野内的cell
             for(int dx = -sight; dx <= sight; dx++)
             {
                 for(int dz = -sight; dz <= sight; dz++)
                 {
                     int sx = localIndex.x + dx;
                     int sz = localIndex.y + dz;
-
                     
                     var cell = block.Cells[sx, sz];
-                    if(cell != null) cell.Load();
+                    if (cell != null && !m_loadedCells.Contains(cell))
+                    {
+                        cell.Load();
+                        m_loadedCells.Add(cell);
+                    }
                 }
             }
             
             
         }
+        
+        private bool isCellInSight(CellData cell, Vector2Int localIndex)
+        {
+            // 检查cell是否在视野范围内
+            int dx = cell.Index.x - localIndex.x;
+            int dz = cell.Index.y - localIndex.y;
+            
+            return Math.Abs(dx) <= sight && Math.Abs(dz) <= sight;
+        }
+
         
         #endregion
 

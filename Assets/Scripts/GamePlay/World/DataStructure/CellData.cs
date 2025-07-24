@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using NotImplementedException = System.NotImplementedException;
 
 namespace AILand.GamePlay.World
 {
@@ -33,17 +34,21 @@ namespace AILand.GamePlay.World
             m_localPosition = localPosition;
             m_cubes = new List<CubeData>();
         }
-
-        private bool m_isLoad = false;
+        
         public void Load()
         {
-            if (m_isLoad) return;
             foreach (var cube in m_cubes)
             {
                 cube.Load();
             }
-            m_isLoad = true;
         }
 
+        public void Unload()
+        {
+            foreach (var cube in m_cubes)
+            {
+                cube.Unload();
+            }
+        }
     }
 }
