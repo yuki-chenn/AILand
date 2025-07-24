@@ -74,6 +74,7 @@ namespace AILand.GamePlay.World
         private void InstantiateBlock()
         {
             m_instanceGo = PoolManager.Instance.GetGameObject<Block>();
+            m_instanceGo.transform.SetParent(GameManager.Instance.blockHolder);
             m_instanceGo.GetComponent<Block>().SetBlockData(this);
         }
 
@@ -120,6 +121,16 @@ namespace AILand.GamePlay.World
             
             m_isCreated = true;
             return m_isCreated;
+        }
+        
+        
+        public CellData GetCellData(int x,int z)
+        {
+            if (x < 0 || x >= m_width || z < 0 || z >= m_height)
+            {
+                return null;
+            }
+            return m_cells[x, z];
         }
     }
 }

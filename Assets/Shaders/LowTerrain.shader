@@ -41,7 +41,7 @@ Shader "LowTerrain"
 				v.vertex.x > -99.5 && v.vertex.x < 99.5 && v.vertex.z > -99.5 && v.vertex.z < 99.5
 			)
 			{
-				v.vertex.y = round(heightMap.r + heightMap.g * 8.0 + heightMap.b * 64.0) * 7;
+				v.vertex.y = heightMap.r * 5.0 + heightMap.g * 10.0 + heightMap.b * 35.0 - 0.5;
 			}
 		}
 

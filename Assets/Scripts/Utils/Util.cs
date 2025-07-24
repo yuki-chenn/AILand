@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AILand.GamePlay.World;
 using UnityEngine;
 
 namespace AILand.Utils
@@ -251,6 +252,30 @@ namespace AILand.Utils
             }
         }
 
+
+        /// <summary>
+        /// 获取某个Cube周围6个Cube的数据
+        /// </summary>
+        /// <param name="cube"></param>
+        /// <returns></returns>
+        public static List<CubeData> Get6CubesAround(CubeData cube)
+        {
+            List<CubeData> cubes = new List<CubeData>();
+            CellData cell = cube.CellData;
+            BlockData block = cell.BlockData;
+            Vector2Int index = cell.Index;
+            int y = cube.YHeight;
+
+            // 上下左右前后
+            cubes.Add(cell.GetCubeData(y + 1)); // 上
+            cubes.Add(cell.GetCubeData(y - 1)); // 下
+            cubes.Add(block.GetCellData(index.x - 1,index.y)?.GetCubeData(y)); // 左
+            cubes.Add(block.GetCellData(index.x + 1,index.y)?.GetCubeData(y)); // 右
+            cubes.Add(block.GetCellData(index.x,index.y - 1)?.GetCubeData(y)); // 前
+            cubes.Add(block.GetCellData(index.x,index.y + 1)?.GetCubeData(y)); // 后
+            
+            return cubes;
+        }
         
         
     }

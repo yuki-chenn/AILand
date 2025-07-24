@@ -65,10 +65,6 @@ namespace AILand.System.ObjectPoolSystem
             
             pools[type] = pool;
             
-            // 创建一个父物体
-            var poolRoot = new GameObject($"Pool_{type.Name}");
-            poolRoot.transform.SetParent(transform);
-            
             // 先初始化出来
             var warmedObjects = new List<GameObject>();
             for (int i = 0; i < settings.defaultCapacity; i++) warmedObjects.Add(pool.Get());
@@ -162,16 +158,14 @@ namespace AILand.System.ObjectPoolSystem
         
         
 #if UNITY_EDITOR    
-        public (int active, int inactive, int total) GetPoolStats<T>() where T : IPooledObject
+        public (int active, int inactive, int total) GetPoolStats(Type type)
         {
-            Type type = typeof(T);
-            
-            if (pools.TryGetValue(type, out var pool) && pool is ObjectPool<GameObject> objectPool)
+            if (pools.TryGetValue(type, out var pool))
             {
-                return (objectPool.CountActive, objectPool.CountInactive, objectPool.CountAll);
+                return (pool.CountActive, pool.CountInactive, pool.CountAll);
             }
             
-            return (0, 0, 0);
+            return (-1, -1, -1);
         }
 
         public void RefreshPooledObjectsList()

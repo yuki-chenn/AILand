@@ -8,6 +8,7 @@ namespace AILand.GamePlay.World
     {
         // 所在的Cell数据
         private CellData m_cellData;
+        public CellData CellData => m_cellData;
         
         // 方块的种类
         private CubeType m_cubeType;
@@ -17,9 +18,11 @@ namespace AILand.GamePlay.World
         private int m_YHeight;
         public int YHeight => m_YHeight;
         
+        public Vector3 LocalPosition => new Vector3(m_cellData.LocalPosition.x, m_YHeight, m_cellData.LocalPosition.z);
+        
         // 游戏物体实例
         private GameObject m_instanceGo;
-        public Cube BlockComponent => m_instanceGo.GetComponent<Cube>();
+        public Cube CubeComponent => m_instanceGo.GetComponent<Cube>();
 
         public CubeData(CellData cell, CubeType type, int yHeight)
         {
@@ -34,7 +37,8 @@ namespace AILand.GamePlay.World
         {
             if(m_isLoad) return;
             m_instanceGo = PoolManager.Instance.GetGameObject<Cube>();
-            m_instanceGo.transform.position = m_cellData.BlockData.WorldPosition + m_cellData.LocalPosition + new Vector3(0, m_YHeight, 0);
+            m_instanceGo.transform.SetParent(m_cellData.BlockData.BlockComponent.cubeHolder);
+            m_instanceGo.transform.localPosition = LocalPosition;
             m_instanceGo.transform.localRotation = Quaternion.identity;
             m_instanceGo.name = $"{m_cellData.BlockData.BlockID}_{m_cellData.Index.x}_{m_cellData.Index.y}_{m_YHeight}_{m_cubeType}";
             var mat = m_instanceGo.GetComponent<MeshRenderer>().material;
@@ -69,7 +73,7 @@ namespace AILand.GamePlay.World
             }
             else
             {
-                Debug.LogWarning($"CubeData Unload: {m_cellData.BlockData.BlockID}_{m_cellData.Index.x}_{m_cellData.Index.y}_{m_YHeight}_{m_cubeType} is already unloaded.");
+                Debug.LogWarning($"try to release a null instance of CubeData at {m_cellData.BlockData.BlockID}_{m_cellData.Index.x}_{m_cellData.Index.y}_{m_YHeight}_{m_cubeType}");
             }
         }
     }

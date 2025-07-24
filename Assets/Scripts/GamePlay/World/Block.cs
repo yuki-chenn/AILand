@@ -44,6 +44,13 @@ namespace AILand.GamePlay.World
                 lowTerrainRenderer.material.SetTexture("_HeightTex", height);
             }
         }
+        
+        public void UpdateLowTerrain(Vector3 playerPos, float sight)
+        {
+            lowTerrainRenderer.material.SetVector("_playerPos",
+                new Vector4(playerPos.x - transform.position.x - 100f, playerPos.z - transform.position.z - 100f, sight-1f));
+
+        }
 
         public GameObject GameObject => gameObject;
         public void OnGetFromPool()
@@ -60,5 +67,7 @@ namespace AILand.GamePlay.World
         {
             
         }
+
+        
     }
 }

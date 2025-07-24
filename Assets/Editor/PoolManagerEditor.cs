@@ -72,7 +72,7 @@ namespace AILand.System.ObjectPoolSystem
                         if (pooledObject != null)
                         {
                             var type = pooledObject.GetType();
-                            var stats = poolManager.GetPoolStats<IPooledObject>();
+                            var stats = poolManager.GetPoolStats(type);
                             EditorGUILayout.LabelField($"Active: {stats.active}, Inactive: {stats.inactive}, Total: {stats.total}");
                         }
                     }

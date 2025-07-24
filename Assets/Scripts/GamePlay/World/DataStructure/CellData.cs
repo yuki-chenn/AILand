@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using AILand.Utils;
 using UnityEngine;
 using NotImplementedException = System.NotImplementedException;
 
@@ -35,11 +36,26 @@ namespace AILand.GamePlay.World
             m_cubes = new List<CubeData>();
         }
         
+        public CubeData GetCubeData(int yHeight)
+        {
+            if(yHeight < 0 || yHeight >= m_cubes.Count)
+            {
+                return null;
+            }
+            return m_cubes[yHeight];
+        }
+        
         public void Load()
         {
             foreach (var cube in m_cubes)
             {
-                cube.Load();
+                if(IsInVisible(cube))
+                {
+                    cube.Unload();
+                }else
+                {
+                    cube.Load();
+                }
             }
         }
 
@@ -50,5 +66,20 @@ namespace AILand.GamePlay.World
                 cube.Unload();
             }
         }
+        
+        private bool IsInVisible(CubeData cube)
+        {
+            int y = cube.YHeight;
+            
+            bool up = y + 1 < m_cubes.Count && GetCubeData(y + 1) != null;
+            bool down = y == 0 || GetCubeData(y - 1) != null;
+            bool left = m_blockData.GetCellData(m_index.x - 1, m_index.y)?.GetCubeData(y) != null;
+            bool right = m_blockData.GetCellData(m_index.x + 1, m_index.y)?.GetCubeData(y) != null;
+            bool front = m_blockData.GetCellData(m_index.x, m_index.y - 1)?.GetCubeData(y) != null;
+            bool back = m_blockData.GetCellData(m_index.x, m_index.y + 1)?.GetCubeData(y) != null;
+            
+            return up && down && left && right && front && back;
+        }
+        
     }
 }
