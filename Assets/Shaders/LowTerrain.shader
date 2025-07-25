@@ -37,11 +37,14 @@ Shader "LowTerrain"
 			float playerX = _playerPos.x;
 			float playerY = _playerPos.y;
 
-			if((v.vertex.x < playerX - r || v.vertex.x > playerX + r || v.vertex.z < playerY - r || v.vertex.z > playerY + r) &&
+			if((v.vertex.x < playerX - r || v.vertex.x >= playerX + r || v.vertex.z < playerY - r || v.vertex.z >= playerY + r) &&
 				v.vertex.x > -99.5 && v.vertex.x < 99.5 && v.vertex.z > -99.5 && v.vertex.z < 99.5
 			)
 			{
 				v.vertex.y = heightMap.r * 5.0 + heightMap.g * 10.0 + heightMap.b * 35.0 - 0.5;
+			}else
+			{
+				v.vertex.y = -0.5f;
 			}
 		}
 

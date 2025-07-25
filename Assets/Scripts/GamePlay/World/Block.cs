@@ -30,7 +30,7 @@ namespace AILand.GamePlay.World
         public void SetBlockActive(bool active, bool isCreated)
         {
             if (generatePlatform) generatePlatform.SetActive(active && !isCreated && m_blockData.IsPlayerCreated);
-            if (water) water.SetActive(false && active && isCreated);
+            if (water) water.SetActive(active);
             if (lowTerrainRenderer) lowTerrainRenderer.gameObject.SetActive(active && isCreated);
         }
         
@@ -48,7 +48,7 @@ namespace AILand.GamePlay.World
         public void UpdateLowTerrain(Vector3 playerPos, float sight)
         {
             lowTerrainRenderer.material.SetVector("_playerPos",
-                new Vector4(playerPos.x - transform.position.x - 100f, playerPos.z - transform.position.z - 100f, sight-1f));
+                new Vector4(playerPos.x - transform.position.x - 100f, playerPos.z - transform.position.z - 100f, sight));
 
         }
 
