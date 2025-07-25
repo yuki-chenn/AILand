@@ -15,6 +15,7 @@ namespace AILand.UI
         private Button m_btnGenerate;
         private Button m_btnClear;
         private PixelPainter m_pixelPainter;
+        private PixelPainter m_showPainter;
 
         private PerlinNoise pn;
 
@@ -47,6 +48,13 @@ namespace AILand.UI
         private void Start()
         {
             Hide();
+            m_showPainter.gameObject.SetActive(false);
+        }
+
+        protected override void Show()
+        {
+            base.Show();
+            m_pixelPainter.ClearCanvas();
         }
 
 
@@ -55,6 +63,8 @@ namespace AILand.UI
             m_btnGenerate = transform.Find("BtnGenerate").GetComponent<Button>();
             m_btnClear = transform.Find("BtnClear").GetComponent<Button>();
             m_pixelPainter = transform.Find("PixelPainter").GetComponent<PixelPainter>();
+            m_showPainter = transform.Find("ShowPainter").GetComponent<PixelPainter>();
+            m_showPainter.gameObject.SetActive(false);
 
             m_btnGenerate.onClick.AddListener(OnBtnGenerateClick);
             m_btnClear.onClick.AddListener(OnBtnClearClick);
@@ -75,7 +85,7 @@ namespace AILand.UI
 
             EventCenter.Broadcast(EventType.PlayerCreateIsland, id, terrainNoiseMap);
             
-            Invoke("Hide",5);
+            Invoke("Hide",1);
         }
 
 
@@ -114,7 +124,10 @@ namespace AILand.UI
             }
 
             var resultTex = Util.Array2GrayTexture(noiseMap);
-            m_pixelPainter.SetTexture(resultTex);
+            
+            // TODO : 显示到UI上
+            m_showPainter.SetTexture(resultTex);
+            m_showPainter.gameObject.SetActive(true);
 
             return noiseMap;
         }
