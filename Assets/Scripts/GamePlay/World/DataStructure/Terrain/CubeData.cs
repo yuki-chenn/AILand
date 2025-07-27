@@ -56,6 +56,9 @@ namespace AILand.GamePlay.World
                 case CubeType.Snow:
                     mat.color = Color.white;
                     break;
+                case CubeType.Grass:
+                    mat.color = Color.green;
+                    break;
                 default:
                     throw new NotImplementedException($"CubeType {m_cubeType} is not implemented.");
             }

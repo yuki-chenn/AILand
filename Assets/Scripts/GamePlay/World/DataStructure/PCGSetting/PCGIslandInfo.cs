@@ -22,7 +22,7 @@ namespace AILand.GamePlay.World
                 return null;
             }
             
-            CellType cellType = islandConfigSO.GetCellType(x, z);
+            CellType cellType = islandConfigSO.GetCell(x, z);
             
             // 根据cellType获取对应的HeightDistributionConfigSO
             var hdConfig = SOManager.Instance.heightDistributionDict[cellType];

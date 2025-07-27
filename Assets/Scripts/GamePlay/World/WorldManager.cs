@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.SOManager;
 using AILand.System.Base;
 using AILand.System.EventSystem;
 using AILand.Utils;
@@ -88,6 +89,7 @@ namespace AILand.GamePlay.World
 
             PCGIslandInfo islandInfo = new PCGIslandInfo();
             islandInfo.shapeConfig = new ShapeConfig(0.3f, noiseMap, 10, x=> Mathf.RoundToInt(x * 10 - 2));
+            islandInfo.islandConfigSO = SOManager.Instance.islandConfigDict[IslandType.Plain];
 
             var ok = block.CreateIsland(islandInfo);
 
@@ -221,6 +223,7 @@ namespace AILand.GamePlay.World
                         CubeType.Dirt => new Color(0.545f, 0.271f, 0.075f),
                         CubeType.Stone => Color.gray,
                         CubeType.Snow => Color.white,
+                        CubeType.Grass => Color.green,
                         _ => Color.clear
                     };
                     heightMap.SetPixel(x, z, heightColor);

@@ -18,13 +18,13 @@ MonoBehaviour:
     count: 0
     weight: 7
   - cubeType: 2
-    count: 0
-    weight: 3
+    count: 5
+    weight: 0
   - cubeType: 4
     count: 1
     weight: 0
   cumulativeWeights:
-  - 0.7
   - 1
   - -1
-  fixedCount: 1
+  - -1
+  fixedCount: 6

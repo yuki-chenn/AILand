@@ -88,9 +88,10 @@ namespace AILand.GamePlay.World
             if(height <= fixedCount)
             {
                 var count = 0;
-                // 如果高度小于固定数量，则直接返回固定数量的方块
-                foreach(var dis in distributions)
+                // 如果高度小于固定数量，则直接返回固定数量的方块，从上往下
+                for(int i = distributions.Count - 1; i >= 0; i--)
                 {
+                    var dis = distributions[i];
                     if(count >= height) break;
                     if (dis.count > 0)
                     {
@@ -102,6 +103,7 @@ namespace AILand.GamePlay.World
                         }
                     }
                 }
+                cellCubes.Reverse();
             }
             else
             {
