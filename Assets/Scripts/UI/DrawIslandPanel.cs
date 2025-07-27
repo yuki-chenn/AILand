@@ -47,8 +47,8 @@ namespace AILand.UI
 
         private void Start()
         {
-            Hide();
             m_showPainter.gameObject.SetActive(false);
+            Hide();
         }
 
         protected override void Show()
@@ -64,7 +64,6 @@ namespace AILand.UI
             m_btnClear = transform.Find("BtnClear").GetComponent<Button>();
             m_pixelPainter = transform.Find("PixelPainter").GetComponent<PixelPainter>();
             m_showPainter = transform.Find("ShowPainter").GetComponent<PixelPainter>();
-            m_showPainter.gameObject.SetActive(false);
 
             m_btnGenerate.onClick.AddListener(OnBtnGenerateClick);
             m_btnClear.onClick.AddListener(OnBtnClearClick);

@@ -1,5 +1,6 @@
 namespace AILand.GamePlay.World
 {
+    // 一个IslandType对应一个IslandConfigSO
     public enum IslandType
     {
         None,

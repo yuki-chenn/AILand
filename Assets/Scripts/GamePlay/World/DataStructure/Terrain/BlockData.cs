@@ -104,16 +104,20 @@ namespace AILand.GamePlay.World
                     var cell = new CellData(this, new Vector2Int(x,z), cellPosition);
                     
                     // 计算一下高度
-                    float heightMapValue = islandInfo.heightMap[x, z];
-                    int height = heightMapValue < islandInfo.threshold ? 0 : islandInfo.heightMapFunc(heightMapValue);
-                    if(height > islandInfo.generateMaxHeight) height = islandInfo.generateMaxHeight;
+                    var cellCubesType = islandInfo.GetCellCubesType(x, z);
                     
-                    // 创建CubeData
-                    for (int y = 0; y < height; y++)
+                    
+                    if(cellCubesType != null)
                     {
-                        var cubeData = new CubeData(cell, islandInfo.CubesType[y], y);
-                        cell.Cubes.Add(cubeData);
+                        // 创建CubeData
+                        for (int y = 0; y < cellCubesType.Count; y++)
+                        {
+                            var cubeData = new CubeData(cell, cellCubesType[y], y);
+                            cell.Cubes.Add(cubeData);
+                        }
                     }
+                    
+                    
                     
                     m_cells[x, z] = cell;
                 }

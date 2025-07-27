@@ -86,20 +86,8 @@ namespace AILand.GamePlay.World
             }
 
 
-            PCGIslandInfo islandInfo = new PCGIslandInfo(
-                threshold: 0.3f,
-                heightMap: noiseMap,
-                generateMaxHeight: 8,
-                heightMapFunc: x => Mathf.RoundToInt(10 * x - 2)
-            );
-
-            islandInfo.cubeDistributions = new List<CubeDistribution>
-            {
-                new CubeDistribution { lowerBound = 2, cubeType = CubeType.Sand },
-                new CubeDistribution { lowerBound = 4, cubeType = CubeType.Dirt },
-                new CubeDistribution { lowerBound = 7, cubeType = CubeType.Stone },
-                new CubeDistribution { lowerBound = 8, cubeType = CubeType.Snow }
-            };
+            PCGIslandInfo islandInfo = new PCGIslandInfo();
+            islandInfo.shapeConfig = new ShapeConfig(0.3f, noiseMap, 10, x=> Mathf.RoundToInt(x * 10 - 2));
 
             var ok = block.CreateIsland(islandInfo);
 
