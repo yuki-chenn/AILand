@@ -21,7 +21,6 @@ namespace AILand.GamePlay.Player
         private float m_mouseY;
         private float m_offsetDistanceY;
 
-
         private void Awake()
         {
             EventCenter.AddListener(EventType.OnShowUIPanel, OnShowUIPanel);
@@ -30,7 +29,7 @@ namespace AILand.GamePlay.Player
 
         void Start()
         {
-            m_offsetDistanceY = transform.position.y;
+            m_offsetDistanceY = transform.position.y + 1;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
