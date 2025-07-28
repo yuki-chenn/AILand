@@ -584,9 +584,18 @@ MonoBehaviour:
   - prefab: {fileID: 8492844173273106843, guid: 2b7b5454c525f3f4cb71380aeb01d196, type: 3}
     defaultCapacity: 10
     maxSize: 100
-  - prefab: {fileID: 2568197078851905243, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
-    defaultCapacity: 1000
-    maxSize: 2000
+  - prefab: {fileID: 1149535237560096, guid: f7762945ef27fb9438b725df48c57a1d, type: 3}
+    defaultCapacity: 10
+    maxSize: 100
+  - prefab: {fileID: 1979290889500462, guid: f7b4a078bd92c0643a97cf52bacbcd58, type: 3}
+    defaultCapacity: 10
+    maxSize: 100
+  - prefab: {fileID: 1063049674197416, guid: 60153b04cb7af254aadd7da524fa8ece, type: 3}
+    defaultCapacity: 10
+    maxSize: 100
+  - prefab: {fileID: 1400228509039700, guid: bbf4d13065f2bfb4f9b64f016207b0cc, type: 3}
+    defaultCapacity: 10
+    maxSize: 100
 --- !u!4 &511311833
 Transform:
   m_ObjectHideFlags: 0
@@ -982,63 +991,6 @@ MonoBehaviour:
   lookSpeed: 2
   minPitch: -90
   maxPitch: 90
---- !u!1001 &1033764528
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2568197078851905243, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
-      propertyPath: m_Name
-      value: CubeG
-      objectReference: {fileID: 0}
-    - target: {fileID: 3058893500083222831, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3058893500083222831, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3058893500083222831, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3058893500083222831, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3058893500083222831, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3058893500083222831, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3058893500083222831, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3058893500083222831, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3058893500083222831, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3058893500083222831, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0154a46932e386541b5dba07dc9d88b2, type: 3}
 --- !u!1 &1044128843
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,11 +1021,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heightDistributions:
-  - key: 1
-    value: {fileID: 11400000, guid: b4f23f2df786a9d4e901723dddc72168, type: 2}
+  - cellType: 1
+    so: {fileID: 11400000, guid: b4f23f2df786a9d4e901723dddc72168, type: 2}
   islandConfigs:
-  - key: 3
-    value: {fileID: 11400000, guid: ba9157f8b49794c478d4e8610569ff62, type: 2}
+  - islandType: 3
+    so: {fileID: 11400000, guid: ba9157f8b49794c478d4e8610569ff62, type: 2}
+  cubeConfigs:
+  - cubeType: 4
+    so: {fileID: 11400000, guid: 6e9b4a895a7f0174194254309a284d20, type: 2}
+  - cubeType: 1
+    so: {fileID: 11400000, guid: 7752538de6deed44ab4ba165d9086e25, type: 2}
+  - cubeType: 2
+    so: {fileID: 11400000, guid: b8d57584e620a77408b22dbbde587156, type: 2}
+  - cubeType: 3
+    so: {fileID: 11400000, guid: f84764fedd8bf7747b5d8c1b6902259f, type: 2}
 --- !u!4 &1044128845
 Transform:
   m_ObjectHideFlags: 0
@@ -1703,5 +1664,4 @@ SceneRoots:
   - {fileID: 372384266}
   - {fileID: 624094934}
   - {fileID: 511311833}
-  - {fileID: 1033764528}
   - {fileID: 1044128845}

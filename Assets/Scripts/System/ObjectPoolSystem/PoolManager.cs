@@ -120,6 +120,18 @@ namespace AILand.System.ObjectPoolSystem
             return null;
         }
         
+        public GameObject GetGameObject(Type type)
+        {
+            if (pools.TryGetValue(type, out var pool))
+            {
+                var go = pool.Get();
+                return go;
+            }
+            
+            Debug.LogError($"No pool found for type {type}. Make sure the prefab is configured in PoolManager.");
+            return null;
+        }
+        
         /// <summary>
         /// 将GameObject返回到池中
         /// </summary>

@@ -1,3 +1,5 @@
+using System.SOManager;
+using AILand.GamePlay.World.Cube;
 using AILand.System.ObjectPoolSystem;
 using UnityEngine;
 using NotImplementedException = System.NotImplementedException;
@@ -13,6 +15,8 @@ namespace AILand.GamePlay.World
         // 方块的种类
         private CubeType m_cubeType;
         public CubeType CubeType => m_cubeType;
+        private CubeConfigSO m_cubeConfig;
+        public CubeConfigSO CubeConfig => m_cubeConfig;
         
         // 方块所在的高度
         private int m_YHeight;
@@ -22,12 +26,14 @@ namespace AILand.GamePlay.World
         
         // 游戏物体实例
         private GameObject m_instanceGo;
-        public Cube CubeComponent => m_instanceGo.GetComponent<Cube>();
 
         public CubeData(CellData cell, CubeType type, int yHeight)
         {
             m_cellData = cell;
+            
             m_cubeType = type;
+            m_cubeConfig = SOManager.Instance.cubeConfigDict[type];
+            
             m_YHeight = yHeight;
         }
 
@@ -36,32 +42,14 @@ namespace AILand.GamePlay.World
         public void Load()
         {
             if(m_isLoad) return;
-            m_instanceGo = PoolManager.Instance.GetGameObject<Cube>();
+            var type = m_cubeConfig.cubePrefab.GetComponent<BaseCube>().GetType();
+            m_instanceGo = PoolManager.Instance.GetGameObject(type);
+            
             m_instanceGo.transform.SetParent(m_cellData.BlockData.BlockComponent.cubeHolder);
             m_instanceGo.transform.localPosition = LocalPosition;
             m_instanceGo.transform.localRotation = Quaternion.identity;
             m_instanceGo.name = $"{m_cellData.BlockData.BlockID}_{m_cellData.Index.x}_{m_cellData.Index.y}_{m_YHeight}_{m_cubeType}";
-            var mat = m_instanceGo.GetComponent<MeshRenderer>().material;
-            switch (m_cubeType)
-            {
-                case CubeType.Sand:
-                    mat.color = Color.yellow;
-                    break;
-                case CubeType.Stone:
-                    mat.color = Color.gray;
-                    break;
-                case CubeType.Dirt:
-                    mat.color = new Color(0.545f, 0.271f, 0.075f);
-                    break;
-                case CubeType.Snow:
-                    mat.color = Color.white;
-                    break;
-                case CubeType.Grass:
-                    mat.color = Color.green;
-                    break;
-                default:
-                    throw new NotImplementedException($"CubeType {m_cubeType} is not implemented.");
-            }
+            
             m_isLoad = true;
         }
 

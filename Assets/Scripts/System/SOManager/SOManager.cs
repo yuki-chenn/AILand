@@ -5,21 +5,42 @@ using UnityEngine;
 
 namespace System.SOManager
 {
-    [Serializable]
-    public struct HeightDistribution
+    // 定义通用接口
+    public interface IKeyValuePair<TKey, TValue>
     {
-        public CellType key;
-        public HeightDistributionConfigSO value;
+        TKey key { get; }
+        TValue value { get; }
     }
 
     [Serializable]
-    public struct IslandConfig
+    public struct HeightDistribution : IKeyValuePair<CellType, HeightDistributionConfigSO>
     {
-        public IslandType key;
-        public IslandConfigSO value;
+        public CellType cellType;
+        public HeightDistributionConfigSO so;
+        
+        CellType IKeyValuePair<CellType, HeightDistributionConfigSO>.key => cellType;
+        HeightDistributionConfigSO IKeyValuePair<CellType, HeightDistributionConfigSO>.value => so;
     }
 
+    [Serializable]
+    public struct IslandConfig : IKeyValuePair<IslandType, IslandConfigSO>
+    {
+        public IslandType islandType;
+        public IslandConfigSO so;
+        
+        IslandType IKeyValuePair<IslandType, IslandConfigSO>.key => islandType;
+        IslandConfigSO IKeyValuePair<IslandType, IslandConfigSO>.value => so;
+    }
 
+    [Serializable]
+    public struct CubeConfig : IKeyValuePair<CubeType, CubeConfigSO>
+    {
+        public CubeType cubeType;
+        public CubeConfigSO so;
+        
+        CubeType IKeyValuePair<CubeType, CubeConfigSO>.key => cubeType;
+        CubeConfigSO IKeyValuePair<CubeType, CubeConfigSO>.value => so;
+    }
 
     public class SOManager : Singleton<SOManager>
     {
@@ -29,42 +50,41 @@ namespace System.SOManager
         [Header("每个岛屿类型对应的配置")]
         public List<IslandConfig> islandConfigs = new List<IslandConfig>();
 
+        [Header("每个方块类型对应的配置")]
+        public List<CubeConfig> cubeConfigs = new List<CubeConfig>();
 
         public Dictionary<CellType, HeightDistributionConfigSO> heightDistributionDict =
             new Dictionary<CellType, HeightDistributionConfigSO>();
         
         public Dictionary<IslandType, IslandConfigSO> islandConfigDict =
             new Dictionary<IslandType, IslandConfigSO>();
+        
+        public Dictionary<CubeType, CubeConfigSO> cubeConfigDict =
+            new Dictionary<CubeType, CubeConfigSO>();
 
         protected override void Awake()
         {
             base.Awake();
 
-            foreach(var kv in heightDistributions)
-            {
-                if (!heightDistributionDict.ContainsKey(kv.key))
-                {
-                    heightDistributionDict.Add(kv.key, kv.value);
-                }
-                else
-                {
-                    Debug.LogError($"HeightDistributionConfigSO for {kv.key} already exists!");
-                }
-            }
-
-            foreach (var kv in islandConfigs)
-            {
-                if (!islandConfigDict.ContainsKey(kv.key))
-                {
-                    islandConfigDict.Add(kv.key, kv.value);
-                }
-                else
-                {
-                    Debug.LogError($"IslandConfigSO for {kv.key} already exists!");
-                }
-            }
-
+            RegisterDictionary(heightDistributions, heightDistributionDict, "HeightDistributionConfigSO");
+            RegisterDictionary(islandConfigs, islandConfigDict, "IslandConfigSO");
+            RegisterDictionary(cubeConfigs, cubeConfigDict, "CubeConfigSO");
         }
 
+        private void RegisterDictionary<T, TKey, TValue>(List<T> list, Dictionary<TKey, TValue> dictionary, string typeName)
+            where T : IKeyValuePair<TKey, TValue>
+        {
+            foreach (var item in list)
+            {
+                if (!dictionary.ContainsKey(item.key))
+                {
+                    dictionary.Add(item.key, item.value);
+                }
+                else
+                {
+                    Debug.LogError($"{typeName} for {item.key} already exists!");
+                }
+            }
+        }
     }
 }

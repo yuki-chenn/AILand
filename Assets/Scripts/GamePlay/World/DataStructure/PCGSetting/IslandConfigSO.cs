@@ -1,20 +1,45 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AILand.GamePlay.World
 {
+    
+    /// <summary>
+    /// 表示多少高度以下强制设置为某个CellType
+    /// </summary>
+    [Serializable]
+    public struct ExtraLimit
+    {
+        public CellType cellType;
+        public int heightLimit;
+    }
+    
+    
     [CreateAssetMenu(fileName ="IslandConfig_" ,menuName ="创建岛屿配置",order =0)]
     public class IslandConfigSO : ScriptableObject
     {
         [SerializeField] private int width = 200;
         [SerializeField] private int height = 200;
-        [SerializeField] private CellType[] cellTypesArray;
+        private CellType[] cellTypesArray;
+        
+        
+        // 动态属性 和 高度有关的
+        [Header("额外的高度配置")] [Tooltip("当高度小于此值时，强制设置为对应的CellType")]
+        public ExtraLimit extraLimitBelow;
+        
 
         public int Width => width;
         public int Height => height;
 
         // 二维数组属性访问器
-        public CellType GetCellType(int x, int y)
+        public CellType GetCellType(int x, int y, int _height = -1)
         {
+            if(_height != -1 && _height < extraLimitBelow.heightLimit)
+            {
+                return extraLimitBelow.cellType;
+            }
+            
             if (x < 0 || x >= width || y < 0 || y >= height) return CellType.None;
             if (cellTypesArray == null) InitializeArray();
             return cellTypesArray[y * width + x];
