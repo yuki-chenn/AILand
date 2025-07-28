@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using AILand.GamePlay.World;
 using AILand.System.Base;
 using UnityEngine;
 
-namespace System.SOManager
+namespace AILand.System.SOManager
 {
     // 定义通用接口
     public interface IKeyValuePair<TKey, TValue>

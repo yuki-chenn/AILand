@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.SOManager;
+using AILand.System.SOManager;
 using AILand.GamePlay.World.Cube;
 using AILand.System.Base;
 using AILand.System.EventSystem;

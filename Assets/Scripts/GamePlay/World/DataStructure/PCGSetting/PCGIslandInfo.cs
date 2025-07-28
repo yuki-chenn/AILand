@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.SOManager;
+using AILand.System.SOManager;
 using UnityEngine;
 
 namespace AILand.GamePlay.World
