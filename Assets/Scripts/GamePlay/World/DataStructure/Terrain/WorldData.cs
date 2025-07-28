@@ -16,9 +16,7 @@ namespace AILand.GamePlay.World
         {
             m_blocks = new Dictionary<int, BlockData>();
         }
-
-
-
+        
         public BlockData GetBlock(int blockId)
         {
             return m_blocks.GetValueOrDefault(blockId);

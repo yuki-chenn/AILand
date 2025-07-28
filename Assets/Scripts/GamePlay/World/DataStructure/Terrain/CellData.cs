@@ -49,6 +49,7 @@ namespace AILand.GamePlay.World
         {
             foreach (var cube in m_cubes)
             {
+                
                 if(IsInVisible(cube))
                 {
                     cube.Unload();
@@ -70,16 +71,40 @@ namespace AILand.GamePlay.World
         private bool IsInVisible(CubeData cube)
         {
             int y = cube.YHeight;
+
+            var upCube = GetCubeData(y + 1);
+            bool up = y + 1 < m_cubes.Count && upCube != null && upCube.CubeType != CubeType.None;
             
-            bool up = y + 1 < m_cubes.Count && GetCubeData(y + 1) != null;
-            bool down = y == 0 || GetCubeData(y - 1) != null;
-            bool left = m_blockData.GetCellData(m_index.x - 1, m_index.y)?.GetCubeData(y) != null;
-            bool right = m_blockData.GetCellData(m_index.x + 1, m_index.y)?.GetCubeData(y) != null;
-            bool front = m_blockData.GetCellData(m_index.x, m_index.y - 1)?.GetCubeData(y) != null;
-            bool back = m_blockData.GetCellData(m_index.x, m_index.y + 1)?.GetCubeData(y) != null;
+            var downCube = GetCubeData(y - 1);
+            bool down = y == 0 || GetCubeData(y - 1) != null && downCube.CubeType != CubeType.None;
+            
+            var leftCube = m_blockData.GetCellData(m_index.x - 1, m_index.y)?.GetCubeData(y);
+            bool left = leftCube != null && leftCube.CubeType != CubeType.None;
+            
+            var rightCube = m_blockData.GetCellData(m_index.x + 1, m_index.y)?.GetCubeData(y);
+            bool right = rightCube != null && rightCube.CubeType != CubeType.None;
+            
+            var frontCube = m_blockData.GetCellData(m_index.x, m_index.y - 1)?.GetCubeData(y);
+            bool front = frontCube != null && frontCube.CubeType != CubeType.None;
+            
+            var backCube = m_blockData.GetCellData(m_index.x, m_index.y + 1)?.GetCubeData(y);
+            bool back = backCube != null && backCube.CubeType != CubeType.None;
             
             return up && down && left && right && front && back;
         }
-        
+
+        public void DestoryCube(int y)
+        {
+            if (y < 0 || y >= m_cubes.Count)
+            {
+                Debug.LogError(
+                    $"DestoryCube error : Cube at height {y} does not exist in cell {m_index} of block {m_blockData.BlockID}.");
+                return;
+            }
+            
+            m_cubes[y].Destroy();
+            Load();
+        }
+
     }
 }

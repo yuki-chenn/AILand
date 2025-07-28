@@ -78,6 +78,14 @@ public class IslandMapEditor : EditorWindow
         EditorGUILayout.BeginHorizontal();
         targetConfig = (IslandConfigSO)EditorGUILayout.ObjectField("Island Config", targetConfig, typeof(IslandConfigSO), false);
         if (GUILayout.Button("New Config", GUILayout.Width(100))) CreateNewConfig();
+        if (GUILayout.Button("Save", GUILayout.Width(60))) // 添加保存按钮
+        {
+            if (targetConfig != null)
+            {
+                EditorUtility.SetDirty(targetConfig);
+                AssetDatabase.SaveAssets();
+            }
+        }
         EditorGUILayout.EndHorizontal();
 
         if (targetConfig != null)

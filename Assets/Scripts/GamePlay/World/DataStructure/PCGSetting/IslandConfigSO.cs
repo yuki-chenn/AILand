@@ -21,7 +21,7 @@ namespace AILand.GamePlay.World
     {
         [SerializeField] private int width = 200;
         [SerializeField] private int height = 200;
-        private CellType[] cellTypesArray;
+        [SerializeField][HideInInspector] private CellType[] cellTypesArray;
         
         
         // 动态属性 和 高度有关的

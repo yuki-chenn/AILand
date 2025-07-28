@@ -41,7 +41,7 @@ namespace AILand.GamePlay.World
 
         public void Load()
         {
-            if(m_isLoad) return;
+            if(m_isLoad || m_cubeType == CubeType.None) return;
             var type = m_cubeConfig.cubePrefab.GetComponent<BaseCube>().GetType();
             m_instanceGo = PoolManager.Instance.GetGameObject(type);
             
@@ -66,6 +66,15 @@ namespace AILand.GamePlay.World
             {
                 Debug.LogWarning($"try to release a null instance of CubeData at {m_cellData.BlockData.BlockID}_{m_cellData.Index.x}_{m_cellData.Index.y}_{m_YHeight}_{m_cubeType}");
             }
+        }
+        
+        public void Destroy()
+        {
+            Unload();
+            m_cellData = null;
+            m_cubeType = CubeType.None;
+            m_cubeConfig = null;
+            m_instanceGo = null;
         }
     }
 

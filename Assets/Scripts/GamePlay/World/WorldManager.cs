@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.SOManager;
+using AILand.GamePlay.World.Cube;
 using AILand.System.Base;
 using AILand.System.EventSystem;
 using AILand.Utils;
@@ -23,13 +24,8 @@ namespace AILand.GamePlay.World
         public int sight = 30;
         public int border = 2;
 
-        public List<GameObject> cubePrefabs;
-        
-        
         private WorldData m_worldData;
         private List<CellData> m_loadedCells = new List<CellData>();
-        
-
 
 
         private int m_blockWidth => Constants.BlockWidth;
@@ -46,6 +42,21 @@ namespace AILand.GamePlay.World
             EventCenter.AddListener<int, float[,]>(EventType.PlayerCreateIsland, PlayerCreateIsland);
 
             m_worldData = new WorldData();
+        }
+        
+        private void Update()
+        {
+            // 获取玩家位置
+            var playerPosition = GameManager.Instance.player.transform.position;
+
+            // 载入周围的Block
+            LoadBlocksAroundPlayer(playerPosition);
+            
+            // 加载玩家附近区域的方块
+            LoadCubesAroundPlayer(playerPosition, Time.frameCount % 60 == 0);
+            
+            // 更新低地形纹理
+            UpdateLowTerrain(GameManager.Instance.player.transform.position);
         }
 
         private void OnDestroy()
@@ -105,29 +116,24 @@ namespace AILand.GamePlay.World
 
         }
 
-
-        private void Update()
+        public void DestoryCube(BaseCube cube)
         {
-            // 获取玩家位置
-            var playerPosition = GameManager.Instance.player.transform.position;
-
-            // 载入周围的Block
-            LoadBlocksAroundPlayer(playerPosition);
-            
-            // 加载玩家附近区域的方块
-            LoadCubesAroundPlayer(playerPosition, Time.frameCount % 60 == 0);
-            
-            // 更新低地形纹理
-            UpdateLowTerrain(GameManager.Instance.player.transform.position);
-
-            // 按下alt键呼出鼠标
-            if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt))
+            if(cube == null)
             {
-                Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
-                Cursor.visible = !Cursor.visible;
+                Debug.LogWarning("DestoryBlock Cube is null");
+                return;
             }
             
+            var cubeTrans = cube.transform;
+            
+            Debug.Log($"Clicked on cube at position: {cubeTrans.position}");
+            int x = Mathf.RoundToInt(cubeTrans.position.x);
+            int y = Mathf.RoundToInt(cubeTrans.position.y);
+            int z = Mathf.RoundToInt(cubeTrans.position.z);
+            var block = m_worldData.GetBlock(Util.GetBlockIDByWorldPosition(cubeTrans.position, m_blockWidth, m_blockHeight));
+            block.DestoryCube(x, y, z);
         }
+        
 
 
         #region 载入地图

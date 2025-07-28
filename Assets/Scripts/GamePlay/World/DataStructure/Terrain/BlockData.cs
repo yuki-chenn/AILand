@@ -126,6 +126,25 @@ namespace AILand.GamePlay.World
             m_isCreated = true;
             return m_isCreated;
         }
+
+
+        public void DestoryCube(int x,int y,int z)
+        {
+            var cell = GetCellData(x, z);
+            if (cell == null)
+            {
+                Debug.LogError($"DestoryCube error : Cell at {x}, {z} does not exist in block {m_blockID}.");
+                return;
+            }
+            cell.DestoryCube(y);
+            
+            // 需要load旁边的cell
+            GetCellData(x-1,z)?.Load();
+            GetCellData(x+1,z)?.Load();
+            GetCellData(x,z-1)?.Load();
+            GetCellData(x,z+1)?.Load();
+            
+        }
         
         
         public CellData GetCellData(int x,int z)
