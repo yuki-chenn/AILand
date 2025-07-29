@@ -102,7 +102,42 @@ namespace AILand.GamePlay.World
                 return;
             }
             
-            m_cubes[y].Destroy();
+            m_cubes[y].Change(CubeType.None);
+            Load();
+        }
+
+        public void AddCube(int y, CubeType cubeType)
+        {
+            if (y < 0 || (y < m_cubes.Count && m_cubes[y].CubeType != CubeType.None))
+            {
+                Debug.LogError(
+                    $"AddCube error : Cannot add cube at height {y} in cell {m_index} of block {m_blockData.BlockID}.");
+                return;
+            }
+
+            if (y < m_cubes.Count)
+            {
+                if(m_cubes[y].CubeType != CubeType.None)
+                {
+                    Debug.LogError(
+                        $"AddCube error : Cannot change cube at height {y} in cell {m_index} of block {m_blockData.BlockID}.");
+                    return;
+                }
+                else
+                {
+                    m_cubes[y].Change(cubeType);
+                }
+            }
+            else
+            {
+                while(m_cubes.Count < y)
+                {
+                    m_cubes.Add(new CubeData(this, CubeType.None, m_cubes.Count));
+                }
+                var newCubeData = new CubeData(this, cubeType, y);
+                m_cubes.Add(newCubeData);
+            }
+
             Load();
         }
 

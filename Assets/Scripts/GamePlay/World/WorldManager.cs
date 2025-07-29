@@ -20,7 +20,6 @@ namespace AILand.GamePlay.World
     public class WorldManager : Singleton<WorldManager>
     {
         [Header("渲染设置")] public int blockLoadRange = 1;
-        public int 每帧加载最多加载的方块数量 = 20;
         public int sight = 30;
         public int border = 2;
 
@@ -30,7 +29,6 @@ namespace AILand.GamePlay.World
 
         private int m_blockWidth => Constants.BlockWidth;
         private int m_blockHeight => Constants.BlockHeight;
-
 
         // 上一次所在的block
         private int m_lastBlockID = int.MinValue;
@@ -130,8 +128,43 @@ namespace AILand.GamePlay.World
             int x = Mathf.RoundToInt(cubeTrans.position.x);
             int y = Mathf.RoundToInt(cubeTrans.position.y);
             int z = Mathf.RoundToInt(cubeTrans.position.z);
+            
+            // TODO : 会有破坏不了的方块
+            
             var block = m_worldData.GetBlock(Util.GetBlockIDByWorldPosition(cubeTrans.position, m_blockWidth, m_blockHeight));
             block.DestoryCube(x, y, z);
+        }
+
+        public void PlaceCube(Vector3Int posIndex, CubeType cubeType)
+        {
+            // TODO : 检查是否能够放置方块
+            if(posIndex.x < 0 || posIndex.x >= m_blockWidth ||
+               posIndex.y < 0 || posIndex.y >= Constants.BuildMaxHeight ||
+               posIndex.z < 0 || posIndex.z >= m_blockHeight)
+            {
+                // 超出范围
+                return;
+            }
+            // 如果此时玩家和方块碰撞，直接返回
+            Vector3 playerPosition = GameManager.Instance.player.transform.position;
+            // 玩家两格高
+            Vector3Int playerIndex0 = new Vector3Int(
+                Mathf.RoundToInt(playerPosition.x),
+                Mathf.RoundToInt(playerPosition.y + 1),
+                Mathf.RoundToInt(playerPosition.z));
+            Vector3Int playerIndex1 = new Vector3Int(
+                Mathf.RoundToInt(playerPosition.x),
+                Mathf.RoundToInt(playerPosition.y + 2),
+                Mathf.RoundToInt(playerPosition.z));
+            
+            if (playerIndex0.Equals(posIndex) || playerIndex1.Equals(posIndex))
+            {
+                Debug.LogWarning("Player is standing on the block, cannot place cube.");
+                return;
+            }
+
+            var block = m_worldData.GetBlock(Util.GetBlockIDByWorldPosition(new Vector3(posIndex.x, posIndex.y, posIndex.z), m_blockWidth, m_blockHeight));
+            block.AddCube(posIndex.x, posIndex.y, posIndex.z, cubeType);
         }
         
 

@@ -19,7 +19,16 @@ namespace AILand.GamePlay
         
         private Camera playerCamera => GameManager.Instance.mainCamera;
 
-
+        private Ray m_ray
+        {
+            get
+            {
+                Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
+                Vector3 rayStart = ray.origin + ray.direction * rayStartDistance;
+                Ray offsetRay = new Ray(rayStart, ray.direction);
+                return offsetRay;
+            }
+        }
 
         private IInteractable m_cubeFoucs;
 
@@ -63,14 +72,12 @@ namespace AILand.GamePlay
         private void DetectInteractableCube()
         {
             // 从屏幕中心发射射线
-            Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
-            Vector3 rayStart = ray.origin + ray.direction * rayStartDistance;
-            Ray offsetRay = new Ray(rayStart, ray.direction);
             
-            Debug.DrawRay(offsetRay.origin, offsetRay.direction * raycastDistance, Color.red);
+            
+            Debug.DrawRay(m_ray.origin, m_ray.direction * raycastDistance, Color.red);
             
             RaycastHit hit;
-            if (Physics.Raycast(offsetRay, out hit, raycastDistance, cubeLayer))
+            if (Physics.Raycast(m_ray, out hit, raycastDistance, cubeLayer))
             {
                 var cubeFocus = hit.collider.GetComponent<IInteractable>();
                 if (m_cubeFoucs != cubeFocus)
@@ -82,7 +89,6 @@ namespace AILand.GamePlay
             }
             else
             {
-                // 没有射线命中时清除焦点
                 if (m_cubeFoucs != null)
                 {
                     m_cubeFoucs.OnLostFocus();
@@ -90,7 +96,36 @@ namespace AILand.GamePlay
                 }
             }
             
-            // 射线检测玩家右键点击的方块
+            // 左键点击放置
+            if(Input.GetMouseButtonDown(0))
+            {
+                if (m_cubeFoucs != null)
+                {
+                    if (Physics.Raycast(m_ray, out hit, raycastDistance, cubeLayer))
+                    {
+                        // 获取击中面的法向量
+                        Vector3 hitNormal = hit.normal;
+            
+                        // 根据法向量计算新方块的位置
+                        Vector3 newCubePosition = hit.point + hitNormal * 0.5f; // 0.5f是方块大小的一半
+            
+                        // 将位置转换为整数网格坐标
+                        Vector3Int gridPosition = new Vector3Int(
+                            Mathf.RoundToInt(newCubePosition.x),
+                            Mathf.RoundToInt(newCubePosition.y),
+                            Mathf.RoundToInt(newCubePosition.z)
+                        );
+                        
+                        Debug.Log($"Placing cube at grid position: {gridPosition}");
+            
+                        // 在新位置创建方块
+                        WorldManager.Instance.PlaceCube(gridPosition, CubeType.Stone); // 假设有这个方法
+                    }
+                }
+            }
+            
+            
+            // 右键点击破坏
             if (Input.GetMouseButtonDown(1))
             {
                 if(m_cubeFoucs != null)
@@ -99,6 +134,8 @@ namespace AILand.GamePlay
                     WorldManager.Instance.DestoryCube(cube);
                 }
             }
+            
+            
             
         }
         

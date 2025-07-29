@@ -32,7 +32,7 @@ namespace AILand.GamePlay.World
             m_cellData = cell;
             
             m_cubeType = type;
-            m_cubeConfig = SOManager.Instance.cubeConfigDict[type];
+            if(type != CubeType.None) m_cubeConfig = SOManager.Instance.cubeConfigDict[type];
             
             m_YHeight = yHeight;
         }
@@ -42,6 +42,12 @@ namespace AILand.GamePlay.World
         public void Load()
         {
             if(m_isLoad || m_cubeType == CubeType.None) return;
+            if (m_cubeConfig == null)
+            {
+                Debug.LogError(
+                    $"Load CubeData error: CubeConfig for type {m_cubeType} has not been set or does not exist.");
+                return;
+            }
             var type = m_cubeConfig.cubePrefab.GetComponent<BaseCube>().GetType();
             m_instanceGo = PoolManager.Instance.GetGameObject(type);
             
@@ -67,14 +73,23 @@ namespace AILand.GamePlay.World
                 Debug.LogWarning($"try to release a null instance of CubeData at {m_cellData.BlockData.BlockID}_{m_cellData.Index.x}_{m_cellData.Index.y}_{m_YHeight}_{m_cubeType}");
             }
         }
-        
-        public void Destroy()
+
+        // 更改方块类型
+        public void Change(CubeType cubeType)
         {
+            if (m_cubeType == cubeType) return;
             Unload();
-            m_cellData = null;
-            m_cubeType = CubeType.None;
-            m_cubeConfig = null;
-            m_instanceGo = null;
+            m_cubeType = cubeType;
+            if (cubeType != CubeType.None)
+            {
+                m_cubeConfig = SOManager.Instance.cubeConfigDict[cubeType];
+                Load();
+            }
+            else
+            {
+                m_cubeConfig = null;
+                m_instanceGo = null;
+            }
         }
     }
 

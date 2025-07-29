@@ -15,7 +15,7 @@ namespace AILand.GamePlay.Player
         public bool canZoom = true;
         public Vector2 cameraLimit = new Vector2(-45, 40);
 
-        private bool isUIOpen = false;
+        private bool m_isUIOpen = false;
 
         private float m_mouseX;
         private float m_mouseY;
@@ -36,7 +36,7 @@ namespace AILand.GamePlay.Player
 
         private void Update()
         {
-            if (isUIOpen) return;
+            if (m_isUIOpen) return;
 
             transform.position = player.position + new Vector3(0, m_offsetDistanceY, 0);
 
@@ -60,14 +60,14 @@ namespace AILand.GamePlay.Player
 
         private void OnShowUIPanel()
         {
-            isUIOpen = true;
+            m_isUIOpen = true;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
 
         private void OnHideUIPanel()
         {
-            isUIOpen = false;
+            m_isUIOpen = false;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }

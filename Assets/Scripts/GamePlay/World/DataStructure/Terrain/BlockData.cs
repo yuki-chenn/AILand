@@ -139,11 +139,31 @@ namespace AILand.GamePlay.World
             cell.DestoryCube(y);
             
             // 需要load旁边的cell
-            GetCellData(x-1,z)?.Load();
-            GetCellData(x+1,z)?.Load();
-            GetCellData(x,z-1)?.Load();
-            GetCellData(x,z+1)?.Load();
+            LoadAroundCells(x, z);
             
+        }
+        
+        public void AddCube(int x, int y, int z, CubeType cubeType)
+        {
+            var cell = GetCellData(x, z);
+            if (cell == null)
+            {
+                Debug.LogError($"AddCube error : Cell at {x}, {z} does not exist in block {m_blockID}.");
+                return;
+            }
+            cell.AddCube(y, cubeType);
+            
+            // 需要load旁边的cell
+            LoadAroundCells(x, z);
+        }
+        
+        private void LoadAroundCells(int x, int z)
+        {
+            // 加载周围的Cell
+            GetCellData(x - 1, z)?.Load();
+            GetCellData(x + 1, z)?.Load();
+            GetCellData(x, z - 1)?.Load();
+            GetCellData(x, z + 1)?.Load();
         }
         
         
