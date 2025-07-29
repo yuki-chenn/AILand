@@ -953,11 +953,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488057e29f73bf648b7f64d1805a48cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  boostMultiplier: 3
-  lookSpeed: 2
-  minPitch: -90
-  maxPitch: 90
 --- !u!1 &1044128843
 GameObject:
   m_ObjectHideFlags: 0

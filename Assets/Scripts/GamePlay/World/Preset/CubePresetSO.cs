@@ -12,6 +12,7 @@ namespace AILand.GamePlay.World
     {
         public Vector3Int position;  // 相对于预设中心的位置
         public CubeType cubeType;    // 方块类型
+        public int rotation; // 旋转角度，0, 1, 2, 3
     }
     
     [CreateAssetMenu(fileName = "CubePreset_", menuName = "创建方块组合预设")]
@@ -25,7 +26,7 @@ namespace AILand.GamePlay.World
         
         public List<PresetCubeData> cubes = new List<PresetCubeData>();
         
-        // 获取指定位置的方块数据
+        
         public PresetCubeData? GetCubeAt(Vector3Int position)
         {
             foreach (var cube in cubes)
@@ -36,13 +37,14 @@ namespace AILand.GamePlay.World
             return null;
         }
 
-        // 添加方块到预设
-        public void AddCube(Vector3Int position, CubeType type)
+        
+        public void AddCube(Vector3Int position, CubeType type, int rotation)
         {
             var cubeData = new PresetCubeData
             {
                 position = position,
                 cubeType = type,
+                rotation = rotation
             };
             cubes.Add(cubeData);
         }

@@ -37,7 +37,7 @@ namespace AILand.UI
             pn.oriAmplitude = 128;
             pn.oriFrequency = 4;
             pn.octaves = 3;
-            pn.scale = 150f;
+            pn.scale = 120f;
         }
 
         private void OnDestroy()

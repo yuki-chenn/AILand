@@ -80,7 +80,8 @@ namespace AILand.Utils
             foreach (var cube in cubes)
             {
                 Vector3Int localPos = Vector3Int.RoundToInt(cube.transform.localPosition);
-                preset.AddCube(localPos, cube.CubeType);
+                int rotation = (Mathf.RoundToInt(cube.transform.rotation.eulerAngles.y / 90f) % 4 + 4) % 4;
+                preset.AddCube(localPos, cube.CubeType, rotation);
             }
 
             EditorUtility.SetDirty(preset);

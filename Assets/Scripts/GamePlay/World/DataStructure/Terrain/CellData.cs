@@ -132,9 +132,9 @@ namespace AILand.GamePlay.World
             {
                 while(m_cubes.Count < y)
                 {
-                    m_cubes.Add(new CubeData(this, CubeType.None, m_cubes.Count));
+                    m_cubes.Add(new CubeData(this, CubeType.None, 0, m_cubes.Count));
                 }
-                var newCubeData = new CubeData(this, cubeType, y);
+                var newCubeData = new CubeData(this, cubeType,0, y);
                 m_cubes.Add(newCubeData);
             }
 

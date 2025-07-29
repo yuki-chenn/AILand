@@ -34,7 +34,7 @@ namespace AILand.GamePlay.World.Cube
 
         public void OnReleaseToPool()
         {
-            
+            transform.rotation = Quaternion.identity;
         }
 
         public void OnDestroyPoolObject()

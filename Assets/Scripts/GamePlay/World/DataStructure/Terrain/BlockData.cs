@@ -112,7 +112,7 @@ namespace AILand.GamePlay.World
                         // 创建CubeData
                         for (int y = 0; y < cellCubesType.Count; y++)
                         {
-                            var cubeData = new CubeData(cell, cellCubesType[y], y);
+                            var cubeData = new CubeData(cell, cellCubesType[y],0, y);
                             cell.Cubes.Add(cubeData);
                         }
                     }

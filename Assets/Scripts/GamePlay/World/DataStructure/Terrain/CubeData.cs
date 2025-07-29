@@ -18,6 +18,10 @@ namespace AILand.GamePlay.World
         private CubeConfigSO m_cubeConfig;
         public CubeConfigSO CubeConfig => m_cubeConfig;
         
+        // 方块的旋转
+        private int m_rotation;
+        
+        
         // 方块所在的高度
         private int m_YHeight;
         public int YHeight => m_YHeight;
@@ -27,12 +31,14 @@ namespace AILand.GamePlay.World
         // 游戏物体实例
         private GameObject m_instanceGo;
 
-        public CubeData(CellData cell, CubeType type, int yHeight)
+        public CubeData(CellData cell, CubeType type,int rotation, int yHeight)
         {
             m_cellData = cell;
             
             m_cubeType = type;
             if(type != CubeType.None) m_cubeConfig = SOManager.Instance.cubeConfigDict[type];
+
+            m_rotation = rotation;
             
             m_YHeight = yHeight;
         }
@@ -53,7 +59,7 @@ namespace AILand.GamePlay.World
             
             m_instanceGo.transform.SetParent(m_cellData.BlockData.BlockComponent.cubeHolder);
             m_instanceGo.transform.localPosition = LocalPosition;
-            m_instanceGo.transform.localRotation = Quaternion.identity;
+            m_instanceGo.transform.localRotation = Quaternion.Euler(0, m_rotation * 90, 0);
             m_instanceGo.name = $"{m_cellData.BlockData.BlockID}_{m_cellData.Index.x}_{m_cellData.Index.y}_{m_YHeight}_{m_cubeType}";
             
             m_isLoad = true;

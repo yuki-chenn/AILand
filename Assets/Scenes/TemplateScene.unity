@@ -4456,6 +4456,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone_cube_3 (242)
       objectReference: {fileID: 0}
+    - target: {fileID: 1261312191591634, guid: a95f32ffd89eb5a4eb1bbe0715cb0b28, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4334349256308696, guid: a95f32ffd89eb5a4eb1bbe0715cb0b28, type: 3}
       propertyPath: m_RootOrder
       value: 2265
@@ -17727,6 +17731,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone_cube_3 (249)
       objectReference: {fileID: 0}
+    - target: {fileID: 1261312191591634, guid: a95f32ffd89eb5a4eb1bbe0715cb0b28, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4334349256308696, guid: a95f32ffd89eb5a4eb1bbe0715cb0b28, type: 3}
       propertyPath: m_RootOrder
       value: 1491
@@ -20991,7 +20999,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2001716935
 Transform:
   m_ObjectHideFlags: 0
