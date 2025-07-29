@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using AILand.GamePlay.World;
 using AILand.System.Base;
+using AILand.Utils;
 using UnityEngine;
 
 namespace AILand.System.SOManager
@@ -42,6 +43,16 @@ namespace AILand.System.SOManager
         CubeType IKeyValuePair<CubeType, CubeConfigSO>.key => cubeType;
         CubeConfigSO IKeyValuePair<CubeType, CubeConfigSO>.value => so;
     }
+    
+    [Serializable]
+    public struct CubePreset : IKeyValuePair<CubePresetType, CubePresetSO>
+    {
+        public CubePresetType presetType;
+        public CubePresetSO so;
+        
+        CubePresetType IKeyValuePair<CubePresetType, CubePresetSO>.key => presetType;
+        CubePresetSO IKeyValuePair<CubePresetType, CubePresetSO>.value => so;
+    }
 
     public class SOManager : Singleton<SOManager>
     {
@@ -53,6 +64,9 @@ namespace AILand.System.SOManager
 
         [Header("每个方块类型对应的配置")]
         public List<CubeConfig> cubeConfigs = new List<CubeConfig>();
+        
+        [Header("Preset配置")]
+        public List<CubePreset> cubePresets = new List<CubePreset>();
 
         public Dictionary<CellType, HeightDistributionConfigSO> heightDistributionDict =
             new Dictionary<CellType, HeightDistributionConfigSO>();
@@ -62,6 +76,9 @@ namespace AILand.System.SOManager
         
         public Dictionary<CubeType, CubeConfigSO> cubeConfigDict =
             new Dictionary<CubeType, CubeConfigSO>();
+        
+        public Dictionary<CubePresetType, CubePresetSO> cubePresetDict =
+            new Dictionary<CubePresetType, CubePresetSO>();
 
         protected override void Awake()
         {
@@ -70,6 +87,7 @@ namespace AILand.System.SOManager
             RegisterDictionary(heightDistributions, heightDistributionDict, "HeightDistributionConfigSO");
             RegisterDictionary(islandConfigs, islandConfigDict, "IslandConfigSO");
             RegisterDictionary(cubeConfigs, cubeConfigDict, "CubeConfigSO");
+            RegisterDictionary(cubePresets, cubePresetDict, "CubePresetSO");
         }
 
         private void RegisterDictionary<T, TKey, TValue>(List<T> list, Dictionary<TKey, TValue> dictionary, string typeName)

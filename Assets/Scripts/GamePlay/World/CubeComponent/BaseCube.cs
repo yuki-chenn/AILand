@@ -11,6 +11,7 @@ namespace AILand.GamePlay.World.Cube
         // override
         public GameObject GameObject => gameObject;
         
+        public virtual CubeType CubeType { get; }
         
         
         
