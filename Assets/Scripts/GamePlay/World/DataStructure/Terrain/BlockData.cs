@@ -1,7 +1,10 @@
 
+using System.Collections.Generic;
 using AILand.System.ObjectPoolSystem;
+using AILand.System.SOManager;
 using AILand.Utils;
 using UnityEngine;
+using NotImplementedException = System.NotImplementedException;
 
 namespace AILand.GamePlay.World
 {
@@ -92,6 +95,7 @@ namespace AILand.GamePlay.World
                 return false;
             }
 
+            // 地形创建
             m_islandInfo = islandInfo;
             m_cells = new CellData[m_width, m_height];
             
@@ -103,12 +107,14 @@ namespace AILand.GamePlay.World
                     var cellPosition = new Vector3(x, 0, z);
                     var cell = new CellData(this, new Vector2Int(x,z), cellPosition);
                     
-                    // 计算一下高度
                     var cellCubesType = islandInfo.GetCellCubesType(x, z);
-                    
                     
                     if(cellCubesType != null)
                     {
+                        // 初始化水域状态
+                        if (cellCubesType.Count == 0) cell.CellWater = CellWater.InnerWater;
+                        else cell.CellWater = CellWater.None;
+                        
                         // 创建CubeData
                         for (int y = 0; y < cellCubesType.Count; y++)
                         {
@@ -116,16 +122,25 @@ namespace AILand.GamePlay.World
                             cell.Cubes.Add(cubeData);
                         }
                     }
-                    
-                    
-                    
                     m_cells[x, z] = cell;
                 }
             }
             
+            // 初始化外部水域信息
+            InitOuterWater();
+            
+            
+            // preset创建
+            
+            // 港口
+            
+            
+            
             m_isCreated = true;
             return m_isCreated;
         }
+
+        
 
 
         public void DestoryCube(int x,int y,int z)
@@ -157,6 +172,37 @@ namespace AILand.GamePlay.World
             LoadAroundCells(x, z);
         }
         
+        private void InitOuterWater()
+        {
+            Queue<Vector2Int> queue = new Queue<Vector2Int>();
+            int[] dx = { -1, 1, 0, 0 };
+            int[] dz = { 0, 0, -1, 1 };
+            
+            queue.Enqueue(new Vector2Int(0, 0));
+
+            while (queue.Count != 0)
+            {
+                Vector2Int current = queue.Dequeue();
+                GetCellData(current.x, current.y).CellWater = CellWater.OuterWater;
+                
+                for (int i = 0; i < 4; i++)
+                {
+                    int sx = current.x + dx[i];
+                    int sz = current.y + dz[i];
+
+                    if (sx < 0 || sx >= m_width || sz < 0 || sz >= m_height) continue;
+
+                    var cell = GetCellData(sx, sz);
+                    if (cell == null) continue;
+                    if (cell.CellWater == CellWater.InnerWater)
+                    {
+                        queue.Enqueue(new Vector2Int(sx, sz));
+                    }
+                }
+            }
+            
+        }
+        
         private void LoadAroundCells(int x, int z)
         {
             // 加载周围的Cell
@@ -165,7 +211,50 @@ namespace AILand.GamePlay.World
             GetCellData(x, z - 1)?.Load();
             GetCellData(x, z + 1)?.Load();
         }
+
+        private void AddPreset(CubePresetType presetType)
+        {
+            
+            CubePresetSO preset = SOManager.Instance.cubePresetDict[presetType];
+            if (preset == null)
+            {
+                Debug.LogError($"Preset {presetType} not found.");
+                return;
+            }
+            
+            // 先找到一个能放的位置
+            var size = preset.size;
+            if (preset.connectToIsland)
+            {
+                
+            }
+            
+            
+
+
+        }
         
+        // private void CanPlacePreset(Vector3Int size, int x, int z)
+        // {
+        //     // 检查是否可以放置预设
+        //     if (x < 0 || x + preset.size.x > m_width || z < 0 || z + preset.size.y > m_height)
+        //     {
+        //         return false;
+        //     }
+        //     
+        //     // 检查每个Cell是否可以放置
+        //     for (int i = 0; i < preset.cubes.Count; i++)
+        //     {
+        //         var cubeData = preset.cubes[i];
+        //         var cell = GetCellData(x + cubeData.position.x, z + cubeData.position.z);
+        //         if (cell == null || !cell.CanPlaceCube(cubeData.cubeType))
+        //         {
+        //             return false;
+        //         }
+        //     }
+        //     
+        //     return true;
+        // }
         
         public CellData GetCellData(int x,int z)
         {

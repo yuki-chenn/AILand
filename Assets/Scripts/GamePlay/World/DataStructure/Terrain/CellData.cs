@@ -20,6 +20,14 @@ namespace AILand.GamePlay.World
         private Vector3 m_localPosition;
         public Vector3 LocalPosition => m_localPosition;
 
+        // 描述该Cell的边界情况
+        private CellWater m_cellWater;
+        public CellWater CellWater
+        {
+            get => m_cellWater;
+            set => m_cellWater = value;
+        }
+        
         // 所有的方块数据
         private List<CubeData> m_cubes;
         public List<CubeData> Cubes => m_cubes;
@@ -33,6 +41,7 @@ namespace AILand.GamePlay.World
             m_blockData = blockData;
             m_index = index;
             m_localPosition = localPosition;
+            m_cellWater = CellWater.None;
             m_cubes = new List<CubeData>();
         }
         
