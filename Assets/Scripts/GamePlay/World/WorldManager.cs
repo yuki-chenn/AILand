@@ -132,7 +132,20 @@ namespace AILand.GamePlay.World
             // TODO : 会有破坏不了的方块
             
             var block = m_worldData.GetBlock(Util.GetBlockIDByWorldPosition(cubeTrans.position, m_blockWidth, m_blockHeight));
-            block.DestoryCube(x, y, z);
+
+            var cubeData = block.GetCellData(x, z)?.GetCubeData(y);
+            if(cubeData == null || cubeData.CubeType == CubeType.None)
+            {
+                // 没有方块
+                Debug.LogWarning($"No cube found at position ({x}, {y}, {z}) to destroy.");
+                return;
+            }
+            
+            if(cubeData.CubeConfig.canDestroy) block.DestoryCube(x, y, z);
+            else
+            {
+                Debug.Log("Cannot destroy this cube.");
+            }
         }
 
         public void PlaceCube(Vector3Int posIndex, CubeType cubeType)
