@@ -276,6 +276,20 @@ namespace AILand.Utils
             
             return cubes;
         }
+
+
+
+        #region Random
+        
+        public static T GetRandomElement<T>(List<T> list)
+        {
+            if (list == null || list.Count == 0) return default;
+            int index = Random.Range(0, list.Count);
+            return list[index];
+        }
+
+        
+        #endregion
         
         
     }

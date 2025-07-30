@@ -81,7 +81,7 @@ namespace AILand.GamePlay.World
         }
 
         // 更改方块类型
-        public void Change(CubeType cubeType,bool needLoad = false)
+        public void Change(CubeType cubeType, int rotation, bool needLoad = true)
         {
             if (m_cubeType == cubeType) return;
             Unload();
@@ -89,10 +89,12 @@ namespace AILand.GamePlay.World
             if (cubeType != CubeType.None)
             {
                 m_cubeConfig = SOManager.Instance.cubeConfigDict[cubeType];
+                m_rotation = rotation;
                 if(needLoad) Load();
             }
             else
             {
+                m_rotation = 0;
                 m_cubeConfig = null;
                 m_instanceGo = null;
             }

@@ -102,7 +102,7 @@ namespace AILand.GamePlay.World
             return up && down && left && right && front && back;
         }
 
-        public void DestoryCube(int y)
+        public void DestoryCube(int y, bool needLoad = true)
         {
             if (y < 0 || y >= m_cubes.Count)
             {
@@ -111,11 +111,11 @@ namespace AILand.GamePlay.World
                 return;
             }
             
-            m_cubes[y].Change(CubeType.None);
+            m_cubes[y].Change(CubeType.None, 0, needLoad);
             Load();
         }
 
-        public void AddCube(int y, CubeType cubeType)
+        public void AddCube(int y, CubeType cubeType, int rotation, bool needLoad = true)
         {
             if (y < 0 || (y < m_cubes.Count && m_cubes[y].CubeType != CubeType.None))
             {
@@ -134,7 +134,7 @@ namespace AILand.GamePlay.World
                 }
                 else
                 {
-                    m_cubes[y].Change(cubeType);
+                    m_cubes[y].Change(cubeType, rotation, needLoad);
                 }
             }
             else
@@ -143,7 +143,7 @@ namespace AILand.GamePlay.World
                 {
                     m_cubes.Add(new CubeData(this, CubeType.None, 0, m_cubes.Count));
                 }
-                var newCubeData = new CubeData(this, cubeType,0, y);
+                var newCubeData = new CubeData(this, cubeType,rotation, y);
                 m_cubes.Add(newCubeData);
             }
 

@@ -23,8 +23,8 @@ namespace AILand.GamePlay.World
         
         public bool canRotate = false;          // 是否可以旋转
         public int fixedHeight = -1;            // 固定高度，-1表示不固定
-        public bool outsideIsland = true;       // 是否在岛屿外部，即root必须在外边界上或者在外边界以外
-        public bool connectToIsland = false;    // 是否必须连接到岛屿
+        public bool connectToIsland = false;    // root是否连接到地面
+        public CellWater cellWater ;            // root所在的点的水域类型
         public bool canReplace = false;         // 是否可以替换已有方块
         
         public List<PresetCubeData> cubes = new List<PresetCubeData>();

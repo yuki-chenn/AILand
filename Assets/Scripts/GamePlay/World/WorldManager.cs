@@ -164,7 +164,7 @@ namespace AILand.GamePlay.World
             }
 
             var block = m_worldData.GetBlock(Util.GetBlockIDByWorldPosition(new Vector3(posIndex.x, posIndex.y, posIndex.z), m_blockWidth, m_blockHeight));
-            block.AddCube(posIndex.x, posIndex.y, posIndex.z, cubeType);
+            block.AddCube(posIndex.x, posIndex.y, posIndex.z, cubeType, 0);
         }
         
 

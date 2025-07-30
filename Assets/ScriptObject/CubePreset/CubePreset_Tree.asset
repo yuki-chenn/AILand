@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23fdb830481b4e8ab6c4489551c2627e, type: 3}
+  m_Name: CubePreset_Tree
+  m_EditorClassIdentifier: 
+  size: {x: 5, y: 6, z: 5}
+  canRotate: 0
+  fixedHeight: -1
+  connectToIsland: 0
+  cellWater: 0
+  canReplace: 0
+  cubes:
+  - position: {x: 0, y: 0, z: 0}
+    cubeType: 6
+    rotation: 0
+  - position: {x: 0, y: 1, z: 0}
+    cubeType: 6
+    rotation: 0
+  - position: {x: 0, y: 2, z: 0}
+    cubeType: 6
+    rotation: 0
+  - position: {x: 0, y: 3, z: 0}
+    cubeType: 6
+    rotation: 0
+  - position: {x: 0, y: 4, z: 0}
+    cubeType: 6
+    rotation: 0
+  - position: {x: 1, y: 4, z: 0}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 0, y: 5, z: 0}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 1, y: 3, z: 0}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 2, y: 3, z: 0}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 0, y: 4, z: 1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 0, y: 3, z: 1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 0, y: 3, z: 2}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 0, y: 4, z: -1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 0, y: 3, z: -1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 0, y: 3, z: -2}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 1, y: 4, z: -1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 1, y: 3, z: -1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 2, y: 3, z: -1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 1, y: 3, z: -2}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 2, y: 3, z: -2}
+    cubeType: 7
+    rotation: 0
+  - position: {x: -1, y: 4, z: 0}
+    cubeType: 7
+    rotation: 0
+  - position: {x: -1, y: 3, z: 0}
+    cubeType: 7
+    rotation: 0
+  - position: {x: -2, y: 3, z: 0}
+    cubeType: 7
+    rotation: 0
+  - position: {x: -1, y: 4, z: -1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: -1, y: 3, z: -1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: -1, y: 3, z: -2}
+    cubeType: 7
+    rotation: 0
+  - position: {x: -2, y: 3, z: -1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: -2, y: 3, z: -2}
+    cubeType: 7
+    rotation: 0
+  - position: {x: -1, y: 4, z: 1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: -1, y: 3, z: 1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: -2, y: 3, z: 1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: -1, y: 3, z: 2}
+    cubeType: 7
+    rotation: 0
+  - position: {x: -2, y: 3, z: 2}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 1, y: 4, z: 1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 1, y: 3, z: 1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 1, y: 3, z: 2}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 2, y: 3, z: 1}
+    cubeType: 7
+    rotation: 0
+  - position: {x: 2, y: 3, z: 2}
+    cubeType: 7
+    rotation: 0

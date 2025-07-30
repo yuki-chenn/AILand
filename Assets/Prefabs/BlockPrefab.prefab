@@ -568,6 +568,11 @@ MonoBehaviour:
   borderColor: {r: 0, g: 1, b: 0, a: 1}
   gridColor: {r: 0, g: 0, b: 1, a: 1}
   selectedColor: {r: 1, g: 0, b: 0, a: 1}
+  showCellWater: 0
+  innerWaterColor: {r: 0.5, g: 0.8, b: 1, a: 0.7}
+  outerWaterColor: {r: 0.2, g: 0.4, b: 0.8, a: 0.7}
+  noneWaterColor: {r: 0.5, g: 1, b: 0.5, a: 0.7}
+  borderWaterColor: {r: 1, g: 1, b: 0.5, a: 0.7}
   showText: 1
   textColor: {r: 1, g: 1, b: 1, a: 1}
   fontSize: 15

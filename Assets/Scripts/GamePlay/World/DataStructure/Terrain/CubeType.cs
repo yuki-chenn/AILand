@@ -8,5 +8,13 @@ namespace AILand.GamePlay.World
         Stone,
         Grass,
         Snow,
+        
+        
+        
+        
+        
+        
+        Wood,
+        Leaf
     }
 }
