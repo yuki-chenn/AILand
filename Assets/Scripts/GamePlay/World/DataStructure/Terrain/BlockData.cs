@@ -155,6 +155,12 @@ namespace AILand.GamePlay.World
             // preset创建
             // 港口
             AddPreset(CubePresetType.Harbor);
+            AddPreset(CubePresetType.Tree);
+            AddPreset(CubePresetType.Tree);
+            AddPreset(CubePresetType.Tree);
+            AddPreset(CubePresetType.Tree);
+            AddPreset(CubePresetType.Tree);
+            AddPreset(CubePresetType.Tree);
             
             
             m_isCreated = true;
@@ -259,7 +265,9 @@ namespace AILand.GamePlay.World
             // 先找到一个能放的位置
             int ty = -1;
             CellData tcell = null;
-            foreach (var cell in m_cellWaterDic[preset.cellWater])
+            List<CellData> cellList = new List<CellData>(m_cellWaterDic[preset.cellWater]);
+            Util.ShuffleList(cellList);
+            foreach (var cell in cellList)
             {
                 ty = CanPlacePreset(cell, preset);
                 if (ty != -1)
@@ -277,6 +285,7 @@ namespace AILand.GamePlay.World
             else
             {
                 PlacePreset(new Vector3Int(tcell.Index.x, ty, tcell.Index.y), preset);
+                Debug.Log($"Successfully placed preset {presetType} at {tcell.Index.x}, {ty}, {tcell.Index.y} in block {m_blockID}.");
             }
 
             return true;
@@ -298,15 +307,9 @@ namespace AILand.GamePlay.World
         {
             // TODO: 这里还没处理能否旋转的情况，这个有点复杂
             
-            // 1. 看会不会超出边界
             int x = cell.Index.x;
             int z = cell.Index.y;
-            var size = preset.size;
-            if(x + size.x > m_width || z + size.z > m_height || x < 0 || z < 0)
-            {
-                return -1;
-            }
-
+            
             List<int> availableHeights = new List<int>();
             for (int y = 0; y < Constants.BuildMaxHeight; y++)
             {
@@ -316,8 +319,21 @@ namespace AILand.GamePlay.World
                     continue; // 如果有固定高度，跳过
                 }
                 
+                // 判断超不超边界
+                var minPoint = preset.minPoint + new Vector3Int(x, y, z);
+                var maxPoint = preset.maxPoint + new Vector3Int(x, y, z);
+                if (minPoint.x < 0 || minPoint.z < 0 || maxPoint.x >= m_width || maxPoint.z >= m_height)
+                {
+                    continue; // 如果超出边界，跳过
+                }
+                if(minPoint.y < 0 || maxPoint.y >= Constants.BuildMaxHeight)
+                {
+                    continue; // 如果超出高度，跳过
+                }
+                
+                
                 //判断connect
-                if (preset.connectToIsland && !IsConnectToIsland(x, y, z))
+                if (preset.connectToIsland && !IsConnectToIsland(x, y, z, preset.connectedCubeTypes))
                 {
                     continue; // 如果需要连接到岛屿，且不连接，则跳过
                 }
@@ -340,8 +356,10 @@ namespace AILand.GamePlay.World
             return Util.GetRandomElement(availableHeights);
         }
         
-        private bool IsConnectToIsland(int x, int y, int z)
+        private bool IsConnectToIsland(int x, int y, int z, List<CubeType> connectCubetypes)
         {
+            bool specifyCubetype = !connectCubetypes.Contains(CubeType.None);
+            
             // 判断cell的周围6格有没有方块
             var cubeL = GetCellData(x - 1, z)?.GetCubeData(y);
             var cubeR = GetCellData(x + 1, z)?.GetCubeData(y);
@@ -349,13 +367,27 @@ namespace AILand.GamePlay.World
             var cubeB = GetCellData(x, z + 1)?.GetCubeData(y);
             var cubeU = GetCellData(x, z)?.GetCubeData(y + 1);
             var cubeD = GetCellData(x, z)?.GetCubeData(y - 1);
+
+            bool cubeTypeFlag = true;
             
-            return (cubeL != null && cubeL.CubeType != CubeType.None) ||
-                   (cubeR != null && cubeR.CubeType != CubeType.None) ||
-                   (cubeF != null && cubeF.CubeType != CubeType.None) ||
-                   (cubeB != null && cubeB.CubeType != CubeType.None) ||
-                   (cubeU != null && cubeU.CubeType != CubeType.None) ||
-                   (cubeD != null && cubeD.CubeType != CubeType.None);
+            if (specifyCubetype)
+            {
+                cubeTypeFlag = (cubeL != null && connectCubetypes.Contains(cubeL.CubeType)) ||
+                               (cubeR != null && connectCubetypes.Contains(cubeR.CubeType)) ||
+                               (cubeF != null && connectCubetypes.Contains(cubeF.CubeType)) ||
+                               (cubeB != null && connectCubetypes.Contains(cubeB.CubeType)) ||
+                               (cubeU != null && connectCubetypes.Contains(cubeU.CubeType)) ||
+                               (cubeD != null && connectCubetypes.Contains(cubeD.CubeType));
+            }
+            
+            
+            return cubeTypeFlag && 
+                   ((cubeL != null && cubeL.CubeType != CubeType.None) ||
+                    (cubeR != null && cubeR.CubeType != CubeType.None) ||
+                    (cubeF != null && cubeF.CubeType != CubeType.None) ||
+                    (cubeB != null && cubeB.CubeType != CubeType.None) ||
+                    (cubeU != null && cubeU.CubeType != CubeType.None) ||
+                    (cubeD != null && cubeD.CubeType != CubeType.None));
         }
 
         private bool IsPresetOverlapIsland(Vector3Int cellIndex, CubePresetSO preset)

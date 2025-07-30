@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23fdb830481b4e8ab6c4489551c2627e, type: 3}
   m_Name: CubePreset_Harbor
   m_EditorClassIdentifier: 
-  size: {x: 3, y: 1, z: 6}
+  minPoint: {x: 0, y: 0, z: 0}
+  maxPoint: {x: 2, y: 0, z: 5}
   canRotate: 0
   fixedHeight: 0
   connectToIsland: 1
   cellWater: 3
-  canReplace: 1
+  canReplace: 0
+  connectedCubeTypes: 00000000
   cubes:
   - position: {x: 0, y: 0, z: 0}
     cubeType: 3

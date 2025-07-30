@@ -112,7 +112,7 @@ namespace AILand.GamePlay.World
             }
             
             m_cubes[y].Change(CubeType.None, 0, needLoad);
-            Load();
+            if(needLoad) Load();
         }
 
         public void AddCube(int y, CubeType cubeType, int rotation, bool needLoad = true)
@@ -147,7 +147,7 @@ namespace AILand.GamePlay.World
                 m_cubes.Add(newCubeData);
             }
 
-            Load();
+            if(needLoad) Load();
         }
 
     }

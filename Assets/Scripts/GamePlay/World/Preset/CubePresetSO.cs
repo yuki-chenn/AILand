@@ -18,14 +18,18 @@ namespace AILand.GamePlay.World
     [CreateAssetMenu(fileName = "CubePreset_", menuName = "创建方块组合预设")]
     public class CubePresetSO : ScriptableObject
     {
-        // 所占空间大小，主要是用来判断能否放置
-        public Vector3Int size;
+        // 所占空间，主要是用来判断能否放置
+        public Vector3Int minPoint = Vector3Int.zero;  // 左下角点
+        public Vector3Int maxPoint = Vector3Int.zero;  // 右上角点
+        
         
         public bool canRotate = false;          // 是否可以旋转
         public int fixedHeight = -1;            // 固定高度，-1表示不固定
         public bool connectToIsland = false;    // root是否连接到地面
         public CellWater cellWater ;            // root所在的点的水域类型
         public bool canReplace = false;         // 是否可以替换已有方块
+        public List<CubeType> connectedCubeTypes; // 连接的Cell类型，主要是用来判断能否放置
+        
         
         public List<PresetCubeData> cubes = new List<PresetCubeData>();
         

@@ -26,18 +26,18 @@ namespace AILand.Utils
             EditorGUILayout.LabelField("预设信息", EditorStyles.boldLabel);
             EditorGUILayout.LabelField($"方块数量: {preset.cubes.Count}");
 
-            // 手动编辑size
+            // 手动编辑区域范围
             EditorGUI.BeginChangeCheck();
-            Vector3Int newSize = EditorGUILayout.Vector3IntField("预设大小", preset.size);
+            Vector3Int newMinPoint = EditorGUILayout.Vector3IntField("左下角点", cubePreset.minPoint);
+            Vector3Int newMaxPoint = EditorGUILayout.Vector3IntField("右上角点", cubePreset.maxPoint);
+            
             if (EditorGUI.EndChangeCheck())
             {
-                Undo.RecordObject(preset, "修改预设大小");
-                preset.size = newSize;
-                // 同步到CubePreset组件
-                cubePreset.size = newSize;
+                Undo.RecordObject(preset, "修改预设区域");
+                cubePreset.minPoint = newMinPoint;
+                cubePreset.maxPoint = newMaxPoint;
                 EditorUtility.SetDirty(preset);
                 EditorUtility.SetDirty(cubePreset);
-                // 重绘Scene视图
                 SceneView.RepaintAll();
             }
 
@@ -46,7 +46,7 @@ namespace AILand.Utils
             if (GUILayout.Button("从场景中构建预设"))
             {
                 BuildPresetFromScene(preset, cubePreset);
-                AutoCalculateSize(preset, cubePreset);
+                AutoCalculateRange(preset, cubePreset);
             }
 
             if (GUILayout.Button("在场景中预览"))
@@ -54,9 +54,9 @@ namespace AILand.Utils
                 PreviewInScene(preset);
             }
 
-            if (GUILayout.Button("自动计算大小"))
+            if (GUILayout.Button("自动计算区域"))
             {
-                AutoCalculateSize(preset, cubePreset);
+                AutoCalculateRange(preset, cubePreset);
             }
         }
 
@@ -88,35 +88,34 @@ namespace AILand.Utils
             Debug.Log($"预设构建完成，包含 {preset.cubes.Count} 个方块");
         }
 
-        private void AutoCalculateSize(CubePresetSO preset, CubePreset cubePreset)
+        private void AutoCalculateRange(CubePresetSO preset, CubePreset cubePreset)
         {
             if (preset.cubes.Count == 0)
             {
-                Debug.LogWarning("没有方块数据，无法计算大小");
+                Debug.LogWarning("没有方块数据，无法计算区域");
                 return;
             }
 
             // 计算边界
-            Vector3Int min = preset.cubes[0].position;
-            Vector3Int max = preset.cubes[0].position;
+            Vector3Int minPos = preset.cubes[0].position;
+            Vector3Int maxPos = preset.cubes[0].position;
 
             foreach (var cubeData in preset.cubes)
             {
-                min = Vector3Int.Min(min, cubeData.position);
-                max = Vector3Int.Max(max, cubeData.position);
+                minPos = Vector3Int.Min(minPos, cubeData.position);
+                maxPos = Vector3Int.Max(maxPos, cubeData.position);
             }
-
-            Vector3Int calculatedSize = max - min + Vector3Int.one;
             
-            Undo.RecordObject(preset, "自动计算预设大小");
-            preset.size = calculatedSize;
-            cubePreset.size = calculatedSize;
+            Undo.RecordObject(preset, "自动计算预设区域");
+            cubePreset.minPoint = minPos;
+            cubePreset.maxPoint = maxPos;
             
             EditorUtility.SetDirty(preset);
             EditorUtility.SetDirty(cubePreset);
             SceneView.RepaintAll();
             
-            Debug.Log($"自动计算大小完成: {calculatedSize}");
+            Vector3Int size = maxPos - minPos + Vector3Int.one;
+            Debug.Log($"自动计算区域完成: 左下角{minPos}, 右上角{maxPos}, 大小{size}");
         }
 
         private void PreviewInScene(CubePresetSO preset)

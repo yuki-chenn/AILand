@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3484937792517124047}
   - component: {fileID: 1210822397762138324}
   - component: {fileID: 8023757450445285776}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: log1_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6386696906609728402}
   - component: {fileID: 49833744823782307}
   - component: {fileID: 3040212319818534304}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: log1_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 7505828639509392905}
   - component: {fileID: 5627284754649548681}
   - component: {fileID: 5382610470075640205}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: log1_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,9 @@ GameObject:
   - component: {fileID: 5303876842074260753}
   - component: {fileID: 8457963788663084572}
   - component: {fileID: 8815181147311111066}
-  m_Layer: 0
+  - component: {fileID: -2451136250266969668}
+  - component: {fileID: 3311663685430006089}
+  m_Layer: 11
   m_Name: Wood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,3 +326,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f1b6d8a98441499b391fb5e7b0273d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &-2451136250266969668
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7841647596440786719}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3311663685430006089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7841647596440786719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 8
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
