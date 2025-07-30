@@ -101,9 +101,6 @@ namespace AILand.GamePlay.World
                 return false;
             }
             
-            
-            
-
             // 地形创建
             m_islandInfo = islandInfo;
             m_cells = new CellData[m_width, m_height];
@@ -153,14 +150,16 @@ namespace AILand.GamePlay.World
             }
             
             // preset创建
-            // 港口
-            AddPreset(CubePresetType.Harbor);
-            AddPreset(CubePresetType.Tree);
-            AddPreset(CubePresetType.Tree);
-            AddPreset(CubePresetType.Tree);
-            AddPreset(CubePresetType.Tree);
-            AddPreset(CubePresetType.Tree);
-            AddPreset(CubePresetType.Tree);
+            foreach (var presetSetting in islandInfo.islandConfig.presetSettings)
+            {
+                int count = presetSetting.fixedCount <= 0
+                    ? Util.GetRandomInRange(presetSetting.rangeCount.x, presetSetting.rangeCount.y)
+                    : presetSetting.fixedCount;
+                for (int i = 0; i < count; i++)
+                {
+                    AddPreset(presetSetting.presetType);
+                }
+            }
             
             
             m_isCreated = true;

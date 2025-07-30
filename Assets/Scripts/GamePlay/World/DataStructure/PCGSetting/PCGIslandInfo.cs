@@ -11,12 +11,12 @@ namespace AILand.GamePlay.World
         public ShapeConfig shapeConfig;
         
         // 主要是地形的方块分布
-        public IslandConfigSO islandConfigSO;
+        public IslandConfigSO islandConfig;
 
 
         public List<CubeType> GetCellCubesType(int x, int z)
         {
-            if(islandConfigSO == null)
+            if(islandConfig == null)
             {
                 Debug.LogError("IslandConfigSO is not set.");
                 return null;
@@ -24,7 +24,7 @@ namespace AILand.GamePlay.World
             // 获取高度
             int height = shapeConfig.GetHeight(x, z);
             
-            CellType cellType = islandConfigSO.GetCellType(x, z, height);
+            CellType cellType = islandConfig.GetCellType(x, z, height);
             
             // 根据cellType获取对应的HeightDistributionConfigSO
             var hdConfig = SOManager.Instance.heightDistributionDict[cellType];

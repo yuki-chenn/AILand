@@ -287,6 +287,11 @@ namespace AILand.Utils
             int index = Random.Range(0, list.Count);
             return list[index];
         }
+
+        public static int GetRandomInRange(int min, int max)
+        {
+            return Random.Range(min, max);
+        }
         
         public static void ShuffleList<T>(List<T> list)
         {

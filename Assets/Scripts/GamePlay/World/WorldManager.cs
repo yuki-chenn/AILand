@@ -98,7 +98,7 @@ namespace AILand.GamePlay.World
 
             PCGIslandInfo islandInfo = new PCGIslandInfo();
             islandInfo.shapeConfig = new ShapeConfig(0.3f, noiseMap, 10, x=> Mathf.RoundToInt(x * 10 - 2));
-            islandInfo.islandConfigSO = SOManager.Instance.islandConfigDict[IslandType.Plain];
+            islandInfo.islandConfig = SOManager.Instance.islandConfigDict[IslandType.Plain];
 
             var ok = block.CreateIsland(islandInfo);
 

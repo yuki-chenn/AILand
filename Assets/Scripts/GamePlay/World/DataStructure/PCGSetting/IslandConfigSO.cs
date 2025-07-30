@@ -15,6 +15,14 @@ namespace AILand.GamePlay.World
         public int heightLimit;
     }
     
+    [Serializable]
+    public struct PresetSetting
+    {
+        public CubePresetType presetType;
+        public int fixedCount;
+        public Vector2Int rangeCount;
+    }
+    
     
     [CreateAssetMenu(fileName ="IslandConfig_" ,menuName ="创建岛屿配置",order =0)]
     public class IslandConfigSO : ScriptableObject
@@ -22,6 +30,10 @@ namespace AILand.GamePlay.World
         [SerializeField] private int width = 200;
         [SerializeField] private int height = 200;
         [SerializeField][HideInInspector] private CellType[] cellTypesArray;
+        
+        // preset的设置
+        public List<PresetSetting> presetSettings = new List<PresetSetting>();
+        
         
         
         // 动态属性 和 高度有关的
