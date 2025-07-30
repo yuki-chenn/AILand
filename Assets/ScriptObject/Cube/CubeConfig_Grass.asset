@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017e453b2e574ba1a23f55abb066a84d, type: 3}
   m_Name: CubeConfig_Grass
   m_EditorClassIdentifier: 
-  cubeType: 4
+  cubeType: 6
   cubePrefab: {fileID: 1979290889500462, guid: f7b4a078bd92c0643a97cf52bacbcd58, type: 3}
+  canDestroy: 1

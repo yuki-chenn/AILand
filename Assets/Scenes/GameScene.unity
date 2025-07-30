@@ -569,6 +569,15 @@ MonoBehaviour:
   - prefab: {fileID: 7841647596440786719, guid: 9ea81fe8d97bfa5409418711ca0a43ca, type: 3}
     defaultCapacity: 10
     maxSize: 100
+  - prefab: {fileID: 4383872871049274084, guid: abf33580ab9a29143a4b00d582600722, type: 3}
+    defaultCapacity: 10
+    maxSize: 100
+  - prefab: {fileID: 4383872871049274084, guid: a1da8981ff02692459b66ca67819b941, type: 3}
+    defaultCapacity: 10
+    maxSize: 100
+  - prefab: {fileID: 1074585325661610256, guid: 718e7a48c87712b4a8a1d4897eb46d6c, type: 3}
+    defaultCapacity: 10
+    maxSize: 100
 --- !u!4 &511311833
 Transform:
   m_ObjectHideFlags: 0
@@ -995,18 +1004,26 @@ MonoBehaviour:
   - islandType: 3
     so: {fileID: 11400000, guid: ba9157f8b49794c478d4e8610569ff62, type: 2}
   cubeConfigs:
-  - cubeType: 4
-    so: {fileID: 11400000, guid: 6e9b4a895a7f0174194254309a284d20, type: 2}
   - cubeType: 1
-    so: {fileID: 11400000, guid: 7752538de6deed44ab4ba165d9086e25, type: 2}
+    so: {fileID: 11400000, guid: c979f92f1347a2f4bacdceeae404c4ab, type: 2}
   - cubeType: 2
-    so: {fileID: 11400000, guid: b8d57584e620a77408b22dbbde587156, type: 2}
+    so: {fileID: 11400000, guid: c141d1a27f753354585f99e033fb2b9f, type: 2}
   - cubeType: 3
+    so: {fileID: 11400000, guid: 7752538de6deed44ab4ba165d9086e25, type: 2}
+  - cubeType: 4
+    so: {fileID: 11400000, guid: b8d57584e620a77408b22dbbde587156, type: 2}
+  - cubeType: 5
     so: {fileID: 11400000, guid: f84764fedd8bf7747b5d8c1b6902259f, type: 2}
   - cubeType: 6
-    so: {fileID: 11400000, guid: 904cd04fe4eeb0542935a39a6fc5baa5, type: 2}
+    so: {fileID: 11400000, guid: 6e9b4a895a7f0174194254309a284d20, type: 2}
   - cubeType: 7
+    so: {fileID: 0}
+  - cubeType: 8
+    so: {fileID: 11400000, guid: 904cd04fe4eeb0542935a39a6fc5baa5, type: 2}
+  - cubeType: 9
     so: {fileID: 11400000, guid: 8a97c72075332fd4580213ed10317a61, type: 2}
+  - cubeType: 10
+    so: {fileID: 11400000, guid: 1431ca7c10d51744a9a8f70210d5b19d, type: 2}
   cubePresets:
   - presetType: 1
     so: {fileID: 11400000, guid: fe86d5b7f7831c64a9b025b5a3171324, type: 2}

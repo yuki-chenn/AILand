@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellType: 1
   distributions:
-  - cubeType: 3
+  - cubeType: 5
     count: 0
     weight: 1
-  - cubeType: 2
+  - cubeType: 4
     count: 5
     weight: 0
-  - cubeType: 4
+  - cubeType: 6
     count: 1
     weight: 0
   cumulativeWeights:

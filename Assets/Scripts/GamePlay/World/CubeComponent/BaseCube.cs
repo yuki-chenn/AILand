@@ -47,7 +47,7 @@ namespace AILand.GamePlay.World.Cube
 
         #region 交互接口
 
-        public void OnFocus()
+        public virtual void OnFocus()
         {
             if (m_focusOutline)
             {
@@ -57,12 +57,12 @@ namespace AILand.GamePlay.World.Cube
             
         }
 
-        public void OnLostFocus()
+        public virtual void OnLostFocus()
         {
             if(m_focusOutline) m_focusOutline.enabled = false;
         }
 
-        public void Interact()
+        public virtual void Interact()
         {
             
         }

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017e453b2e574ba1a23f55abb066a84d, type: 3}
   m_Name: CubeConfig_Stone
   m_EditorClassIdentifier: 
-  cubeType: 3
+  cubeType: 5
   cubePrefab: {fileID: 1400228509039700, guid: bbf4d13065f2bfb4f9b64f016207b0cc, type: 3}
+  canDestroy: 1

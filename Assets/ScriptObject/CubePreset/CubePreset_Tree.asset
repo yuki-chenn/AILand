@@ -19,119 +19,119 @@ MonoBehaviour:
   connectToIsland: 1
   cellWater: 2
   canReplace: 0
-  connectedCubeTypes: 0400000002000000
+  connectedCubeTypes: 0600000004000000
   cubes:
   - position: {x: 0, y: 0, z: 0}
-    cubeType: 6
+    cubeType: 8
     rotation: 0
   - position: {x: 0, y: 1, z: 0}
-    cubeType: 6
+    cubeType: 8
     rotation: 0
   - position: {x: 0, y: 2, z: 0}
-    cubeType: 6
+    cubeType: 8
     rotation: 0
   - position: {x: 0, y: 3, z: 0}
-    cubeType: 6
+    cubeType: 8
     rotation: 0
   - position: {x: 0, y: 4, z: 0}
-    cubeType: 6
+    cubeType: 8
     rotation: 0
   - position: {x: 1, y: 4, z: 0}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 0, y: 5, z: 0}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 1, y: 3, z: 0}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 2, y: 3, z: 0}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 0, y: 4, z: 1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 0, y: 3, z: 1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 0, y: 3, z: 2}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 0, y: 4, z: -1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 0, y: 3, z: -1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 0, y: 3, z: -2}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 1, y: 4, z: -1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 1, y: 3, z: -1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 2, y: 3, z: -1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 1, y: 3, z: -2}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 2, y: 3, z: -2}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: -1, y: 4, z: 0}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: -1, y: 3, z: 0}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: -2, y: 3, z: 0}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: -1, y: 4, z: -1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: -1, y: 3, z: -1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: -1, y: 3, z: -2}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: -2, y: 3, z: -1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: -2, y: 3, z: -2}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: -1, y: 4, z: 1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: -1, y: 3, z: 1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: -2, y: 3, z: 1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: -1, y: 3, z: 2}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: -2, y: 3, z: 2}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 1, y: 4, z: 1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 1, y: 3, z: 1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 1, y: 3, z: 2}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 2, y: 3, z: 1}
-    cubeType: 7
+    cubeType: 9
     rotation: 0
   - position: {x: 2, y: 3, z: 2}
-    cubeType: 7
+    cubeType: 9
     rotation: 0

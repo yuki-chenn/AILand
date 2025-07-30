@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017e453b2e574ba1a23f55abb066a84d, type: 3}
   m_Name: CubeConfig_Sand
   m_EditorClassIdentifier: 
-  cubeType: 1
+  cubeType: 3
   cubePrefab: {fileID: 1063049674197416, guid: 60153b04cb7af254aadd7da524fa8ece, type: 3}
+  canDestroy: 1

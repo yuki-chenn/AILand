@@ -276,7 +276,7 @@ namespace AILand.GamePlay.World
                 }
             }
 
-            if (ty == -1)
+            if (ty == -1 || tcell == null)
             {
                 Debug.LogWarning($"AddPreset error: No suitable position found for preset {presetType} in block {m_blockID}.");
                 return false;

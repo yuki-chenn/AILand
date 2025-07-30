@@ -47,6 +47,13 @@ namespace AILand.GamePlay.World
         
         public void AddCube(Vector3Int position, CubeType type, int rotation)
         {
+            // 检查位置是否已经存在方块
+            if (GetCubeAt(position) != null)
+            {
+                Debug.LogWarning($"位置 {position} 已经存在方块，无法添加");
+                return;
+            }
+            
             var cubeData = new PresetCubeData
             {
                 position = position,

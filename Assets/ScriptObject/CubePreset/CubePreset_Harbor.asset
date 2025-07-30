@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CubePreset_Harbor
   m_EditorClassIdentifier: 
   minPoint: {x: 0, y: 0, z: 0}
-  maxPoint: {x: 2, y: 0, z: 5}
+  maxPoint: {x: 7, y: 2, z: 6}
   canRotate: 0
   fixedHeight: 0
   connectToIsland: 1
@@ -21,57 +21,507 @@ MonoBehaviour:
   canReplace: 0
   connectedCubeTypes: 00000000
   cubes:
-  - position: {x: 0, y: 0, z: 0}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 1, y: 0, z: 0}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 2, y: 0, z: 0}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 0, y: 0, z: 1}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 1, y: 0, z: 1}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 2, y: 0, z: 1}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 0, y: 0, z: 2}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 1, y: 0, z: 2}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 2, y: 0, z: 2}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 0, y: 0, z: 3}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 1, y: 0, z: 3}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 2, y: 0, z: 3}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 0, y: 0, z: 4}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 1, y: 0, z: 4}
-    cubeType: 3
-    rotation: 0
-  - position: {x: 2, y: 0, z: 4}
-    cubeType: 3
+  - position: {x: 0, y: 0, z: 6}
+    cubeType: 10
     rotation: 0
   - position: {x: 0, y: 0, z: 5}
-    cubeType: 3
+    cubeType: 10
+    rotation: 0
+  - position: {x: 0, y: 0, z: 4}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 0, y: 0, z: 3}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 0, y: 0, z: 2}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 0, y: 0, z: 1}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 0, y: 0, z: 0}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 1, y: 0, z: 6}
+    cubeType: 10
     rotation: 0
   - position: {x: 1, y: 0, z: 5}
-    cubeType: 3
+    cubeType: 10
+    rotation: 0
+  - position: {x: 1, y: 0, z: 4}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 1, y: 0, z: 3}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 1, y: 0, z: 2}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 1, y: 0, z: 1}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 1, y: 0, z: 0}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 2, y: 0, z: 6}
+    cubeType: 10
     rotation: 0
   - position: {x: 2, y: 0, z: 5}
-    cubeType: 3
+    cubeType: 10
+    rotation: 0
+  - position: {x: 2, y: 0, z: 4}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 2, y: 0, z: 3}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 2, y: 0, z: 2}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 2, y: 0, z: 1}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 2, y: 0, z: 0}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 3, y: 0, z: 0}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 4, y: 0, z: 0}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 5, y: 0, z: 0}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 6, y: 0, z: 0}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 7, y: 0, z: 6}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 7, y: 0, z: 5}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 7, y: 0, z: 4}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 7, y: 0, z: 3}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 7, y: 0, z: 2}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 7, y: 0, z: 1}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 7, y: 0, z: 0}
+    cubeType: 10
+    rotation: 0
+  - position: {x: 0, y: 1, z: 6}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 0, y: 1, z: 5}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 0, y: 1, z: 4}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 0, y: 1, z: 3}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 0, y: 1, z: 2}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 0, y: 1, z: 1}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 0, y: 1, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 1, z: 6}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 1, z: 5}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 1, z: 4}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 1, z: 3}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 1, z: 2}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 1, z: 1}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 1, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 1, z: 6}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 1, z: 5}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 1, z: 4}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 1, z: 3}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 1, z: 2}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 1, z: 1}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 1, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 3, y: 1, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 4, y: 1, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 5, y: 1, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 6, y: 1, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 1, z: 6}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 1, z: 5}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 1, z: 4}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 1, z: 3}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 1, z: 2}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 1, z: 1}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 1, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 0, y: 2, z: 6}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 0, y: 2, z: 5}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 0, y: 2, z: 4}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 0, y: 2, z: 3}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 0, y: 2, z: 2}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 0, y: 2, z: 1}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 0, y: 2, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 2, z: 6}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 2, z: 5}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 2, z: 4}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 2, z: 3}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 2, z: 2}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 2, z: 1}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 1, y: 2, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 2, z: 6}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 2, z: 5}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 2, z: 4}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 2, z: 3}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 2, z: 2}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 2, z: 1}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 2, y: 2, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 3, y: 2, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 4, y: 2, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 5, y: 2, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 6, y: 2, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 2, z: 6}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 2, z: 5}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 2, z: 4}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 2, z: 3}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 2, z: 2}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 2, z: 1}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 7, y: 2, z: 0}
+    cubeType: 2
+    rotation: 0
+  - position: {x: 3, y: 0, z: 6}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 0, z: 5}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 0, z: 4}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 0, z: 3}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 0, z: 2}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 0, z: 1}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 0, z: 6}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 0, z: 5}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 0, z: 4}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 0, z: 3}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 0, z: 2}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 0, z: 1}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 0, z: 6}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 0, z: 5}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 0, z: 4}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 0, z: 3}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 0, z: 2}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 0, z: 1}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 0, z: 6}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 0, z: 5}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 0, z: 4}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 0, z: 3}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 0, z: 2}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 0, z: 1}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 1, z: 6}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 1, z: 5}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 1, z: 4}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 1, z: 3}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 1, z: 2}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 1, z: 1}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 1, z: 6}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 1, z: 5}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 1, z: 4}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 1, z: 3}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 1, z: 2}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 1, z: 1}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 1, z: 6}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 1, z: 5}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 1, z: 4}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 1, z: 3}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 1, z: 2}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 1, z: 1}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 1, z: 6}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 1, z: 5}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 1, z: 4}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 1, z: 3}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 1, z: 2}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 1, z: 1}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 2, z: 6}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 2, z: 5}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 2, z: 4}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 2, z: 3}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 2, z: 2}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 3, y: 2, z: 1}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 2, z: 6}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 2, z: 5}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 2, z: 4}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 2, z: 3}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 2, z: 2}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 4, y: 2, z: 1}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 2, z: 6}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 2, z: 5}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 2, z: 4}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 2, z: 3}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 2, z: 2}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 5, y: 2, z: 1}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 2, z: 6}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 2, z: 5}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 2, z: 4}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 2, z: 3}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 2, z: 2}
+    cubeType: 1
+    rotation: 0
+  - position: {x: 6, y: 2, z: 1}
+    cubeType: 1
     rotation: 0

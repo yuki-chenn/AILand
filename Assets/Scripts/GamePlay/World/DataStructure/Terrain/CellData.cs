@@ -77,27 +77,36 @@ namespace AILand.GamePlay.World
             }
         }
         
+        
+        
         private bool IsInVisible(CubeData cube)
         {
             int y = cube.YHeight;
 
             var upCube = GetCubeData(y + 1);
-            bool up = y + 1 < m_cubes.Count && upCube != null && upCube.CubeType != CubeType.None;
+            bool up = y + 1 < m_cubes.Count
+                      && !Constants.VisibleCubeTypes.Contains(upCube?.CubeType);
             
             var downCube = GetCubeData(y - 1);
-            bool down = y == 0 || GetCubeData(y - 1) != null && downCube.CubeType != CubeType.None;
+            bool down = y == 0
+                        || GetCubeData(y - 1) != null
+                        && !Constants.VisibleCubeTypes.Contains(downCube?.CubeType);
             
             var leftCube = m_blockData.GetCellData(m_index.x - 1, m_index.y)?.GetCubeData(y);
-            bool left = leftCube != null && leftCube.CubeType != CubeType.None;
+            bool left = leftCube != null 
+                        && !Constants.VisibleCubeTypes.Contains(leftCube?.CubeType);
             
             var rightCube = m_blockData.GetCellData(m_index.x + 1, m_index.y)?.GetCubeData(y);
-            bool right = rightCube != null && rightCube.CubeType != CubeType.None;
+            bool right = rightCube != null
+                         && !Constants.VisibleCubeTypes.Contains(rightCube?.CubeType);
             
             var frontCube = m_blockData.GetCellData(m_index.x, m_index.y - 1)?.GetCubeData(y);
-            bool front = frontCube != null && frontCube.CubeType != CubeType.None;
+            bool front = frontCube != null 
+                         && !Constants.VisibleCubeTypes.Contains(frontCube?.CubeType);
             
             var backCube = m_blockData.GetCellData(m_index.x, m_index.y + 1)?.GetCubeData(y);
-            bool back = backCube != null && backCube.CubeType != CubeType.None;
+            bool back = backCube != null 
+                        && !Constants.VisibleCubeTypes.Contains(backCube?.CubeType);
             
             return up && down && left && right && front && back;
         }
