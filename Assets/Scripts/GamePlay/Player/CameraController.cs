@@ -56,6 +56,24 @@ namespace AILand.GamePlay.Player
             EventCenter.RemoveListener(EventType.OnShowUIPanel, OnShowUIPanel);
             EventCenter.RemoveListener(EventType.OnHideUIPanel, OnHideUIPanel);
         }
+        
+        public void ChangeCameraPlayer(Transform newPlayer,float y_offset=float.MaxValue)
+        {
+            y_offset = Mathf.Approximately(y_offset, float.MaxValue) ? m_offsetDistanceY : y_offset;
+            if (newPlayer == null)
+            {
+                Debug.LogError($"change camera player failed, newPlayer {newPlayer.name} is null");
+                return;
+            }
+            player = newPlayer;
+            transform.position = player.position + new Vector3(0, y_offset, 0);
+        }
+        
+        public void ChangeDefaultCameraPlayer()
+        {
+            player = GameManager.Instance.player.transform;
+            transform.position = player.position + new Vector3(0, m_offsetDistanceY, 0);
+        }
 
 
         private void OnShowUIPanel()

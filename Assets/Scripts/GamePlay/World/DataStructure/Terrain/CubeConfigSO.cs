@@ -11,6 +11,8 @@ namespace AILand.GamePlay.World
         public GameObject cubePrefab;
         
         public bool canDestroy = true;
-        
+
+        public bool canPlaceCubeOn = true;
+
     }
 }

@@ -14,6 +14,14 @@ namespace AILand.GamePlay.World
         public CubeType cubeType;    // 方块类型
         public int rotation; // 旋转角度，0, 1, 2, 3
     }
+
+    [Serializable]
+    public struct PresetPropData
+    {
+        public Vector3Int position;
+        public Quaternion rotation; // 旋转角度
+        public PropType propType;    
+    }
     
     [CreateAssetMenu(fileName = "CubePreset_", menuName = "创建方块组合预设")]
     public class CubePresetSO : ScriptableObject
@@ -32,6 +40,7 @@ namespace AILand.GamePlay.World
         
         
         public List<PresetCubeData> cubes = new List<PresetCubeData>();
+        public List<PresetPropData> props = new List<PresetPropData>();
         
         
         public PresetCubeData? GetCubeAt(Vector3Int position)
@@ -61,6 +70,35 @@ namespace AILand.GamePlay.World
                 rotation = rotation
             };
             cubes.Add(cubeData);
+        }
+        
+        public PresetPropData? GetPropAt(Vector3Int position)
+        {
+            foreach (var prop in props)
+            {
+                if (prop.position == position)
+                    return prop;
+            }
+            return null;
+        }
+
+        
+        public void AddProp(Vector3Int position, PropType type, Quaternion rotation)
+        {
+            // 检查位置是否已经存在方块
+            if (GetPropAt(position) != null)
+            {
+                Debug.LogWarning($"位置 {position} 已经存在prop，无法添加");
+                return;
+            }
+            
+            var propData = new PresetPropData()
+            {
+                position = position,
+                propType = type,
+                rotation = rotation
+            };
+            props.Add(propData);
         }
         
     }

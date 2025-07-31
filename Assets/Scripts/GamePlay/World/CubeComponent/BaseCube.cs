@@ -29,7 +29,7 @@ namespace AILand.GamePlay.World.Cube
 
         public void OnGetFromPool()
         {
-            m_focusOutline.enabled = false;
+            if(m_focusOutline) m_focusOutline.enabled = false;
         }
 
         public void OnReleaseToPool()

@@ -8,6 +8,7 @@ namespace AILand.GamePlay.World
     {
         public GameObject generatePlatform;
         public Transform cubeHolder;
+        public Transform propHolder;
         public GameObject water;
         public Renderer lowTerrainRenderer;
         

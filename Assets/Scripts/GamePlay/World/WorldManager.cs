@@ -24,6 +24,7 @@ namespace AILand.GamePlay.World
         public int border = 2;
 
         private WorldData m_worldData;
+        
         private List<CellData> m_loadedCells = new List<CellData>();
 
 
@@ -52,6 +53,9 @@ namespace AILand.GamePlay.World
             
             // 加载玩家附近区域的方块
             LoadCubesAroundPlayer(playerPosition, Time.frameCount % 60 == 0);
+            
+            // 加载玩家附近区域的道具
+            LoadPropsAroundPlayer(playerPosition, Time.frameCount % 60 == 0);
             
             // 更新低地形纹理
             UpdateLowTerrain(GameManager.Instance.player.transform.position);
@@ -140,7 +144,9 @@ namespace AILand.GamePlay.World
                 Debug.LogWarning($"No cube found at position ({x}, {y}, {z}) to destroy.");
                 return;
             }
+            // TODO: 范围导致无法破坏
             
+            // 方块属性无法破坏
             if(cubeData.CubeConfig.canDestroy) block.DestoryCube(x, y, z);
             else
             {
@@ -148,9 +154,15 @@ namespace AILand.GamePlay.World
             }
         }
 
-        public void PlaceCube(Vector3Int posIndex, CubeType cubeType)
+        public void PlaceCube(Vector3Int posIndex, CubeType cubeType, BaseCube cubeFocus)
         {
             // TODO : 检查是否能够放置方块
+            if (!SOManager.Instance.cubeConfigDict[cubeFocus.CubeType].canPlaceCubeOn)
+            {
+                Debug.Log($"Cannot place cube of type {cubeFocus.CubeType}");
+                return;
+            }
+            
             if(posIndex.x < 0 || posIndex.x >= m_blockWidth ||
                posIndex.y < 0 || posIndex.y >= Constants.BuildMaxHeight ||
                posIndex.z < 0 || posIndex.z >= m_blockHeight)
@@ -158,6 +170,8 @@ namespace AILand.GamePlay.World
                 // 超出范围
                 return;
             }
+            
+            
             // 如果此时玩家和方块碰撞，直接返回
             Vector3 playerPosition = GameManager.Instance.player.transform.position;
             // 玩家两格高
@@ -308,7 +322,7 @@ namespace AILand.GamePlay.World
             for (int i = m_loadedCells.Count - 1; i >= 0; i--)
             {
                 var cell = m_loadedCells[i];
-                if (!isCellInSight(cell, localIndex))
+                if (!IsCellInSight(cell, localIndex))
                 {
                     cell.Unload();
                     m_loadedCells.RemoveAt(i);
@@ -346,8 +360,36 @@ namespace AILand.GamePlay.World
             
             
         }
+
+        public void LoadPropsAroundPlayer(Vector3 playerPosition, bool forceAll = false)
+        {
+            var localIndex = new Vector2Int();
+            var blockIndex = Util.GetBlockIndexByWorldPosition(playerPosition, m_blockWidth, m_blockHeight,ref localIndex);
+            
+            // 获取玩家所在的Block
+            var block = m_worldData.GetBlock(blockIndex);
+            
+            if(!block.IsCreated) return;
+            
+            // 卸载不在视野内的prop,加载在视野内的prop
+            foreach (var prop in block.Props)
+            {
+                if (!IsPropInSight(prop, localIndex))
+                {
+                    prop.Unload();
+                }
+                else
+                {
+                    prop.Load();
+                }
+            }
+            
+            
+            
+        }
         
-        private bool isCellInSight(CellData cell, Vector2Int localIndex)
+        
+        private bool IsCellInSight(CellData cell, Vector2Int localIndex)
         {
             // 检查cell是否在视野范围内
             int dx = cell.Index.x - localIndex.x;
@@ -356,7 +398,30 @@ namespace AILand.GamePlay.World
             return Math.Abs(dx) <= sight && Math.Abs(dz) <= sight;
         }
 
-        
+        private bool IsPropInSight(PropData prop, Vector2Int localIndex)
+        {
+            // 检查cell是否在视野范围内
+            int dx = 0;
+            int dz = 0;
+
+            if (!prop.IsLoad)
+            {
+                dx = prop.Index.x - localIndex.x; 
+                dz = prop.Index.z - localIndex.y;
+            }
+            else
+            {
+                if(prop.InstanceGo == null)
+                {
+                    Debug.LogWarning($"Prop {prop.Index} is loaded but InstanceGo is null.");
+                    return false;
+                }
+                dx = Mathf.RoundToInt(prop.InstanceGo.transform.position.x - localIndex.x);
+                dz = Mathf.RoundToInt(prop.InstanceGo.transform.position.z - localIndex.y);
+            }
+            
+            return Math.Abs(dx) <= sight && Math.Abs(dz) <= sight;
+        }
         // 根据玩家位置修改lowTerrain
         public void UpdateLowTerrain(Vector3 playerPosition)
         {

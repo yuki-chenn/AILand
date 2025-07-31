@@ -7,14 +7,14 @@ namespace AILand.GamePlay
 {
     public class PlayerInteraction : MonoBehaviour
     {
-        public float interactRadius = 3f;
-        public LayerMask interactLayer;
+        public float propInteractRadius = 3f;
+        public LayerMask propInteractLayer;
         
         public LayerMask cubeLayer;
         public float rayStartDistance = 5f;
         public float raycastDistance = 5f;
 
-        private IInteractable m_interactableObject;
+        private IInteractable m_interactableProp;
         
         
         private Camera playerCamera => GameManager.Instance.mainCamera;
@@ -34,37 +34,47 @@ namespace AILand.GamePlay
 
         void Update()
         {
-            DetectInteractableAround();
+            DetectInteractableProp();
 
             DetectInteractableCube();
         }
         
-        private void DetectInteractableAround()
+        private void DetectInteractableProp()
         {
-            m_interactableObject = null;
-            
             // 在玩家位置附近的球形范围内检测
-            Collider[] hits = Physics.OverlapSphere(transform.position, interactRadius, interactLayer);
+            Collider[] hits = Physics.OverlapSphere(transform.position, propInteractRadius, propInteractLayer);
+            
             float minDist = float.MaxValue;
+            IInteractable interactableObj = null;
+            
             foreach (var hit in hits)
             {
-                var interactable = hit.GetComponent<IInteractable>();
-                if (interactable != null)
+                var it = hit.GetComponent<IInteractable>();
+                if (it != null)
                 {
                     float dist = Vector3.Distance(transform.position, hit.transform.position);
                     if (dist < minDist)
                     {
                         minDist = dist;
-                        m_interactableObject = interactable;
+                        interactableObj = it;
                     }
                 }
             }
 
-            if (m_interactableObject != null)
+            // 焦点
+            if (m_interactableProp != interactableObj)
+            {
+                m_interactableProp?.OnLostFocus();
+                m_interactableProp = interactableObj;
+                m_interactableProp?.OnFocus();
+            }
+
+            // 交互
+            if (m_interactableProp != null)
             {
                 if (Input.GetKeyDown(KeyCode.F))
                 {
-                    m_interactableObject.Interact();
+                    m_interactableProp.Interact();
                 }
             }
         }
@@ -72,8 +82,6 @@ namespace AILand.GamePlay
         private void DetectInteractableCube()
         {
             // 从屏幕中心发射射线
-            
-            
             Debug.DrawRay(m_ray.origin, m_ray.direction * raycastDistance, Color.red);
             
             RaycastHit hit;
@@ -107,7 +115,7 @@ namespace AILand.GamePlay
                         Vector3 hitNormal = hit.normal;
             
                         // 根据法向量计算新方块的位置
-                        Vector3 newCubePosition = hit.point + hitNormal * 0.5f; // 0.5f是方块大小的一半
+                        Vector3 newCubePosition = hit.point + hitNormal * 0.5f;
             
                         // 将位置转换为整数网格坐标
                         Vector3Int gridPosition = new Vector3Int(
@@ -119,7 +127,7 @@ namespace AILand.GamePlay
                         Debug.Log($"Placing cube at grid position: {gridPosition}");
             
                         // 在新位置创建方块
-                        WorldManager.Instance.PlaceCube(gridPosition, CubeType.Stone); // 假设有这个方法
+                        WorldManager.Instance.PlaceCube(gridPosition, CubeType.Stone, m_cubeFoucs as BaseCube); 
                     }
                 }
             }

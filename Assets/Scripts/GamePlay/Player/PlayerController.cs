@@ -4,15 +4,17 @@ namespace AILand.GamePlay.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        
+        [Header("速度")]
         public float velocity = 5f;
         
+        [Header("冲刺加速度")]
         public float sprintAdittion = 3.5f;
         
+        [Header("跳跃参数")]
         public float jumpForce = 18f;
-        
         public float jumpTime = 0.85f;
         
+        [Header("重力")]
         public float gravity = 9.8f;
         
         

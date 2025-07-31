@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using AILand.GamePlay.World;
 using AILand.GamePlay.World.Cube;
+using AILand.GamePlay.World.Prop;
 using UnityEditor;
 using UnityEngine;
 
@@ -62,12 +63,18 @@ namespace AILand.Utils
 
         private void BuildPresetFromScene(CubePresetSO preset, CubePreset cubePreset)
         {
+            Undo.RecordObject(preset, "从场景构建预设");
+            BuildCubeInPreset(preset,cubePreset);
+            BuildPropInPreset(preset,cubePreset);
+        }
+
+        private void BuildCubeInPreset(CubePresetSO preset, CubePreset cubePreset)
+        {
             var parent = cubePreset.transform;
 
             // 查找该物体下的所有方块
             var cubes = parent.GetComponentsInChildren<BaseCube>();
             
-            Undo.RecordObject(preset, "从场景构建预设");
             preset.cubes.Clear();
 
             if (cubes.Length == 0)
@@ -88,6 +95,33 @@ namespace AILand.Utils
             Debug.Log($"预设构建完成，包含 {preset.cubes.Count} 个方块");
         }
 
+        private void BuildPropInPreset(CubePresetSO preset, CubePreset cubePreset)
+        {
+            var parent = cubePreset.transform;
+
+            // 查找该物体下的所有道具
+            var props = parent.GetComponentsInChildren<BaseProp>();
+            
+            preset.props.Clear();
+
+            if (props.Length == 0)
+            {
+                Debug.LogWarning($"{parent.name} 中没有找到道具");
+                return;
+            }
+
+            // 添加道具数据
+            foreach (var prop in props)
+            {
+                Vector3Int localPos = Vector3Int.RoundToInt(prop.transform.localPosition);
+                Quaternion rotation = prop.transform.rotation;
+                preset.AddProp(localPos, prop.PropType, rotation);
+            }
+
+            EditorUtility.SetDirty(preset);
+            Debug.Log($"预设道具构建完成，包含 {preset.props.Count} 个道具");
+        }
+        
         private void AutoCalculateRange(CubePresetSO preset, CubePreset cubePreset)
         {
             if (preset.cubes.Count == 0)
@@ -120,14 +154,20 @@ namespace AILand.Utils
 
         private void PreviewInScene(CubePresetSO preset)
         {
-            var parent = (target as CubePreset)?.transform;
-
-            if (preset == null || preset.cubes.Count == 0)
+            if (preset == null)
             {
                 Debug.LogWarning("预设数据为空，无法预览");
                 return;
             }
+            
+            PreviewCube(preset);
+            PreviewProp(preset);
+            
+        }
 
+        private void PreviewCube(CubePresetSO preset)
+        {
+            var parent = (target as CubePreset)?.transform;
             // 清除之前的预览
             var existingCubes = parent.GetComponentsInChildren<BaseCube>();
             foreach (var cube in existingCubes)
@@ -149,6 +189,33 @@ namespace AILand.Utils
                 Vector3 position = new Vector3(cubeData.position.x, cubeData.position.y, cubeData.position.z) + parent.position;
                 GameObject cubeInstance = Instantiate(cubePrefab, position, Quaternion.identity, parent);
                 cubeInstance.name = $"{cubeData.cubeType} ({position})";
+            }
+        }
+        
+        private void PreviewProp(CubePresetSO preset)
+        {
+            var parent = (target as CubePreset)?.transform;
+            // 清除之前的预览
+            var existingProps = parent.GetComponentsInChildren<BaseProp>();
+            foreach (var prop in existingProps)
+            {
+                DestroyImmediate(prop.gameObject);
+            }
+
+            // 创建新的预览方块
+            foreach (var propData in preset.props)
+            {
+                string path = $"Assets/Prefabs/Prop/{propData.propType}.prefab";
+                GameObject cubePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                if (cubePrefab == null)
+                {
+                    Debug.LogWarning($"未找到prop预设: {path}");
+                    continue;
+                }
+
+                Vector3 position = new Vector3(propData.position.x, propData.position.y, propData.position.z) + parent.position;
+                GameObject cubeInstance = Instantiate(cubePrefab, position, Quaternion.identity, parent);
+                cubeInstance.name = $"{propData.propType} ({position})";
             }
         }
     }

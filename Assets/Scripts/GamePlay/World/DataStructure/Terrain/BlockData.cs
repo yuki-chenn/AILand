@@ -35,6 +35,10 @@ namespace AILand.GamePlay.World
         private CellData[,] m_cells;
         public CellData[,] Cells => m_cells;
         
+        // 所有Prop数据
+        private List<PropData> m_props = new List<PropData>();
+        public List<PropData> Props => m_props;
+        
         // 该区块的岛屿信息
         private PCGIslandInfo m_islandInfo;
 
@@ -197,6 +201,12 @@ namespace AILand.GamePlay.World
             // 需要load旁边的cell
             if(needLoad) LoadAroundCells(x, z);
         }
+
+        public void AddProp(PropType propType, Vector3Int index, Quaternion rotation)
+        {
+            PropData propData = new PropData(this, propType, index, rotation);
+            m_props.Add(propData);
+        }
         
         private void InitOuterWater()
         {
@@ -292,6 +302,7 @@ namespace AILand.GamePlay.World
 
         private void PlacePreset(Vector3Int rootIndex, CubePresetSO preset)
         {
+            // cube
             foreach (var cube in preset.cubes)
             {
                 var index = cube.position + rootIndex;
@@ -300,6 +311,13 @@ namespace AILand.GamePlay.World
                     DestoryCube(index.x, index.y, index.z, false);
                 AddCube(index.x, index.y, index.z, cube.cubeType, cube.rotation, false);
             }
+            
+            // prop
+            foreach (var prop in preset.props)
+            {
+                AddProp(prop.propType, prop.position + rootIndex, prop.rotation);
+            }
+            
         }
 
         private int CanPlacePreset(CellData cell, CubePresetSO preset)
@@ -409,7 +427,6 @@ namespace AILand.GamePlay.World
 
             return false;
         }
-        
         
         public CellData GetCellData(int x,int z)
         {

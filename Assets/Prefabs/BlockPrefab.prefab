@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 8869757794126507714}
   - component: {fileID: 3812119834044261599}
   - component: {fileID: 8301966633908903496}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,6 +415,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d8139de12c22e4ba3bbea2df282abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7526982404065815134
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8809383004172855651}
+  m_Layer: 0
+  m_Name: PropHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8809383004172855651
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7526982404065815134}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 204847116603657941}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7658679880996717647
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,6 +561,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 687842254065174634}
+  - {fileID: 8809383004172855651}
   - {fileID: 2345430790114874056}
   - {fileID: 94231325487066147}
   - {fileID: 3918654039727928453}
@@ -550,6 +582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generatePlatform: {fileID: 1766596572267432946}
   cubeHolder: {fileID: 687842254065174634}
+  propHolder: {fileID: 8809383004172855651}
   water: {fileID: 7658679880996717647}
   lowTerrainRenderer: {fileID: 1226644002019809100}
 --- !u!114 &-1607550936970748600

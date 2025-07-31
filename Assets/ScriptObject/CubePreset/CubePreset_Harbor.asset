@@ -310,22 +310,22 @@ MonoBehaviour:
     cubeType: 2
     rotation: 0
   - position: {x: 3, y: 0, z: 6}
-    cubeType: 1
+    cubeType: 10
     rotation: 0
   - position: {x: 3, y: 0, z: 5}
-    cubeType: 1
+    cubeType: 10
     rotation: 0
   - position: {x: 3, y: 0, z: 4}
-    cubeType: 1
+    cubeType: 10
     rotation: 0
   - position: {x: 3, y: 0, z: 3}
-    cubeType: 1
+    cubeType: 10
     rotation: 0
   - position: {x: 3, y: 0, z: 2}
-    cubeType: 1
+    cubeType: 10
     rotation: 0
   - position: {x: 3, y: 0, z: 1}
-    cubeType: 1
+    cubeType: 10
     rotation: 0
   - position: {x: 4, y: 0, z: 6}
     cubeType: 1
@@ -382,22 +382,22 @@ MonoBehaviour:
     cubeType: 1
     rotation: 0
   - position: {x: 3, y: 1, z: 6}
-    cubeType: 1
+    cubeType: 2
     rotation: 0
   - position: {x: 3, y: 1, z: 5}
-    cubeType: 1
+    cubeType: 2
     rotation: 0
   - position: {x: 3, y: 1, z: 4}
-    cubeType: 1
+    cubeType: 2
     rotation: 0
   - position: {x: 3, y: 1, z: 3}
-    cubeType: 1
+    cubeType: 2
     rotation: 0
   - position: {x: 3, y: 1, z: 2}
-    cubeType: 1
+    cubeType: 2
     rotation: 0
   - position: {x: 3, y: 1, z: 1}
-    cubeType: 1
+    cubeType: 2
     rotation: 0
   - position: {x: 4, y: 1, z: 6}
     cubeType: 1
@@ -454,22 +454,22 @@ MonoBehaviour:
     cubeType: 1
     rotation: 0
   - position: {x: 3, y: 2, z: 6}
-    cubeType: 1
+    cubeType: 2
     rotation: 0
   - position: {x: 3, y: 2, z: 5}
-    cubeType: 1
+    cubeType: 2
     rotation: 0
   - position: {x: 3, y: 2, z: 4}
-    cubeType: 1
+    cubeType: 2
     rotation: 0
   - position: {x: 3, y: 2, z: 3}
-    cubeType: 1
+    cubeType: 2
     rotation: 0
   - position: {x: 3, y: 2, z: 2}
-    cubeType: 1
+    cubeType: 2
     rotation: 0
   - position: {x: 3, y: 2, z: 1}
-    cubeType: 1
+    cubeType: 2
     rotation: 0
   - position: {x: 4, y: 2, z: 6}
     cubeType: 1
@@ -525,3 +525,7 @@ MonoBehaviour:
   - position: {x: 6, y: 2, z: 1}
     cubeType: 1
     rotation: 0
+  props:
+  - position: {x: 5, y: 0, z: 3}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+    propType: 1

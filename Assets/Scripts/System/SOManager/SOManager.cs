@@ -45,6 +45,16 @@ namespace AILand.System.SOManager
     }
     
     [Serializable]
+    public struct PropConfig : IKeyValuePair<PropType, PropConfigSO>
+    {
+        public PropType propType;
+        public PropConfigSO so;
+        
+        PropType IKeyValuePair<PropType, PropConfigSO>.key => propType;
+        PropConfigSO IKeyValuePair<PropType, PropConfigSO>.value => so;
+    }
+    
+    [Serializable]
     public struct CubePreset : IKeyValuePair<CubePresetType, CubePresetSO>
     {
         public CubePresetType presetType;
@@ -65,6 +75,9 @@ namespace AILand.System.SOManager
         [Header("每个方块类型对应的配置")]
         public List<CubeConfig> cubeConfigs = new List<CubeConfig>();
         
+        [Header("每个prop类型对应的配置")]
+        public List<PropConfig> propConfigs = new List<PropConfig>();
+        
         [Header("Preset配置")]
         public List<CubePreset> cubePresets = new List<CubePreset>();
 
@@ -77,6 +90,9 @@ namespace AILand.System.SOManager
         public Dictionary<CubeType, CubeConfigSO> cubeConfigDict =
             new Dictionary<CubeType, CubeConfigSO>();
         
+        public Dictionary<PropType, PropConfigSO> propConfigDict =
+            new Dictionary<PropType, PropConfigSO>();
+        
         public Dictionary<CubePresetType, CubePresetSO> cubePresetDict =
             new Dictionary<CubePresetType, CubePresetSO>();
 
@@ -87,6 +103,7 @@ namespace AILand.System.SOManager
             RegisterDictionary(heightDistributions, heightDistributionDict, "HeightDistributionConfigSO");
             RegisterDictionary(islandConfigs, islandConfigDict, "IslandConfigSO");
             RegisterDictionary(cubeConfigs, cubeConfigDict, "CubeConfigSO");
+            RegisterDictionary(propConfigs, propConfigDict, "PropConfigSO");
             RegisterDictionary(cubePresets, cubePresetDict, "CubePresetSO");
         }
 

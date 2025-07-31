@@ -578,6 +578,9 @@ MonoBehaviour:
   - prefab: {fileID: 1074585325661610256, guid: 718e7a48c87712b4a8a1d4897eb46d6c, type: 3}
     defaultCapacity: 10
     maxSize: 100
+  - prefab: {fileID: 4870420275675529372, guid: 3d30db0d72691ef40bf1851619d01442, type: 3}
+    defaultCapacity: 10
+    maxSize: 100
 --- !u!4 &511311833
 Transform:
   m_ObjectHideFlags: 0
@@ -1024,6 +1027,9 @@ MonoBehaviour:
     so: {fileID: 11400000, guid: 8a97c72075332fd4580213ed10317a61, type: 2}
   - cubeType: 10
     so: {fileID: 11400000, guid: 1431ca7c10d51744a9a8f70210d5b19d, type: 2}
+  propConfigs:
+  - propType: 1
+    so: {fileID: 11400000, guid: 727b71b706e441a4991c4964e8ed9dd8, type: 2}
   cubePresets:
   - presetType: 1
     so: {fileID: 11400000, guid: fe86d5b7f7831c64a9b025b5a3171324, type: 2}
@@ -1131,10 +1137,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11577fa696d14d0f90a1efa68678069e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactRadius: 1
-  interactLayer:
+  propInteractRadius: 3
+  propInteractLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 4096
   cubeLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -2210,7 +2216,7 @@ GameObject:
   - component: {fileID: 4504772651617807299}
   - component: {fileID: 1924558556}
   m_Layer: 0
-  m_Name: CameraController
+  m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
