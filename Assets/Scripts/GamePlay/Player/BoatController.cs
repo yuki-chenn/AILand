@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GamePlay.Player
+namespace AILand.GamePlay.Player
 {
     public class BoatController : MonoBehaviour
     {
@@ -50,6 +50,8 @@ namespace GamePlay.Player
             float directionX = m_inputHorizontal * (velocity + velocityAdittion) * Time.deltaTime;
             float directionZ = m_inputVertical * (velocity + velocityAdittion) * Time.deltaTime;
             float directionY = 0;
+            
+            directionY = directionY - 100 * Time.deltaTime;
             
             // 相机相对位置
             Vector3 forward = Camera.main.transform.forward;

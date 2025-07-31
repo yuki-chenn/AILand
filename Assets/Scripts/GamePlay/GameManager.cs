@@ -1,7 +1,6 @@
 using System;
 using AILand.GamePlay.Player;
 using AILand.System.Base;
-using GamePlay.Player;
 using UnityEngine;
 
 namespace AILand.GamePlay
@@ -10,24 +9,24 @@ namespace AILand.GamePlay
     {
         public GameObject player;
         public Camera mainCamera;
-        
+        public PlayerCharacter PlayerComponent => player.GetComponent<PlayerCharacter>();
         
         public Transform blockHolder;
 
 
         private CameraController cameraController => mainCamera.transform.parent.GetComponent<CameraController>();
-
+        
         
         /// <summary>
         /// 玩家和船交互后上船
         /// </summary>
         /// /// <param name="boatObj"></param>
-        public void GetOnBoard(GameObject boatObj)
+        public bool GetOnBoard(GameObject boatObj)
         {
             if(boatObj == null)
             {
                 Debug.LogError("GetOnBoard: boatObj is null");
-                return;
+                return false;
             }
             // 把物体拿出来
             boatObj.transform.SetParent(transform);
@@ -37,6 +36,8 @@ namespace AILand.GamePlay
             cameraController.ChangeCameraPlayer(boatObj.transform);
             // 给船一个控制方法
             boatObj.AddComponent<BoatController>().playerTransform = player.transform;
+            Debug.Log($"GetOnBoard: 玩家上船成功，船名：{boatObj.name}");
+            return true;
         }
         
         /// <summary>
@@ -49,12 +50,15 @@ namespace AILand.GamePlay
             {
                 Debug.LogError("GetOnBoard: boatObj is null");
             }
+            // 将玩家移动到船的左侧
+            PlayerComponent.MoveTo(boatObj.transform.position + boatObj.transform.right * -2f);
             // 恢复玩家显示
             player.SetActive(true);
             // 将Camera跟随玩家
             cameraController.ChangeDefaultCameraPlayer();
             // 移除船的控制方法
             Destroy(boatObj?.GetComponent<BoatController>());
+            Debug.Log($"GetOffBoard: 玩家下船成功，船名：{boatObj.name}");
         }
         
         

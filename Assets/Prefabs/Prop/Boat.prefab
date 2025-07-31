@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4627202142374043212}
   - component: {fileID: 4442064785223690418}
   - component: {fileID: 6932963698282198132}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Torus.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1843959595839531058}
   - component: {fileID: 8664061102769645435}
   - component: {fileID: 1661856901416276324}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 4307753315176104050}
   - component: {fileID: 275981502412277736}
   - component: {fileID: 3267393950569717365}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 771904791696353116}
   - component: {fileID: 6116150694175981168}
   - component: {fileID: 8595850039042736355}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 6004017253987225374}
   - component: {fileID: 4274075857120689330}
   - component: {fileID: 1241548799482454600}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube.017
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 4292124041174338562}
   - component: {fileID: 6340469125170921479}
   - component: {fileID: 4975131066633494439}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Torus.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 2602473844146480194}
   - component: {fileID: 7918778002264955641}
   - component: {fileID: 8266490606021147081}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -592,7 +592,7 @@ GameObject:
   - component: {fileID: 3598056759004040536}
   - component: {fileID: 2475952581842251350}
   - component: {fileID: 1057924050492790545}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   - component: {fileID: 8487188798084938224}
   - component: {fileID: 4328097707866889766}
   - component: {fileID: 3424496821757764814}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: BezierCurve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -758,7 +758,7 @@ GameObject:
   - component: {fileID: 6278864346186596608}
   - component: {fileID: 7619474991056834646}
   - component: {fileID: 3965607802440295913}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Torus.039
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -841,7 +841,7 @@ GameObject:
   - component: {fileID: 2297726438126173812}
   - component: {fileID: 5929018538521671962}
   - component: {fileID: 720463739916578209}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -924,7 +924,7 @@ GameObject:
   - component: {fileID: 7553137195188243803}
   - component: {fileID: 437624510151905888}
   - component: {fileID: 1811058392518896873}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 8598528632278969169}
   - component: {fileID: 3179807629422046785}
   - component: {fileID: 6495701420359675888}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Torus.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1090,7 +1090,7 @@ GameObject:
   - component: {fileID: 6873320388252261238}
   - component: {fileID: 422162278210656719}
   - component: {fileID: 4537665106688645277}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1175,7 +1175,7 @@ GameObject:
   - component: {fileID: -8008945245966563237}
   - component: {fileID: -4052725750671560076}
   - component: {fileID: 8966940901275273152}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Boat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1231,6 +1231,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c1409cb070448e98cb12044059b5f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  closeToIslandLayer:
+    serializedVersion: 2
+    m_Bits: 3072
+  closeToIslandRadius: 5
+  m_closeToIsland: 0
 --- !u!65 &-8008945245966563237
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1246,12 +1251,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 11.918566, y: 10.810981, z: 25.845272}
-  m_Center: {x: 0.3, y: 5.208974, z: 3.4934425}
+  m_Size: {x: 27.104118, y: 20.0103, z: 40.37581}
+  m_Center: {x: 0.28628588, y: 6.971464, z: 2.76263}
 --- !u!114 &-4052725750671560076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1291,8 +1296,8 @@ CharacterController:
   serializedVersion: 3
   m_Height: 20
   m_Radius: 10
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 0
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0.3, y: 7, z: 2.5}
@@ -1307,7 +1312,7 @@ GameObject:
   - component: {fileID: 3718265646745975148}
   - component: {fileID: 5770484288394349136}
   - component: {fileID: 8297305718807296774}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1390,7 +1395,7 @@ GameObject:
   - component: {fileID: 3418628236002409900}
   - component: {fileID: 3428493106152047026}
   - component: {fileID: 1082816489878406605}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1473,7 +1478,7 @@ GameObject:
   - component: {fileID: 393764690301439177}
   - component: {fileID: 2485306181059450341}
   - component: {fileID: 7102828456230960198}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1556,7 +1561,7 @@ GameObject:
   - component: {fileID: 8237796494288439370}
   - component: {fileID: 596153289895191288}
   - component: {fileID: 6130696967299783064}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1639,7 +1644,7 @@ GameObject:
   - component: {fileID: 3008548413876316623}
   - component: {fileID: 4133402857063451583}
   - component: {fileID: 2135252998390138083}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Torus.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1722,7 +1727,7 @@ GameObject:
   - component: {fileID: 3961732326539469022}
   - component: {fileID: 6953153946582395315}
   - component: {fileID: 3389346257524044441}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Torus.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1805,7 +1810,7 @@ GameObject:
   - component: {fileID: 37955944575666406}
   - component: {fileID: 5832318382901891383}
   - component: {fileID: 2534488890719778700}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1888,7 +1893,7 @@ GameObject:
   - component: {fileID: 6380818513729053562}
   - component: {fileID: 4610744449297780590}
   - component: {fileID: 7748140452002875145}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}

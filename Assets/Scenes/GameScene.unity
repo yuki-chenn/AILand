@@ -1137,10 +1137,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11577fa696d14d0f90a1efa68678069e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  propInteractRadius: 3
+  propInteractRadius: 1
   propInteractLayer:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 9216
   cubeLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -3806,6 +3806,7 @@ GameObject:
   - component: {fileID: 8924800430645415803}
   - component: {fileID: 3310129600136727059}
   - component: {fileID: 1166599221}
+  - component: {fileID: 8924800430645415804}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4842,11 +4843,23 @@ CharacterController:
   serializedVersion: 3
   m_Height: 1.55
   m_Radius: 0.3
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 0
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.87, z: 0}
+--- !u!114 &8924800430645415804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760493321689857708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20df7414facb436b83be5ed4f155499b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8928226460214465910
 Transform:
   m_ObjectHideFlags: 0
