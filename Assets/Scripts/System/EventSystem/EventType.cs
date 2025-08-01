@@ -6,10 +6,21 @@ namespace AILand.System.EventSystem
     /// </summary>
     public enum EventType
     {
-        // base
+        #region Base
+
         OnShowUIPanel, // 显示UI面板
         OnHideUIPanel, // 隐藏UI面板
-        
+
+        #endregion
+
+
+
+        #region MenuScene
+
+        // LoadScene
+        StartGame, // 开始游戏
+
+        #endregion
         
         
         

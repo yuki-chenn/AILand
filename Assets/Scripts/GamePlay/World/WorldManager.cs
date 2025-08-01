@@ -37,11 +37,27 @@ namespace AILand.GamePlay.World
         protected override void Awake()
         {
             base.Awake();
+            BindListeners();
 
-            EventCenter.AddListener<int, float[,]>(EventType.PlayerCreateIsland, PlayerCreateIsland);
+           
+        }
 
+        private void InitData()
+        {
             m_worldData = new WorldData();
         }
+        
+        private void BindListeners()
+        {
+            EventCenter.AddListener<int, float[,]>(EventType.PlayerCreateIsland, PlayerCreateIsland);
+        }
+        
+        private void UnbindListeners()
+        {
+            EventCenter.RemoveListener<int, float[,]>(EventType.PlayerCreateIsland, PlayerCreateIsland);
+        }
+        
+        
         
         private void Update()
         {
@@ -63,7 +79,7 @@ namespace AILand.GamePlay.World
 
         private void OnDestroy()
         {
-            EventCenter.RemoveListener<int, float[,]>(EventType.PlayerCreateIsland, PlayerCreateIsland);
+            UnbindListeners();
         }
 
         public bool CreateBlock(int blockId)

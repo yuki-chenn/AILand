@@ -5,8 +5,38 @@ using EventType = AILand.System.EventSystem.EventType;
 
 namespace AILand.UI
 {
-    public class BaseUIPanel : MonoBehaviour
+    public abstract class BaseUIPanel : MonoBehaviour
     {
+        protected virtual void Awake()
+        {
+            BindUI();
+            BindListeners();
+        }
+
+        protected virtual void Start()
+        {
+            
+        }
+
+        protected virtual void OnDestroy()
+        {
+            UnbindListeners();
+        }
+
+        protected virtual void BindUI()
+        {
+            
+        }
+        
+        protected virtual void BindListeners()
+        {
+            
+        }
+        
+        protected virtual void UnbindListeners()
+        {
+            
+        }
         
         protected virtual void Show()
         {

@@ -9,8 +9,13 @@ namespace AILand.GamePlay.World
 {
     public class WorldData
     {
+        // 预先生成的block的IslandType
+        
+        
         // 所有block的数据，key为区块的唯一ID
         private Dictionary<int, BlockData> m_blocks;
+        
+        
 
         public WorldData()
         {
