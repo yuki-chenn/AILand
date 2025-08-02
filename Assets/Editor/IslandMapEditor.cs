@@ -19,10 +19,12 @@ public class IslandMapEditor : EditorWindow
     {
         { CellType.None, Color.white },
         { CellType.Grassland, Color.green },
-        { CellType.Water, Color.blue },
+        { CellType.Snow, Color.cyan },
         { CellType.Mountain, Color.gray },
-        { CellType.Desert, Color.yellow },
-        { CellType.Forest, new Color(0f,0.5f,0f) }
+        { CellType.Beach, Color.yellow },
+        { CellType.Forest, new Color(0f,0.5f,0f) },
+        { CellType.Lava, Color.red },
+        {CellType.Lavaland, new Color(1f, 0.5f, 0f) }
     };
 
     // 预留区域的最小内边距

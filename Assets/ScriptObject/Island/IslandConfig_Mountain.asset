@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fe1285447b8405ea6e876f31e76fc24, type: 3}
-  m_Name: IslandConfig_Moutain
+  m_Name: IslandConfig_Mountain
   m_EditorClassIdentifier: 
   width: 200
   height: 200

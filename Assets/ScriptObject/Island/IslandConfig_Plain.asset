@@ -23,5 +23,5 @@ MonoBehaviour:
     fixedCount: 0
     rangeCount: {x: 10, y: 15}
   extraLimitBelow:
-    cellType: 0
-    heightLimit: 0
+    cellType: 4
+    heightLimit: 2

@@ -47,7 +47,7 @@ namespace AILand.GamePlay.World
         // 二维数组属性访问器
         public CellType GetCellType(int x, int y, int _height = -1)
         {
-            if(_height != -1 && _height < extraLimitBelow.heightLimit)
+            if(_height != -1 && _height <= extraLimitBelow.heightLimit)
             {
                 return extraLimitBelow.cellType;
             }

@@ -582,6 +582,15 @@ MonoBehaviour:
   - prefab: {fileID: 4870420275675529372, guid: 3d30db0d72691ef40bf1851619d01442, type: 3}
     defaultCapacity: 10
     maxSize: 100
+  - prefab: {fileID: 7689870584789827201, guid: d8e133aef5346fc48853f509de84d94b, type: 3}
+    defaultCapacity: 10
+    maxSize: 100
+  - prefab: {fileID: 1637380573908871161, guid: c6124e3fc407ebe44ab32d5853e955bc, type: 3}
+    defaultCapacity: 10
+    maxSize: 100
+  - prefab: {fileID: 1457027692877449856, guid: 7cfde66806695d645bd342937b4129e5, type: 3}
+    defaultCapacity: 10
+    maxSize: 100
 --- !u!4 &511311833
 Transform:
   m_ObjectHideFlags: 0
@@ -1004,9 +1013,31 @@ MonoBehaviour:
   heightDistributions:
   - cellType: 1
     so: {fileID: 11400000, guid: b4f23f2df786a9d4e901723dddc72168, type: 2}
+  - cellType: 2
+    so: {fileID: 11400000, guid: f5f85e26a207eba4ba6f55d6b0827e2b, type: 2}
+  - cellType: 3
+    so: {fileID: 11400000, guid: b8b1217e0a3d1a640a65e340126ee4ba, type: 2}
+  - cellType: 4
+    so: {fileID: 11400000, guid: b643c9a0195d0f8428478c406dfeb884, type: 2}
+  - cellType: 5
+    so: {fileID: 11400000, guid: f3d998c6b7b279742bc45d829b4725d3, type: 2}
+  - cellType: 6
+    so: {fileID: 11400000, guid: 2880cdf42b4c9134b87794e09cfd0b42, type: 2}
+  - cellType: 7
+    so: {fileID: 11400000, guid: 9407d406d3d4b084ebf72518de097f71, type: 2}
   islandConfigs:
+  - islandType: 1
+    so: {fileID: 11400000, guid: 9d0721229dbd24b4d8204d63a577afc9, type: 2}
   - islandType: 3
     so: {fileID: 11400000, guid: ba9157f8b49794c478d4e8610569ff62, type: 2}
+  - islandType: 4
+    so: {fileID: 11400000, guid: f818568b9e8be29479e65f1f7dfea709, type: 2}
+  - islandType: 5
+    so: {fileID: 11400000, guid: 668aa9dd3b06d364d9b230895134915a, type: 2}
+  - islandType: 6
+    so: {fileID: 11400000, guid: 801184f773203ce4c982e38b6e8572c2, type: 2}
+  - islandType: 7
+    so: {fileID: 11400000, guid: f45e19ac9d1acf64e80ccb75fb6dd837, type: 2}
   cubeConfigs:
   - cubeType: 1
     so: {fileID: 11400000, guid: c979f92f1347a2f4bacdceeae404c4ab, type: 2}
@@ -1021,13 +1052,17 @@ MonoBehaviour:
   - cubeType: 6
     so: {fileID: 11400000, guid: 6e9b4a895a7f0174194254309a284d20, type: 2}
   - cubeType: 7
-    so: {fileID: 0}
+    so: {fileID: 11400000, guid: ca153314f2b32b245970de16d545021a, type: 2}
   - cubeType: 8
     so: {fileID: 11400000, guid: 904cd04fe4eeb0542935a39a6fc5baa5, type: 2}
   - cubeType: 9
     so: {fileID: 11400000, guid: 8a97c72075332fd4580213ed10317a61, type: 2}
   - cubeType: 10
     so: {fileID: 11400000, guid: 1431ca7c10d51744a9a8f70210d5b19d, type: 2}
+  - cubeType: 11
+    so: {fileID: 11400000, guid: 83bbacac37ca57146a43d3f325ea0fb5, type: 2}
+  - cubeType: 12
+    so: {fileID: 11400000, guid: 9891d47a29b89b94d856689c6a680fca, type: 2}
   propConfigs:
   - propType: 1
     so: {fileID: 11400000, guid: 727b71b706e441a4991c4964e8ed9dd8, type: 2}

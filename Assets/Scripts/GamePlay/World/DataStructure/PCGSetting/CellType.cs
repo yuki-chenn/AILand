@@ -5,9 +5,11 @@ namespace AILand.GamePlay.World
     {
         None,
         Grassland,
-        Water,
+        Snow,
         Mountain,
-        Desert,
-        Forest
+        Beach,
+        Forest,
+        Lava,
+        Lavaland
     }
 }
