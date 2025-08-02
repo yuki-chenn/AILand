@@ -241,20 +241,21 @@ public class WFCBlock
             foreach (var type in forbid4) m_probableType[updateBlockId].Remove(type);
         }
         // 3. leastWaterTypeCount
-        var neighbors = GetNeighbors(disseminateBlockId);
-        var least = m_adjacencyRuleDic[disseminateType].leastWaterTypeCount;
-        int count = 0; // 不是水的数量
+        var neighbors = GetNeighbors(updateBlockId);
         foreach (var neighborId in neighbors)
         {
-            if (m_generatedTypes.ContainsKey(neighborId) && m_generatedTypes[neighborId] != IslandType.Water)
+            if (m_generatedTypes.ContainsKey(neighborId) && m_generatedTypes[neighborId] != IslandType.None)
             {
-                count++;
+                var type = m_generatedTypes[neighborId];
+                var least = m_adjacencyRuleDic[type].leastWaterTypeCount;
+                int notWaterCount = CountNotWaterTypeInNeighbors(neighborId);
+                if(8 - notWaterCount <= least)
+                {
+                    // 可能是water的数量已经小于等于least，water
+                    m_probableType[updateBlockId] = new List<IslandType> { IslandType.Water };
+                    break;
+                }
             }
-        }
-        if(8 - count <= least)
-        {
-            // 必须是水
-            m_probableType[updateBlockId] = new List<IslandType> { IslandType.Water };
         }
     }
 
@@ -270,5 +271,19 @@ public class WFCBlock
         int dz = Math.Abs(index1.y - index2.y);
 
         return dx + dz == 1;
+    }
+
+    private int CountNotWaterTypeInNeighbors(int blockId)
+    {
+        int count = 0;
+        var neighbors = GetNeighbors(blockId);
+        foreach (var neighborId in neighbors)
+        {
+            if (m_generatedTypes.ContainsKey(neighborId) && m_generatedTypes[neighborId] != IslandType.Water)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 }
