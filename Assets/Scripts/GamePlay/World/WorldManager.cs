@@ -92,10 +92,18 @@ namespace AILand.GamePlay.World
             // 获取当前block的IslandType
             var islandType = m_worldData.GetBlockIslandType(blockId);
 
-
-            // TODO 考虑玩家创建还是自然生成
-            var block = new BlockData(blockId, m_blockWidth, m_blockHeight,islandType);
+            var block = new BlockData(blockId, m_blockWidth, m_blockHeight, islandType);
             m_worldData.AddBlock(blockId, block);
+
+            if(islandType != IslandType.Custom)
+            {
+                // 自然生成的岛屿
+                // TODO : nosieMap 以及 heightFunc
+                //PCGIslandInfo islandInfo = new PCGIslandInfo();
+                //islandInfo.shapeConfig = new ShapeConfig(0.3f, noiseMap, 10, x => Mathf.RoundToInt(x * 10 - 2));
+                //islandInfo.islandConfig = SOManager.Instance.islandConfigDict[islandType];
+                //block.CreateIsland(islandInfo);
+            }
 
             return true;
         }
