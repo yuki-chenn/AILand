@@ -1,4 +1,5 @@
 using AILand.GamePlay.World;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AILand.Gizmos
@@ -12,6 +13,16 @@ namespace AILand.Gizmos
         public Color borderColor = Color.green;
         public Color gridColor = Color.blue;
         public Color selectedColor = Color.yellow;
+
+        [Header("Island Type Grid Colors")]
+        public Color noneGridColor = Color.gray;
+        public Color customGridColor = Color.white;
+        public Color waterGridColor = Color.blue;
+        public Color plainGridColor = Color.green;
+        public Color forestGridColor = Color.cyan;
+        public Color mountainGridColor = Color.red;
+        public Color glacierGridColor = Color.magenta;
+        public Color infernoGridColor = Color.yellow;
 
         [Header("Cell Water Display")]
         public bool showCellWater = false;
@@ -30,6 +41,7 @@ namespace AILand.Gizmos
         [Header("Display Options")]
         public bool showWorldIndex = true;
         public bool showBlockID = true;
+        public bool showIslandType = true;
 
         private BlockData blockData => GetComponent<Block>().BlockData;
 
@@ -48,7 +60,7 @@ namespace AILand.Gizmos
             if (!showGizmos) return;
 
             DrawBlockBounds(isSelected);
-            
+
             if (showCellWater)
             {
                 DrawCellWater();
@@ -66,8 +78,9 @@ namespace AILand.Gizmos
             // 绘制线框立方体
             UnityEngine.Gizmos.DrawWireCube(blockCenter, blockSize);
 
-            // 绘制地面网格
-            UnityEngine.Gizmos.color = gridColor;
+            // 绘制地面网格 - 根据IslandType选择颜色
+            Color currentGridColor = GetGridColorForIslandType();
+            UnityEngine.Gizmos.color = currentGridColor;
             DrawGroundGrid(transform.position);
 
             // 绘制文本信息
@@ -75,6 +88,24 @@ namespace AILand.Gizmos
             {
                 DrawTextLabel(blockCenter);
             }
+        }
+
+        private Color GetGridColorForIslandType()
+        {
+            if (blockData == null) return gridColor;
+
+            return blockData.IslandType switch
+            {
+                IslandType.None => noneGridColor,
+                IslandType.Custom => customGridColor,
+                IslandType.Water => waterGridColor,
+                IslandType.Plain => plainGridColor,
+                IslandType.Forest => forestGridColor,
+                IslandType.Mountain => mountainGridColor,
+                IslandType.Glacier => glacierGridColor,
+                IslandType.Inferno => infernoGridColor,
+                _ => gridColor
+            };
         }
 
         private void DrawCellWater()
@@ -90,13 +121,13 @@ namespace AILand.Gizmos
                 {
                     // 获取cell的水类型
                     var waterType = GetCellWaterType(x, z);
-                    
+
                     // 根据水类型选择颜色
                     Color cellColor = GetColorForWaterType(waterType);
-                    
+
                     // 计算cell中心位置
                     Vector3 cellCenter = blockPos + new Vector3(x, 0.05f, z);
-                    
+
                     // 绘制cell
                     UnityEngine.Gizmos.color = cellColor;
                     UnityEngine.Gizmos.DrawCube(cellCenter, cellSize);
@@ -152,23 +183,11 @@ namespace AILand.Gizmos
             Vector3 labelPosition = blockCenter + new Vector3(textOffset.x, textHeight, textOffset.y);
 
             // 构建显示文本
-            string labelText = "";
-            if (showWorldIndex && showBlockID)
-            {
-                labelText = $"({blockData.WorldIndex.x}, {blockData.WorldIndex.y})\nID: {blockData.BlockID}";
-            }
-            else if (showWorldIndex)
-            {
-                labelText = $"({blockData.WorldIndex.x}, {blockData.WorldIndex.y})";
-            }
-            else if (showBlockID)
-            {
-                labelText = $"ID: {blockData.BlockID}";
-            }
+            string labelText = BuildLabelText();
 
             if (string.IsNullOrEmpty(labelText)) return;
 
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             UnityEditor.Handles.color = textColor;
             UnityEditor.Handles.Label(labelPosition, labelText, new GUIStyle()
             {
@@ -177,7 +196,29 @@ namespace AILand.Gizmos
                 fontStyle = FontStyle.Bold,
                 alignment = TextAnchor.MiddleCenter
             });
-            #endif
+#endif
+        }
+
+        private string BuildLabelText()
+        {
+            List<string> textParts = new List<string>();
+
+            if (showWorldIndex)
+            {
+                textParts.Add($"({blockData.WorldIndex.x}, {blockData.WorldIndex.y})");
+            }
+
+            if (showBlockID)
+            {
+                textParts.Add($"ID: {blockData.BlockID}");
+            }
+
+            if (showIslandType)
+            {
+                textParts.Add($"Type: {blockData.IslandType}");
+            }
+
+            return string.Join("\n", textParts);
         }
     }
 }

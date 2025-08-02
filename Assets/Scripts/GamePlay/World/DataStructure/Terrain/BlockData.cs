@@ -31,6 +31,10 @@ namespace AILand.GamePlay.World
         private Vector2Int m_worldIndex;
         public Vector2Int WorldIndex => m_worldIndex;
 
+        // IslandType
+        private IslandType m_islandType;
+        public IslandType IslandType => m_islandType;
+
         // 所有的Cell数据
         private CellData[,] m_cells;
         public CellData[,] Cells => m_cells;
@@ -71,13 +75,16 @@ namespace AILand.GamePlay.World
         public Block BlockComponent => m_instanceGo.GetComponent<Block>();
 
         
-        public BlockData(int blockID, int width, int height)
+        public BlockData(int blockID, int width, int height, IslandType islandType)
         {
             m_blockID = blockID;
             m_width = width;
             m_height = height;
             m_worldPosition = Util.GetBlockPositionByID(blockID, width, height);
             m_worldIndex = Util.GetBlockIndexByID(blockID);
+
+            m_islandType = islandType;
+            
             m_isCreated = false;
             m_isPlayerCreated = true;
             m_generatorPosition = new Vector3(100, 0, 100); // 默认生成位置

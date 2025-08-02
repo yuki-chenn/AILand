@@ -38,13 +38,12 @@ namespace AILand.GamePlay.World
         {
             base.Awake();
             BindListeners();
-
-           
+            InitData();
         }
 
         private void InitData()
         {
-            m_worldData = new WorldData();
+            m_worldData = new WorldData(GameManager.Instance.WFCConfigSO);
         }
         
         private void BindListeners()
@@ -90,8 +89,12 @@ namespace AILand.GamePlay.World
                 return false;
             }
 
+            // 获取当前block的IslandType
+            var islandType = m_worldData.GetBlockIslandType(blockId);
+
+
             // TODO 考虑玩家创建还是自然生成
-            var block = new BlockData(blockId, m_blockWidth, m_blockHeight);
+            var block = new BlockData(blockId, m_blockWidth, m_blockHeight,islandType);
             m_worldData.AddBlock(blockId, block);
 
             return true;
@@ -246,7 +249,7 @@ namespace AILand.GamePlay.World
 
                 foreach (var block in blocksToUnload)
                 {
-                    // block.Unload();
+                     //block.Unload();
                 }
 
 

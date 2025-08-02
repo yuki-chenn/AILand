@@ -11,6 +11,5 @@ namespace AILand.GamePlay.World
         Mountain, // 山地
         Glacier, // 冰川
         Inferno, // 地狱
-        Desert, // 沙漠
     }
 }

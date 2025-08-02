@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8903017eaf8049288c591d825f6434c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WFCConfigSO: {fileID: 11400000, guid: fc3d3780285a0074c930dec4396544e1, type: 2}
   player: {fileID: 5760493321689857708}
   mainCamera: {fileID: 800265176994168746}
   blockHolder: {fileID: 624094934}

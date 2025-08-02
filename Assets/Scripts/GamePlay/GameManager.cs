@@ -1,5 +1,6 @@
 using System;
 using AILand.GamePlay.Player;
+using AILand.GamePlay.World;
 using AILand.System.Base;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ namespace AILand.GamePlay
 {
     public class GameManager : Singleton<GameManager>
     {
+        public WFCConfigSO WFCConfigSO;
+
+
         public GameObject player;
         public Camera mainCamera;
         public PlayerCharacter PlayerComponent => player.GetComponent<PlayerCharacter>();
