@@ -22,7 +22,7 @@ namespace AILand.GamePlay.World.Prop
             
             if (m_isOnBorad)
             {
-                // 在玩家位置附近的球形范围内检测
+                // 在附近的球形范围内检测
                 Collider[] hits = Physics.OverlapSphere(transform.position, closeToIslandRadius, closeToIslandLayer);
                 m_closeToIsland = hits.Length > 0;
                 

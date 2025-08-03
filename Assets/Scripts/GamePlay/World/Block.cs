@@ -6,6 +6,8 @@ namespace AILand.GamePlay.World
 {
     public class Block : MonoBehaviour, IPooledObject
     {
+        public GameObject GameObject => gameObject;
+
         public GameObject generatePlatform;
         public Transform cubeHolder;
         public Transform propHolder;
@@ -35,6 +37,22 @@ namespace AILand.GamePlay.World
             if (lowTerrainRenderer) lowTerrainRenderer.gameObject.SetActive(active && isCreated);
         }
         
+        
+        public void SetCrystal(GameObject crystal)
+        {
+            if (generatePlatform)
+            {
+                Transform crystalSet = generatePlatform.transform.Find("CrystalSet");
+                if (crystalSet != null)
+                {
+                    crystal.transform.SetParent(crystalSet);
+                    crystal.transform.localPosition = Vector3.zero;
+                }
+            }
+        }
+        
+        
+        
         public void SetLowTerrainTexture(Texture color, Texture height)
         {
             color.filterMode = FilterMode.Point;
@@ -53,7 +71,9 @@ namespace AILand.GamePlay.World
 
         }
 
-        public GameObject GameObject => gameObject;
+        
+
+
         public void OnGetFromPool()
         {
             

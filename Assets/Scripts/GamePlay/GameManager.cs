@@ -1,8 +1,10 @@
-using System;
 using AILand.GamePlay.Player;
 using AILand.GamePlay.World;
 using AILand.System.Base;
+using AILand.Utils;
+using System;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 namespace AILand.GamePlay
 {
@@ -20,6 +22,14 @@ namespace AILand.GamePlay
 
         private CameraController cameraController => mainCamera.transform.parent.GetComponent<CameraController>();
         
+        public int CurBlockId
+        {
+            get
+            {
+                var pos = player.transform.position;
+                return Util.GetBlockIDByWorldPosition(pos, Constants.BlockWidth, Constants.BlockHeight);
+            }
+        }
         
         /// <summary>
         /// 玩家和船交互后上船

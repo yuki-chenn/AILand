@@ -1,5 +1,7 @@
-using System.Collections.Generic;
 using AILand.GamePlay.World;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace AILand.Utils
@@ -302,9 +304,35 @@ namespace AILand.Utils
             }
         }
 
-        
+
         #endregion
-        
-        
+
+        /// <summary>
+        /// 克隆SO对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="src"></param>
+        /// <param name="deepLists"></param>
+        /// <returns></returns>
+        public static T CloneSO<T>(T src, bool deepLists = false) where T : ScriptableObject
+        {
+            T dst = ScriptableObject.Instantiate(src);
+
+            if (!deepLists) return dst;
+
+            // 深拷贝示例：把所有 IList<> 字段都重新 new
+            var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+            foreach (var f in typeof(T).GetFields(flags))
+            {
+                if (!typeof(IList).IsAssignableFrom(f.FieldType)) continue;
+                var list = f.GetValue(src) as IList;
+                if (list == null) continue;
+
+                var cloneList = (IList) global::System.Activator.CreateInstance(f.FieldType);
+                foreach (var elem in list) cloneList.Add(elem);
+                f.SetValue(dst, cloneList);
+            }
+            return dst;
+        }
     }
 }

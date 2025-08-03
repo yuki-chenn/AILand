@@ -24,7 +24,8 @@ namespace AILand.System.EventSystem
         
         
         
-        ShowDrawIslandPanelUI, // 显示绘制岛屿面板
+        ShowDrawIslandShapePanelUI, // 显示绘制岛屿面板
+        ShowDrawIslandCellTypePanelUI, // 显示绘制岛屿格子类型面板
         PlayerCreateIsland, // 玩家创建岛屿
     }
 }

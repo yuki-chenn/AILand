@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using AILand.GamePlay.World.Prop;
 using AILand.System.ObjectPoolSystem;
 using AILand.System.SOManager;
 using AILand.Utils;
@@ -54,8 +55,10 @@ namespace AILand.GamePlay.World
  
         private bool m_isCreated; // 岛屿是否已经创建（玩家 or PCG）
         public bool IsCreated => m_isCreated;
-        
-        // 数据集合
+
+        private GameObject m_crystalInstanceGo;
+
+        // 不同CellWater的CellData集合
         public Dictionary<CellWater, List<CellData>> m_cellWaterDic = new();
         
         
@@ -77,17 +80,33 @@ namespace AILand.GamePlay.World
         
         public BlockData(int blockID, int width, int height, IslandType islandType)
         {
+            // 基础数据
             m_blockID = blockID;
             m_width = width;
             m_height = height;
             m_worldPosition = Util.GetBlockPositionByID(blockID, width, height);
             m_worldIndex = Util.GetBlockIndexByID(blockID);
-
             m_islandType = islandType;
-            
             m_isCreated = false;
-            m_isPlayerCreated = true;
+
+            // 天然生成 or 玩家创建
+            m_isPlayerCreated = islandType == IslandType.Custom;
             m_generatorPosition = new Vector3(100, 0, 100); // 默认生成位置
+
+            // 实例化block
+            InstantiateBlock();
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            // 如果是最开始的默认岛屿，则添加一个默认的水晶
+            if(m_blockID == Constants.FirstBlockID)
+            {
+                var crystalGo = PoolManager.Instance.GetGameObject<MagicCrystal>();
+                crystalGo.GetComponent<MagicCrystal>().Charge(new NormalElement(0));
+                SetCrystalOnPlatform(crystalGo);
+            }
         }
 
 
@@ -177,7 +196,17 @@ namespace AILand.GamePlay.World
             return m_isCreated;
         }
 
-        
+        /// <summary>
+        /// 设置水晶
+        /// </summary>
+        /// <param name="crystalGo"></param>
+        public void SetCrystalOnPlatform(GameObject crystalGo)
+        {
+            if(m_crystalInstanceGo != null) return;
+            
+            m_instanceGo.GetComponent<Block>().SetCrystal(crystalGo);
+            m_crystalInstanceGo = crystalGo;
+        }
 
 
         public void DestoryCube(int x,int y,int z,bool needLoad=true)

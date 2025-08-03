@@ -375,6 +375,14 @@ MonoBehaviour:
   borderColor: {r: 0, g: 1, b: 0, a: 1}
   gridColor: {r: 0, g: 0, b: 1, a: 1}
   selectedColor: {r: 1, g: 0, b: 0, a: 1}
+  noneGridColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  customGridColor: {r: 1, g: 1, b: 1, a: 1}
+  waterGridColor: {r: 0, g: 0, b: 1, a: 1}
+  plainGridColor: {r: 0, g: 1, b: 0, a: 1}
+  forestGridColor: {r: 0, g: 1, b: 1, a: 1}
+  mountainGridColor: {r: 1, g: 0, b: 0, a: 1}
+  glacierGridColor: {r: 1, g: 0, b: 1, a: 1}
+  infernoGridColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   showCellWater: 0
   innerWaterColor: {r: 0.5, g: 0.8, b: 1, a: 0.7}
   outerWaterColor: {r: 0.2, g: 0.4, b: 0.8, a: 0.7}
@@ -387,6 +395,7 @@ MonoBehaviour:
   textHeight: 5
   showWorldIndex: 1
   showBlockID: 0
+  showIslandType: 1
 --- !u!1 &8660709906314719305
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,8 +479,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7999923577809636359, guid: 19d7e304d1f15d6428d2e945f5f9827d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6241790911212314466, guid: 19d7e304d1f15d6428d2e945f5f9827d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19d7e304d1f15d6428d2e945f5f9827d, type: 3}

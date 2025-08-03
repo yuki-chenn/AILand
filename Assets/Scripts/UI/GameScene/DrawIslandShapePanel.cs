@@ -5,33 +5,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using AILand.Utils;
 using EventType = AILand.System.EventSystem.EventType;
+using AILand.GamePlay.World;
 
 
 
 namespace AILand.UI
 {
-    public class DrawIslandPanel : BaseUIPanel
+    public class DrawIslandShapePanel : BaseUIPanel
     {
         private Button m_btnGenerate;
         private Button m_btnClear;
-        private PixelPainter m_pixelPainter;
-        private PixelPainter m_showPainter;
+        private PixelPainter m_ppShape;
 
         private PerlinNoise pn;
-
-        private int m_canvasWidth = 150;
-        private int m_canvasHeight = 150;
 
         private int m_blockWidth = Constants.BlockWidth;
         private int m_blockHeight = Constants.BlockHeight;
 
-        public GameObject[] prefabs;
+        // 水晶数据
+        private ElementalEnergy m_crystalEnergy;
 
-        private void Awake()
+        protected override void Awake()
         {
-            EventCenter.AddListener(EventType.ShowDrawIslandPanelUI, Show);
-            
-            BindUI();
+            base.Awake();
             
             pn = new PerlinNoise(m_blockWidth, m_blockHeight, 42);
             pn.oriAmplitude = 128;
@@ -40,51 +36,48 @@ namespace AILand.UI
             pn.scale = 120f;
         }
 
-        private void OnDestroy()
+        protected override void Start()
         {
-            EventCenter.RemoveListener(EventType.ShowDrawIslandPanelUI, Show);
-        }
-
-        private void Start()
-        {
-            m_showPainter.gameObject.SetActive(false);
+            base.Start();
             Hide();
         }
 
-        protected override void Show()
-        {
-            base.Show();
-            m_pixelPainter.ClearCanvas();
-        }
-
-
-        private void BindUI()
+        protected override void BindUI()
         {
             m_btnGenerate = transform.Find("BtnGenerate").GetComponent<Button>();
             m_btnClear = transform.Find("BtnClear").GetComponent<Button>();
-            m_pixelPainter = transform.Find("PixelPainter").GetComponent<PixelPainter>();
-            m_showPainter = transform.Find("ShowPainter").GetComponent<PixelPainter>();
+            m_ppShape = transform.Find("PPShape").GetComponent<PixelPainter>();
 
             m_btnGenerate.onClick.AddListener(OnBtnGenerateClick);
             m_btnClear.onClick.AddListener(OnBtnClearClick);
         }
 
+        protected override void BindListeners()
+        {
+            EventCenter.AddListener<ElementalEnergy>(EventType.ShowDrawIslandShapePanelUI, OnCrystallDrawShape);
+        }
+
+        protected override void UnbindListeners()
+        {
+            EventCenter.RemoveListener<ElementalEnergy>(EventType.ShowDrawIslandShapePanelUI, OnCrystallDrawShape);
+        }
+
+        private void OnCrystallDrawShape(ElementalEnergy energy)
+        {
+            m_crystalEnergy = energy;
+            Show();
+        }
+
         private void OnBtnClearClick()
         {
-            m_pixelPainter.ClearCanvas();
+            m_ppShape.ClearCanvas();
         }
 
         private void OnBtnGenerateClick()
         {
             var terrainNoiseMap = GenerateTerrainNoiseMap();
-
-            var pos = GameManager.Instance.player.transform.position;
-
-            var id = Util.GetBlockIDByWorldPosition(pos, m_blockWidth, m_blockHeight);
-
-            EventCenter.Broadcast(EventType.PlayerCreateIsland, id, terrainNoiseMap);
-            
-            Invoke("Hide",1);
+            Hide();
+            EventCenter.Broadcast(EventType.ShowDrawIslandCellTypePanelUI, terrainNoiseMap, m_crystalEnergy);
         }
 
 
@@ -95,7 +88,7 @@ namespace AILand.UI
         private float[,] GenerateTerrainNoiseMap()
         {
             // 拿到绘制的结果 
-            float[,] paintMap = m_pixelPainter.GetPaintMap();
+            float[,] paintMap = m_ppShape.GetPaintMap();
 
             // 根据绘制的结果计算出距离图
             var distanceMap = Util.ComputeDistanceMap(paintMap, m_blockWidth, m_blockHeight);
@@ -123,10 +116,6 @@ namespace AILand.UI
             }
 
             var resultTex = Util.Array2GrayTexture(noiseMap);
-            
-            // TODO : 显示到UI上
-            m_showPainter.SetTexture(resultTex);
-            m_showPainter.gameObject.SetActive(true);
 
             return noiseMap;
         }
