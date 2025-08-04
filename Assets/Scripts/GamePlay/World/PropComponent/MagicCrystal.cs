@@ -32,12 +32,18 @@ namespace AILand.GamePlay.World.Prop
             set => m_isActive = value;
         }
 
+        // 水晶的材质
+        private Material m_material;
+        private Material m_unchargedMaterial;
+
         private ElementalEnergy m_energy;
 
         protected override void Awake()
         {
             base.Awake();
             m_isNatural = true; // 默认是天然生成的
+            m_material = GetComponent<Renderer>().material;
+            m_unchargedMaterial = m_material; // 保存未充能时的材质
         }
 
         /// <summary>
@@ -48,6 +54,12 @@ namespace AILand.GamePlay.World.Prop
             if(m_energy == null) m_energy = new ElementalEnergy();
             m_energy.NormalElement = element;
             m_isCharged = true;
+            UpdateCrystalMaterial();
+        }
+
+        private void UpdateCrystalMaterial()
+        {
+            
         }
 
         #region 交互接口

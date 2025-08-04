@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4997610424734540917}
   - component: {fileID: 1326854833284001957}
   - component: {fileID: 1867545784114964209}
+  - component: {fileID: 4506184620226075451}
   m_Layer: 10
   m_Name: MagicCrystal
   m_TagString: Untagged
@@ -137,3 +138,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9362849, y: 4.7973995, z: 0.94163877}
   m_Center: {x: 0.018409789, y: -1.2323937, z: 0.013618767}
+--- !u!114 &4506184620226075451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3167108783053267904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 576c403b865416645aedd342244a7787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatAmplitude: 0.3
+  floatFrequency: 0.3
+  rotationSpeed: {x: 0, y: 30, z: 0}
