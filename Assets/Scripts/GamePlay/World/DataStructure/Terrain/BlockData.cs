@@ -104,7 +104,7 @@ namespace AILand.GamePlay.World
             if(m_blockID == Constants.FirstBlockID)
             {
                 var crystalGo = PoolManager.Instance.GetGameObject<MagicCrystal>();
-                crystalGo.GetComponent<MagicCrystal>().Charge(new NormalElement(0));
+                crystalGo.GetComponent<MagicCrystal>().Charge(new NormalElement(1000000));
                 SetCrystalOnPlatform(crystalGo);
             }
         }

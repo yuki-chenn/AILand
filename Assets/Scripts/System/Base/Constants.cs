@@ -24,4 +24,15 @@ public class Constants
         CubeType.Air,
         CubeType.AirBlock
     };
+    
+    // paintData对应的CellType
+    public static readonly Dictionary<int,List<CellType>> CellTypeDict = new Dictionary<int, List<CellType>>
+    {
+        {0, new List<CellType> { CellType.None }},
+        {1, new List<CellType> { CellType.Mountain }},
+        {2, new List<CellType> { CellType.Forest }},
+        {3, new List<CellType> { CellType.Snow }},
+        {4, new List<CellType> { CellType.Lava, CellType.Lavaland }},
+        {5, new List<CellType> { CellType.Grassland }},
+    };
 }

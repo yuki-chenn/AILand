@@ -46,20 +46,11 @@ namespace AILand.GamePlay.World.Prop
         public void Charge(NormalElement element)
         {
             if(m_energy == null) m_energy = new ElementalEnergy();
-            m_energy.normalElement = element;
+            m_energy.NormalElement = element;
             m_isCharged = true;
         }
 
         #region 交互接口
-        public override void OnFocus()
-        {
-            base.OnFocus();
-        }
-
-        public override void OnLostFocus()
-        {
-            base.OnLostFocus();
-        }
 
         public override void Interact()
         {

@@ -27,6 +27,11 @@ namespace AILand.GamePlay.World
             CellType cellType = islandConfig.GetCellType(x, z, height);
             
             // 根据cellType获取对应的HeightDistributionConfigSO
+            if(cellType == CellType.None)
+            {
+                Debug.LogWarning($"CellType is None at ({x}, {z}), returning empty list.");
+                return new List<CubeType>();
+            }
             var hdConfig = SOManager.Instance.heightDistributionDict[cellType];
             if (hdConfig == null)
             {

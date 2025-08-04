@@ -16,15 +16,20 @@ namespace AILand.UI
         private Button m_btnGenerate;
         private Button m_btnClear;
         private PixelPainter m_ppShape;
-
+        private Slider m_sliderRemainColor;  // 剩余颜色的展示slider
+        
+        
+        
         private PerlinNoise pn;
+        
+        
 
         private int m_blockWidth = Constants.BlockWidth;
         private int m_blockHeight = Constants.BlockHeight;
 
         // 水晶数据
         private ElementalEnergy m_crystalEnergy;
-
+        
         protected override void Awake()
         {
             base.Awake();
@@ -47,25 +52,55 @@ namespace AILand.UI
             m_btnGenerate = transform.Find("BtnGenerate").GetComponent<Button>();
             m_btnClear = transform.Find("BtnClear").GetComponent<Button>();
             m_ppShape = transform.Find("PPShape").GetComponent<PixelPainter>();
+            m_sliderRemainColor = transform.Find("SliderRemainColor").GetComponent<Slider>();
 
             m_btnGenerate.onClick.AddListener(OnBtnGenerateClick);
             m_btnClear.onClick.AddListener(OnBtnClearClick);
+            
+            m_ppShape.OnInkConsumptionChanged += OnInkConsumptionChanged;
         }
 
         protected override void BindListeners()
         {
-            EventCenter.AddListener<ElementalEnergy>(EventType.ShowDrawIslandShapePanelUI, OnCrystallDrawShape);
+            EventCenter.AddListener<ElementalEnergy>(EventType.ShowDrawIslandShapePanelUI, OnCrystalDrawShape);
         }
 
         protected override void UnbindListeners()
         {
-            EventCenter.RemoveListener<ElementalEnergy>(EventType.ShowDrawIslandShapePanelUI, OnCrystallDrawShape);
+            EventCenter.RemoveListener<ElementalEnergy>(EventType.ShowDrawIslandShapePanelUI, OnCrystalDrawShape);
         }
 
-        private void OnCrystallDrawShape(ElementalEnergy energy)
+        private void OnCrystalDrawShape(ElementalEnergy energy)
         {
             m_crystalEnergy = energy;
+    
+            // 初始化墨水数据
+            
+            var inkData = new InkConsumptionData();
+            inkData.AddInk(Color.white, m_crystalEnergy.NormalElement.Sum); // 只有白色
+            m_ppShape.SetInkData(inkData);
+            
             Show();
+        }
+        
+        private void OnInkConsumptionChanged(InkConsumptionData inkData)
+        {
+            // 更新 UI 显示
+            var whiteInk = inkData.GetInkByColor(Color.white);
+            if (whiteInk != null)
+            {
+                m_sliderRemainColor.value = whiteInk.RemainingRatio;
+        
+                // 检查墨水是否耗尽
+                if (whiteInk.RemainingAmount <= 0)
+                {
+                    m_ppShape.canPaint = false;
+                }
+                else
+                {
+                    m_ppShape.canPaint = true;
+                }
+            }
         }
 
         private void OnBtnClearClick()

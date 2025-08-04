@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 133198324145548095}
   - component: {fileID: 1211164148615695237}
   - component: {fileID: 199651092822481000}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1391,7 +1391,7 @@ GameObject:
   - component: {fileID: 2148633120588267834}
   - component: {fileID: 7588859658437144919}
   - component: {fileID: 5288582982485794420}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: snow_block_1_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1474,7 +1474,7 @@ GameObject:
   - component: {fileID: 355278720809469066}
   - component: {fileID: 928809854542858340}
   - component: {fileID: 3950592389491965532}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: snow_block_1_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1557,7 +1557,7 @@ GameObject:
   - component: {fileID: 7488471195910193951}
   - component: {fileID: 1677190896425320419}
   - component: {fileID: 8447783516990360538}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: snow_block_1_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

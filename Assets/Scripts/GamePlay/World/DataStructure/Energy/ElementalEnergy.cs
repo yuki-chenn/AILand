@@ -71,11 +71,6 @@ namespace AILand.GamePlay.World
     public class ElementalEnergy
     {
         // 基础元素：金木水火土
-        public NormalElement normalElement;
-
-        public ElementalEnergy()
-        {
-            normalElement = new NormalElement(0);
-        }
+        public NormalElement NormalElement { get; set; } = new(0);
     }
 }

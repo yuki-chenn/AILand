@@ -48,12 +48,12 @@ namespace AILand.GamePlay.World
         
         private void BindListeners()
         {
-            EventCenter.AddListener<int, float[,]>(EventType.PlayerCreateIsland, PlayerCreateIsland);
+            EventCenter.AddListener<int, float[,], int[,]>(EventType.PlayerCreateIsland, PlayerCreateIsland);
         }
         
         private void UnbindListeners()
         {
-            EventCenter.RemoveListener<int, float[,]>(EventType.PlayerCreateIsland, PlayerCreateIsland);
+            EventCenter.RemoveListener<int, float[,], int[,]>(EventType.PlayerCreateIsland, PlayerCreateIsland);
         }
         
         
@@ -108,7 +108,7 @@ namespace AILand.GamePlay.World
             return true;
         }
 
-        public void PlayerCreateIsland(int blockID, float[,] noiseMap)
+        public void PlayerCreateIsland(int blockID, float[,] noiseMap, int[,] cellTypeMap)
         {
             // TODO：传送玩家
             var playerController = GameManager.Instance.player.GetComponent<CharacterController>();
@@ -125,11 +125,18 @@ namespace AILand.GamePlay.World
                 Debug.LogError($"Block {blockID} does not exist.");
                 return;
             }
-
-
+            
+            if(block.IslandType!= IslandType.Custom)
+            {
+                Debug.LogError($"Block {blockID} is not a custom island type.");
+                return;
+            }
+            
             PCGIslandInfo islandInfo = new PCGIslandInfo();
             islandInfo.shapeConfig = new ShapeConfig(0.3f, noiseMap, 10, x=> Mathf.RoundToInt(x * 10 - 2));
-            islandInfo.islandConfig = SOManager.Instance.islandConfigDict[IslandType.Plain];
+            var islandConfig = Util.CloneSO(SOManager.Instance.islandConfigDict[block.IslandType]);
+            islandConfig.SetPaintCellType(cellTypeMap);
+            islandInfo.islandConfig = islandConfig;
 
             var ok = block.CreateIsland(islandInfo);
 

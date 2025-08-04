@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3767740838423969681}
   - component: {fileID: 1135019221608453500}
   - component: {fileID: 1451486853622399032}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: block_lava1_4_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 9166753904084080585}
   - component: {fileID: 2895127122448918191}
   - component: {fileID: 2919826327862161749}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LavaStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1474,7 +1474,7 @@ GameObject:
   - component: {fileID: 3631498136547733219}
   - component: {fileID: 9121088419940660230}
   - component: {fileID: 4388136706992989916}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: block_lava1_4_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1557,7 +1557,7 @@ GameObject:
   - component: {fileID: 25018924893168487}
   - component: {fileID: 1539475279327480531}
   - component: {fileID: 7765403797140924376}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: block_lava1_4_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

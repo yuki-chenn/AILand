@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AILand.Utils;
 using UnityEngine;
 
 namespace AILand.GamePlay.World
@@ -34,12 +35,9 @@ namespace AILand.GamePlay.World
         // preset的设置
         public List<PresetSetting> presetSettings = new List<PresetSetting>();
         
-        
-        
         // 动态属性 和 高度有关的
         [Header("额外的高度配置")] [Tooltip("当高度小于此值时，强制设置为对应的CellType")]
         public ExtraLimit extraLimitBelow;
-        
 
         public int Width => width;
         public int Height => height;
@@ -47,7 +45,7 @@ namespace AILand.GamePlay.World
         // 二维数组属性访问器
         public CellType GetCellType(int x, int y, int _height = -1)
         {
-            if(_height != -1 && _height <= extraLimitBelow.heightLimit)
+            if(_height != -1 && _height <= extraLimitBelow.heightLimit && extraLimitBelow.heightLimit != 0)
             {
                 return extraLimitBelow.cellType;
             }
@@ -62,6 +60,26 @@ namespace AILand.GamePlay.World
             if (x < 0 || x >= width || y < 0 || y >= height) return;
             if (cellTypesArray == null) InitializeArray();
             cellTypesArray[y * width + x] = cellType;
+        }
+
+        public void SetPaintCellType(int[,] paintData)
+        {
+            var dic = Constants.CellTypeDict;
+            for(int x=0; x < paintData.GetLength(0); x++)
+            {
+                for (int y = 0; y < paintData.GetLength(1); y++)
+                {
+                    if (dic.ContainsKey(paintData[x, y]))
+                    {
+                        var cellTypes = Util.GetRandomElement(dic[paintData[x, y]]);
+                        if (cellTypes == CellType.None)
+                        {
+                            Debug.LogWarning($"Paint data at ({x}, {y}) is set to None.");
+                        }
+                        SetCellType(x, y, cellTypes);
+                    }
+                }
+            }
         }
 
         public void ResizeArray(int newWidth, int newHeight)
