@@ -2,9 +2,7 @@ using AILand.GamePlay.Player;
 using AILand.GamePlay.World;
 using AILand.System.Base;
 using AILand.Utils;
-using System;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 namespace AILand.GamePlay
 {

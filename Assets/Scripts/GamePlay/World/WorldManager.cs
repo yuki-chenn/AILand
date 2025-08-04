@@ -33,6 +33,7 @@ namespace AILand.GamePlay.World
 
         // 上一次所在的block
         private int m_lastBlockID = int.MinValue;
+        private bool m_isLoadLowTerrain = false;
 
         protected override void Awake()
         {
@@ -298,6 +299,7 @@ namespace AILand.GamePlay.World
         
         IEnumerator LoadBlockLowTerrainTextureCoroutine(int blockID)
         {
+            m_isLoadLowTerrain = true;
             var block = m_worldData.GetBlock(blockID);
             if (block == null)
             {
@@ -339,6 +341,7 @@ namespace AILand.GamePlay.World
             heightMap.Apply();
             
             block.BlockComponent.SetLowTerrainTexture(colorMap, heightMap);
+            m_isLoadLowTerrain = false;
         }
 
         // 根据玩家的位置，载入周围的Cube
@@ -464,6 +467,11 @@ namespace AILand.GamePlay.World
             if (block != null && block.IsCreated)
             {
                 block.BlockComponent.UpdateLowTerrain(playerPosition, sight);
+                if(Time.frameCount % 300 == 0 && !m_isLoadLowTerrain)
+                {
+                    // 每隔一段时间重新加载低地形纹理
+                    StartCoroutine(LoadBlockLowTerrainTextureCoroutine(blockId));
+                }
             }
         }
         

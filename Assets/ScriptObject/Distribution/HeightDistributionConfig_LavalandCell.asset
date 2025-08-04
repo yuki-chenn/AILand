@@ -16,7 +16,7 @@ MonoBehaviour:
   distributions:
   - cubeType: 12
     count: 0
-    weight: 0
+    weight: 1
   cumulativeWeights:
-  - NaN
+  - 1
   fixedCount: 0
