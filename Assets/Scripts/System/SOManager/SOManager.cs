@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AILand.GamePlay.InventorySystem;
 using AILand.GamePlay.World;
 using AILand.System.Base;
 using AILand.Utils;
@@ -63,6 +64,16 @@ namespace AILand.System.SOManager
         CubePresetType IKeyValuePair<CubePresetType, CubePresetSO>.key => presetType;
         CubePresetSO IKeyValuePair<CubePresetType, CubePresetSO>.value => so;
     }
+    
+    [Serializable]
+    public struct ItemConfig : IKeyValuePair<ItemEnum, ItemConfigSO>
+    {
+        public ItemEnum itemEnum;
+        public ItemConfigSO so;
+        
+        ItemEnum IKeyValuePair<ItemEnum, ItemConfigSO>.key => itemEnum;
+        ItemConfigSO IKeyValuePair<ItemEnum, ItemConfigSO>.value => so;
+    }
 
     public class SOManager : Singleton<SOManager>
     {
@@ -81,6 +92,9 @@ namespace AILand.System.SOManager
         [Header("Preset配置")]
         public List<CubePreset> cubePresets = new List<CubePreset>();
 
+        [Header("Item配置")]
+        public List<ItemConfig> itemConfigs = new List<ItemConfig>();
+        
         public Dictionary<CellType, HeightDistributionConfigSO> heightDistributionDict =
             new Dictionary<CellType, HeightDistributionConfigSO>();
         
@@ -96,6 +110,9 @@ namespace AILand.System.SOManager
         public Dictionary<CubePresetType, CubePresetSO> cubePresetDict =
             new Dictionary<CubePresetType, CubePresetSO>();
 
+        public Dictionary<ItemEnum, ItemConfigSO> itemConfigDict =
+            new Dictionary<ItemEnum, ItemConfigSO>();
+
         protected override void Awake()
         {
             base.Awake();
@@ -105,6 +122,7 @@ namespace AILand.System.SOManager
             RegisterDictionary(cubeConfigs, cubeConfigDict, "CubeConfigSO");
             RegisterDictionary(propConfigs, propConfigDict, "PropConfigSO");
             RegisterDictionary(cubePresets, cubePresetDict, "CubePresetSO");
+            RegisterDictionary(itemConfigs, itemConfigDict, "ItemConfigSO");
         }
 
         private void RegisterDictionary<T, TKey, TValue>(List<T> list, Dictionary<TKey, TValue> dictionary, string typeName)

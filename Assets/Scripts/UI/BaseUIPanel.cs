@@ -18,6 +18,11 @@ namespace AILand.UI
             
         }
 
+        protected void Update()
+        {
+            
+        }
+
         protected virtual void OnDestroy()
         {
             UnbindListeners();

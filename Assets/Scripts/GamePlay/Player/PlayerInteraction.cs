@@ -1,7 +1,9 @@
 using AILand.GamePlay.World;
 using AILand.GamePlay.World.Cube;
+using AILand.System.EventSystem;
 using AILand.Utils;
 using UnityEngine;
+using EventType = AILand.System.EventSystem.EventType;
 
 namespace AILand.GamePlay
 {
@@ -37,6 +39,29 @@ namespace AILand.GamePlay
             DetectInteractableProp();
 
             DetectInteractableCube();
+
+             // 打开背包
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                EventCenter.Broadcast(EventType.OpenBag, 0);
+            }
+            
+            // 滑动滚轮更改选择
+            HandleScrollInput();
+        }
+        
+        private void HandleScrollInput()
+        {
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            var curSelectIndex = GameManager.Instance.CurSelectItemIndex;
+            if (scroll > 0f) // 向上滚动
+            {
+                GameManager.Instance.CurSelectItemIndex = (curSelectIndex - 1 + 10) % 10;
+            }
+            else if (scroll < 0f) // 向下滚动
+            {
+                GameManager.Instance.CurSelectItemIndex = (curSelectIndex + 1 ) % 10;
+            }
         }
         
         private void DetectInteractableProp()
