@@ -12,7 +12,9 @@ namespace AILand.UI
         private Transform m_transInventory10;
         private GameObject[] m_goItems = new GameObject[10];
         private Transform[] m_transItemSlots = new Transform[10];
-        
+
+        private ElementEnergyUI m_elementEnergyUI;
+
         protected override void BindUI()
         {
             m_transInventory10 = transform.Find("Inventory10Grid");
@@ -21,6 +23,8 @@ namespace AILand.UI
                 m_transItemSlots[i] = m_transInventory10.GetChild(i);
                 m_goItems[i] = m_transItemSlots[i].Find("Item").gameObject;
             }
+
+            m_elementEnergyUI = transform.Find("ElementEnergy").GetComponent<ElementEnergyUI>();
         }
         
         protected override void Start()
@@ -37,6 +41,7 @@ namespace AILand.UI
             EventCenter.AddListener(EventType.OnHideUIPanel, Show);
             EventCenter.AddListener(EventType.RefreshBagInventory, Update10Inventory);
             EventCenter.AddListener(EventType.SelectInventoryItemChange,Update10Inventory);
+            EventCenter.AddListener(EventType.RefreshElementEnergy, UpdateElementEnergy);
         }
 
         protected override void UnbindListeners()
@@ -45,6 +50,7 @@ namespace AILand.UI
             EventCenter.RemoveListener(EventType.OnHideUIPanel, Show);
             EventCenter.RemoveListener(EventType.RefreshBagInventory, Update10Inventory);
             EventCenter.RemoveListener(EventType.SelectInventoryItemChange,Update10Inventory);
+            EventCenter.RemoveListener(EventType.RefreshElementEnergy, UpdateElementEnergy);
         }
 
         protected override void OnEnable()
@@ -55,6 +61,11 @@ namespace AILand.UI
         protected override void OnDisable()
         {
             // 不需要停止camera
+        }
+
+        private void UpdateElementEnergy()
+        {
+            m_elementEnergyUI.UpdateEnergy(DataManager.Instance.PlayerData.GetElementalEnergy().NormalElement);
         }
 
 

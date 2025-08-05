@@ -22,6 +22,69 @@ namespace GamePlay.Player
             m_inventoryData = new InventoryData();
         }
 
+        #region Elemental Energy
+
+        public ElementalEnergy GetElementalEnergy()
+        {
+            return m_elementalEnergy;
+        }
+
+        public void AddElementalEnergy(EnergyType type, int count)
+        {
+            if (count <= 0)
+            {
+                Debug.LogWarning("Cannot add non-positive amount of elemental energy.");
+                return;
+            }
+            var normalElement = m_elementalEnergy.NormalElement;
+            switch (type)
+            {
+                case EnergyType.Metal:
+                    normalElement.Metal += count;
+                    break;
+                case EnergyType.Wood:
+                    normalElement.Wood += count;
+                    break;
+                case EnergyType.Water:
+                    normalElement.Water += count;
+                    break;
+                case EnergyType.Fire:
+                    normalElement.Fire += count;
+                    break;
+                case EnergyType.Earth:
+                    normalElement.Earth += count;
+                    break;
+                default:
+                    Debug.LogWarning("Unknown energy type.");
+                    return;
+            }
+            m_elementalEnergy.NormalElement = normalElement;
+            BroadcastElementEnergyChange();
+        }
+
+        public void AddElementalEnergy(int metal, int wood, int water, int fire, int earth)
+        {
+            var normalElement = m_elementalEnergy.NormalElement;
+            normalElement.Metal += metal;
+            normalElement.Wood += wood;
+            normalElement.Water += water;
+            normalElement.Fire += fire;
+            normalElement.Earth += earth;
+            m_elementalEnergy.NormalElement = normalElement;
+            BroadcastElementEnergyChange();
+        }
+
+        private void BroadcastElementEnergyChange()
+        {
+            // 广播能量变化事件
+            EventCenter.Broadcast(EventType.RefreshElementEnergy);
+        }
+
+        #endregion
+
+
+        #region Inventory
+
         public int AddInventory()
         {
             m_inventoryData.allInventorys[m_inventoryCounter] = new List<ItemData>(30);
@@ -115,5 +178,7 @@ namespace GamePlay.Player
             // 广播背包变化事件
             EventCenter.Broadcast(EventType.RefreshBagInventory);
         }
+
+        #endregion
     }
 }

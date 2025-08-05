@@ -8,11 +8,13 @@ namespace AILand.GamePlay
     {
         public PlayerData PlayerData = new PlayerData();
 
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             PlayerData.AddInventory();
             PlayerData.AddItem(1,1);
             PlayerData.AddItem(2,100);
+            PlayerData.AddElementalEnergy(10, 20, 30, 40, 50);
         }
     }
 }

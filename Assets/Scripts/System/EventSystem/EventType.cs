@@ -35,6 +35,7 @@ namespace AILand.System.EventSystem
         SwitchItemInInventoryData, // 更换数据背包中的item
         RefreshBagInventory, // 更新了背包数据
         SelectInventoryItemChange, // 选择的背包物品改变
+        RefreshElementEnergy,
     }
 }
 

@@ -1,4 +1,5 @@
 using AILand.System.EventSystem;
+using System.Threading.Tasks;
 using UnityEngine;
 using EventType = AILand.System.EventSystem.EventType;
 
@@ -59,7 +60,11 @@ namespace AILand.GamePlay.World.Prop
 
         private void UpdateCrystalMaterial()
         {
-            
+            // parallax color
+            // Tagnet Space Map
+            // color & emission color(hdr +light)
+            // color top & color bottom
+            // rim light color & gitter color
         }
 
         #region 交互接口
