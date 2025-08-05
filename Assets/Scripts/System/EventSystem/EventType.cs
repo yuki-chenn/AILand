@@ -27,6 +27,13 @@ namespace AILand.System.EventSystem
         ShowDrawIslandShapePanelUI, // 显示绘制岛屿面板
         ShowDrawIslandCellTypePanelUI, // 显示绘制岛屿格子类型面板
         PlayerCreateIsland, // 玩家创建岛屿
+        
+        
+        
+        OpenBag, // 打开背包
+        OpenChest, // 打开箱子
+        SwitchItemInInventory, // 更换背包中的item
+        
     }
 }
 

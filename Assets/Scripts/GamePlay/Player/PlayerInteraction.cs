@@ -1,7 +1,9 @@
 using AILand.GamePlay.World;
 using AILand.GamePlay.World.Cube;
+using AILand.System.EventSystem;
 using AILand.Utils;
 using UnityEngine;
+using EventType = AILand.System.EventSystem.EventType;
 
 namespace AILand.GamePlay
 {
@@ -37,6 +39,11 @@ namespace AILand.GamePlay
             DetectInteractableProp();
 
             DetectInteractableCube();
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                EventCenter.Broadcast(EventType.OpenBag, 0);
+            }
         }
         
         private void DetectInteractableProp()
