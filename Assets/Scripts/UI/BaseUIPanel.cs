@@ -20,10 +20,7 @@ namespace AILand.UI
 
         protected void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Hide();
-            }
+            
         }
 
         protected virtual void OnDestroy()

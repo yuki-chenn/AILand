@@ -1,25 +1,41 @@
 using AILand.GamePlay.Player;
 using AILand.GamePlay.World;
 using AILand.System.Base;
+using AILand.System.EventSystem;
 using AILand.Utils;
 using UnityEngine;
+using EventType = AILand.System.EventSystem.EventType;
 
 namespace AILand.GamePlay
 {
     public class GameManager : Singleton<GameManager>
     {
+        // 配置
         public WFCConfigSO WFCConfigSO;
-
-
         public GameObject player;
         public Camera mainCamera;
-        public PlayerCharacter PlayerComponent => player.GetComponent<PlayerCharacter>();
-        
         public Transform blockHolder;
-
-
-        private CameraController cameraController => mainCamera.transform.parent.GetComponent<CameraController>();
         
+        
+        // 数据
+        private int m_curSelectItemIndex = 0;
+        public int CurSelectItemIndex
+        {
+            get => m_curSelectItemIndex;
+            set
+            {
+                if (m_curSelectItemIndex != value)
+                {
+                    m_curSelectItemIndex = value;
+                    EventCenter.Broadcast(EventType.SelectInventoryItemChange);
+                }
+            }
+        }
+
+        
+        
+        public CameraController CameraController => mainCamera.transform.parent.GetComponent<CameraController>();
+        public PlayerCharacter PlayerComponent => player.GetComponent<PlayerCharacter>();
         public int CurBlockId
         {
             get
@@ -45,7 +61,7 @@ namespace AILand.GamePlay
             // 暂时不显示玩家
             player.SetActive(false);
             // 将Camera跟随船
-            cameraController.ChangeCameraPlayer(boatObj.transform);
+            CameraController.ChangeCameraPlayer(boatObj.transform);
             // 给船一个控制方法
             boatObj.AddComponent<BoatController>().playerTransform = player.transform;
             Debug.Log($"GetOnBoard: 玩家上船成功，船名：{boatObj.name}");
@@ -67,7 +83,7 @@ namespace AILand.GamePlay
             // 恢复玩家显示
             player.SetActive(true);
             // 将Camera跟随玩家
-            cameraController.ChangeDefaultCameraPlayer();
+            CameraController.ChangeDefaultCameraPlayer();
             // 移除船的控制方法
             Destroy(boatObj?.GetComponent<BoatController>());
             Debug.Log($"GetOffBoard: 玩家下船成功，船名：{boatObj.name}");

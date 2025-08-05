@@ -126,7 +126,7 @@ namespace AILand.UI
             // 更新保存的数据
             var to = targetSlotUI.transform.GetSiblingIndex();
             var from = sourceSlot.transform.GetSiblingIndex();
-            EventCenter.Broadcast(EventType.SwitchItemInInventory, from, to);
+            EventCenter.Broadcast(EventType.SwitchItemInInventoryData, from, to);
         }
 
         private void ReturnToOriginalPosition()

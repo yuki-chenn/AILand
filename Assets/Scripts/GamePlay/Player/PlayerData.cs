@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using AILand.GamePlay.InventorySystem;
 using AILand.GamePlay.World;
-using AILand.GamePlay.World.Prop;
+using AILand.System.EventSystem;
 using UnityEngine;
+using EventType = AILand.System.EventSystem.EventType;
 
 namespace GamePlay.Player
 {
@@ -55,6 +56,7 @@ namespace GamePlay.Player
                 existingItem.itemCount += count;
                 itemList[existingIndex] = existingItem;
                 Debug.Log($"Item {id} added successfully in {inventoryID}.");
+                BroadcastInventoryChange();
                 return true;
             }
 
@@ -67,6 +69,7 @@ namespace GamePlay.Player
                 emptySlot.itemCount = count;
                 itemList[emptyIndex] = emptySlot;
                 Debug.Log($"Item {id} added successfully in {inventoryID}.");
+                BroadcastInventoryChange();
                 return true;
             }
 
@@ -104,6 +107,13 @@ namespace GamePlay.Player
                 return;
             }
             (dataList[from], dataList[to]) = (dataList[to], dataList[from]);
+            BroadcastInventoryChange();
+        }
+        
+        private void BroadcastInventoryChange()
+        {
+            // 广播背包变化事件
+            EventCenter.Broadcast(EventType.RefreshBagInventory);
         }
     }
 }

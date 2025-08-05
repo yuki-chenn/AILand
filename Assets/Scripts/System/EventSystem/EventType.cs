@@ -32,8 +32,9 @@ namespace AILand.System.EventSystem
         
         OpenBag, // 打开背包
         OpenChest, // 打开箱子
-        SwitchItemInInventory, // 更换背包中的item
-        
+        SwitchItemInInventoryData, // 更换数据背包中的item
+        RefreshBagInventory, // 更新了背包数据
+        SelectInventoryItemChange, // 选择的背包物品改变
     }
 }
 
