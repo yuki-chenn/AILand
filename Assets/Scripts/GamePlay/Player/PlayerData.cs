@@ -36,30 +36,36 @@ namespace GamePlay.Player
                 Debug.LogWarning("Cannot add non-positive amount of elemental energy.");
                 return;
             }
+            int[] delta = new int[5];
             var normalElement = m_elementalEnergy.NormalElement;
             switch (type)
             {
                 case EnergyType.Metal:
                     normalElement.Metal += count;
+                    delta[0] = count;
                     break;
                 case EnergyType.Wood:
                     normalElement.Wood += count;
+                    delta[1] = count;
                     break;
                 case EnergyType.Water:
                     normalElement.Water += count;
+                    delta[2] = count;
                     break;
                 case EnergyType.Fire:
                     normalElement.Fire += count;
+                    delta[3] = count;
                     break;
                 case EnergyType.Earth:
                     normalElement.Earth += count;
+                    delta[4] = count;
                     break;
                 default:
                     Debug.LogWarning("Unknown energy type.");
                     return;
             }
             m_elementalEnergy.NormalElement = normalElement;
-            BroadcastElementEnergyChange();
+            BroadcastElementEnergyChange(delta);
         }
 
         public void AddElementalEnergy(int metal, int wood, int water, int fire, int earth)
@@ -71,13 +77,14 @@ namespace GamePlay.Player
             normalElement.Fire += fire;
             normalElement.Earth += earth;
             m_elementalEnergy.NormalElement = normalElement;
-            BroadcastElementEnergyChange();
+            int[] delta = new int[5] { metal, wood, water, fire, earth };
+            BroadcastElementEnergyChange(delta);
         }
 
-        private void BroadcastElementEnergyChange()
+        private void BroadcastElementEnergyChange(int[] delta)
         {
             // 广播能量变化事件
-            EventCenter.Broadcast(EventType.RefreshElementEnergy);
+            EventCenter.Broadcast(EventType.RefreshElementEnergy,delta);
         }
 
         #endregion

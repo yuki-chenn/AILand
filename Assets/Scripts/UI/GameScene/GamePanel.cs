@@ -41,7 +41,7 @@ namespace AILand.UI
             EventCenter.AddListener(EventType.OnHideUIPanel, Show);
             EventCenter.AddListener(EventType.RefreshBagInventory, Update10Inventory);
             EventCenter.AddListener(EventType.SelectInventoryItemChange,Update10Inventory);
-            EventCenter.AddListener(EventType.RefreshElementEnergy, UpdateElementEnergy);
+            EventCenter.AddListener<int[]>(EventType.RefreshElementEnergy, UpdateElementEnergy);
         }
 
         protected override void UnbindListeners()
@@ -50,7 +50,7 @@ namespace AILand.UI
             EventCenter.RemoveListener(EventType.OnHideUIPanel, Show);
             EventCenter.RemoveListener(EventType.RefreshBagInventory, Update10Inventory);
             EventCenter.RemoveListener(EventType.SelectInventoryItemChange,Update10Inventory);
-            EventCenter.RemoveListener(EventType.RefreshElementEnergy, UpdateElementEnergy);
+            EventCenter.RemoveListener<int[]>(EventType.RefreshElementEnergy, UpdateElementEnergy);
         }
 
         protected override void OnEnable()
@@ -63,9 +63,10 @@ namespace AILand.UI
             // 不需要停止camera
         }
 
-        private void UpdateElementEnergy()
+        private void UpdateElementEnergy(int[] delta)
         {
             m_elementEnergyUI.UpdateEnergy(DataManager.Instance.PlayerData.GetElementalEnergy().NormalElement);
+            m_elementEnergyUI.UpdateEnergyAdd(delta);
         }
 
 

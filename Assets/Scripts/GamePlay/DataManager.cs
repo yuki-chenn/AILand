@@ -12,6 +12,10 @@ namespace AILand.GamePlay
         {
             base.Awake();
             PlayerData.AddInventory();
+        }
+
+        private void Start()
+        {
             PlayerData.AddItem(1,1);
             PlayerData.AddItem(2,100);
             PlayerData.AddElementalEnergy(10, 20, 30, 40, 50);
