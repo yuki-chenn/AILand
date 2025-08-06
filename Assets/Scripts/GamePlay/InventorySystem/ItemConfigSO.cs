@@ -1,4 +1,5 @@
 using AILand.GamePlay.InventorySystem;
+using GamePlay.InventorySystem;
 using UnityEngine;
 
 namespace AILand.GamePlay.World
@@ -10,6 +11,7 @@ namespace AILand.GamePlay.World
        public int itemID;
        public string itemName;
        public ItemEnum itemEnum;
+       public ItemType itemType;
        public Sprite itemIcon;
     }
 }

@@ -15,4 +15,5 @@ MonoBehaviour:
   itemID: 1
   itemName: "\u65E0\u9650\u624B\u5957"
   itemEnum: 1
+  itemType: 1
   itemIcon: {fileID: 21300000, guid: c05b7d8d9ef76fb45b38e057289498de, type: 3}

@@ -209,19 +209,19 @@ namespace AILand.GamePlay.World
         }
 
 
-        public void DestoryCube(int x,int y,int z,bool needLoad=true)
+        public bool DestroyCube(int x,int y,int z,bool needLoad=true)
         {
             var cell = GetCellData(x, z);
             if (cell == null)
             {
                 Debug.LogError($"DestoryCube error : Cell at {x}, {z} does not exist in block {m_blockID}.");
-                return;
+                return false;
             }
-            cell.DestoryCube(y, needLoad);
+            var ok = cell.DestroyCube(y, needLoad);
             
             // 需要load旁边的cell
             if(needLoad) LoadAroundCells(x, z);
-            
+            return ok;
         }
         
         public void AddCube(int x, int y, int z, CubeType cubeType,int rotation,bool needLoad=true)
@@ -344,7 +344,7 @@ namespace AILand.GamePlay.World
                 var index = cube.position + rootIndex;
                 var worldCube = GetCellData(index.x, index.z)?.GetCubeData(index.y);
                 if (worldCube != null && worldCube.CubeType != CubeType.None) 
-                    DestoryCube(index.x, index.y, index.z, false);
+                    DestroyCube(index.x, index.y, index.z, false);
                 AddCube(index.x, index.y, index.z, cube.cubeType, cube.rotation, false);
             }
             

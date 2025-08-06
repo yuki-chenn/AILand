@@ -153,12 +153,12 @@ namespace AILand.GamePlay.World
 
         }
 
-        public void DestoryCube(BaseCube cube)
+        public bool DestroyCube(BaseCube cube)
         {
             if(cube == null)
             {
                 Debug.LogWarning("DestoryBlock Cube is null");
-                return;
+                return false;
             }
             
             var cubeTrans = cube.transform;
@@ -177,16 +177,19 @@ namespace AILand.GamePlay.World
             {
                 // 没有方块
                 Debug.LogWarning($"No cube found at position ({x}, {y}, {z}) to destroy.");
-                return;
+                return false;
             }
             // TODO: 范围导致无法破坏
             
             // 方块属性无法破坏
-            if(cubeData.CubeConfig.canDestroy) block.DestoryCube(x, y, z);
-            else
+            if (!cubeData.CubeConfig.canDestroy)
             {
                 Debug.Log("Cannot destroy this cube.");
+                return false;
+                
             }
+            
+            return block.DestroyCube(x, y, z);;
         }
 
         public void PlaceCube(Vector3Int posIndex, CubeType cubeType, BaseCube cubeFocus)

@@ -1,3 +1,4 @@
+using AILand.GamePlay.InventorySystem;
 using AILand.GamePlay.Player;
 using AILand.GamePlay.World;
 using AILand.System.Base;
@@ -5,6 +6,7 @@ using AILand.System.EventSystem;
 using AILand.Utils;
 using UnityEngine;
 using EventType = AILand.System.EventSystem.EventType;
+using NotImplementedException = System.NotImplementedException;
 
 namespace AILand.GamePlay
 {
@@ -88,8 +90,12 @@ namespace AILand.GamePlay
             Destroy(boatObj?.GetComponent<BoatController>());
             Debug.Log($"GetOffBoard: 玩家下船成功，船名：{boatObj.name}");
         }
-        
-        
-        
+
+
+        public BaseItem GetCurrentSelectItem()
+        {
+            var item = DataManager.Instance.PlayerData.GetItemInInventory(0, m_curSelectItemIndex);
+            return ItemFactory.GetItemByID(item.itemID);
+        }
     }
 }

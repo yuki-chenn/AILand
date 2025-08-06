@@ -111,17 +111,18 @@ namespace AILand.GamePlay.World
             return up && down && left && right && front && back;
         }
 
-        public void DestoryCube(int y, bool needLoad = true)
+        public bool DestroyCube(int y, bool needLoad = true)
         {
             if (y < 0 || y >= m_cubes.Count)
             {
                 Debug.LogError(
                     $"DestoryCube error : Cube at height {y} does not exist in cell {m_index} of block {m_blockData.BlockID}.");
-                return;
+                return false;
             }
             
             m_cubes[y].Change(CubeType.None, 0, needLoad);
             if(needLoad) Load();
+            return true;
         }
 
         public void AddCube(int y, CubeType cubeType, int rotation, bool needLoad = true)

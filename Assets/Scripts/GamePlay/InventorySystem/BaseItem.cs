@@ -8,5 +8,7 @@ namespace AILand.GamePlay.InventorySystem
         public virtual ItemEnum itemEnum { get; set; }
 
         public ItemConfigSO config { get { return SOManager.Instance.itemConfigDict[itemEnum]; } }
+        
+        public virtual CubeType PlaceCubeType => CubeType.None;
     }
 }

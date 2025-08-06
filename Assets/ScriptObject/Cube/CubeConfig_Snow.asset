@@ -15,4 +15,7 @@ MonoBehaviour:
   cubeType: 7
   cubePrefab: {fileID: 1457027692877449856, guid: 7cfde66806695d645bd342937b4129e5, type: 3}
   canDestroy: 1
+  elementEnergy:
+  - energyType: 3
+    count: 10
   canPlaceCubeOn: 1

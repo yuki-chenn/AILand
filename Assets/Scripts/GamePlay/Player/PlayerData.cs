@@ -68,17 +68,45 @@ namespace GamePlay.Player
             BroadcastElementEnergyChange(delta);
         }
 
-        public void AddElementalEnergy(int metal, int wood, int water, int fire, int earth)
+        public void AddElementalEnergy(NormalElement element)
         {
             var normalElement = m_elementalEnergy.NormalElement;
-            normalElement.Metal += metal;
-            normalElement.Wood += wood;
-            normalElement.Water += water;
-            normalElement.Fire += fire;
-            normalElement.Earth += earth;
+            normalElement.Metal += element[0];
+            normalElement.Wood += element[1];
+            normalElement.Water += element[2];
+            normalElement.Fire += element[3];
+            normalElement.Earth += element[4];
             m_elementalEnergy.NormalElement = normalElement;
-            int[] delta = new int[5] { metal, wood, water, fire, earth };
+            int[] delta = new int[5] { element.Metal, element.Wood, element.Water, element.Fire, element.Earth };
             BroadcastElementEnergyChange(delta);
+        }
+        
+        public void AddElementalEnergy(List<StoredElementEnergy> storedEnergy)
+        {
+            NormalElement normalEnergy = new NormalElement(0);
+            foreach (var energy in storedEnergy)
+            {
+                switch (energy.energyType)
+                {
+                    case EnergyType.Metal:
+                        normalEnergy[0] += energy.count;
+                        break;
+                    case EnergyType.Wood:
+                        normalEnergy[1] += energy.count;
+                        break;
+                    case EnergyType.Water:
+                        normalEnergy[2] += energy.count;
+                        break;
+                    case EnergyType.Fire:
+                        normalEnergy[3] += energy.count;
+                        break;
+                    case EnergyType.Earth:
+                        normalEnergy[4] += energy.count;
+                        break;
+                }
+            }
+
+            AddElementalEnergy(normalEnergy);
         }
 
         private void BroadcastElementEnergyChange(int[] delta)
@@ -160,6 +188,23 @@ namespace GamePlay.Player
                 return new List<ItemData>();
             }
         }
+        
+        public ItemData GetItemInInventory(int inventoryId, int index)
+        {
+            if (!m_inventoryData.allInventorys.ContainsKey(inventoryId))
+            {
+                Debug.LogError($"Inventory ID {inventoryId} does not exist.");
+                return new ItemData{itemID = -1,itemCount = 0};
+            }
+            
+            var dataList = m_inventoryData.allInventorys[inventoryId];
+            if (dataList == null || index < 0 || index >= dataList.Count)
+            {
+                Debug.LogError($"Invalid inventory ID {inventoryId} or index out of range.");
+                return new ItemData{itemID = -1,itemCount = 0};
+            }
+            return dataList[index];
+        }
 
         public void SwitchItemInInventory(int inventoryId, int from, int to)
         {
@@ -187,5 +232,7 @@ namespace GamePlay.Player
         }
 
         #endregion
+
+        
     }
 }

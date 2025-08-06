@@ -1,7 +1,11 @@
+using System;
+using AILand.GamePlay.InventorySystem;
 using AILand.GamePlay.World;
 using AILand.GamePlay.World.Cube;
 using AILand.System.EventSystem;
+using AILand.System.SOManager;
 using AILand.Utils;
+using GamePlay.InventorySystem;
 using UnityEngine;
 using EventType = AILand.System.EventSystem.EventType;
 
@@ -33,12 +37,24 @@ namespace AILand.GamePlay
         }
 
         private IInteractable m_cubeFoucs;
+        
+        // 当前选中的物品
+        private BaseItem m_currentSelectItem => GameManager.Instance.GetCurrentSelectItem();
+        private ItemType m_currentSelectItemType => m_currentSelectItem == null ? ItemType.None : m_currentSelectItem.config.itemType;
 
         void Update()
         {
+            // 检测周围交互的道具
             DetectInteractableProp();
 
+            // 检测方块交互
             DetectInteractableCube();
+            
+            // 检测方块放置
+            DetectPlaceCube();
+            
+            // 检测方块破坏
+            DetectDestroyCube();
 
              // 打开背包
             if (Input.GetKeyDown(KeyCode.B))
@@ -128,12 +144,18 @@ namespace AILand.GamePlay
                     m_cubeFoucs = null;
                 }
             }
-            
+        }
+        
+
+        private void DetectPlaceCube()
+        {
+            if (m_currentSelectItemType != ItemType.PlacedCube) return;
             // 左键点击放置
             if(Input.GetMouseButtonDown(0))
             {
                 if (m_cubeFoucs != null)
                 {
+                    RaycastHit hit;
                     if (Physics.Raycast(m_ray, out hit, raycastDistance, cubeLayer))
                     {
                         // 获取击中面的法向量
@@ -151,12 +173,17 @@ namespace AILand.GamePlay
                         
                         Debug.Log($"Placing cube at grid position: {gridPosition}");
             
+                        CubeType placeCubeType = m_currentSelectItem.PlaceCubeType;
                         // 在新位置创建方块
-                        WorldManager.Instance.PlaceCube(gridPosition, CubeType.Stone, m_cubeFoucs as BaseCube); 
+                        WorldManager.Instance.PlaceCube(gridPosition, placeCubeType, m_cubeFoucs as BaseCube); 
                     }
                 }
             }
-            
+        }
+
+        private void DetectDestroyCube()
+        {
+            if (m_currentSelectItemType != ItemType.InfiniteGauntlet) return;
             
             // 右键点击破坏
             if (Input.GetMouseButtonDown(1))
@@ -164,12 +191,16 @@ namespace AILand.GamePlay
                 if(m_cubeFoucs != null)
                 {
                     var cube = m_cubeFoucs as BaseCube;
-                    WorldManager.Instance.DestoryCube(cube);
+                    if(cube == null) return;
+                    var ok = WorldManager.Instance.DestroyCube(cube);
+                    if (ok)
+                    {
+                        // 增加能量
+                        var storedEnergy = SOManager.Instance.cubeConfigDict[cube.CubeType].elementEnergy;
+                        DataManager.Instance.PlayerData.AddElementalEnergy(storedEnergy);
+                    }
                 }
             }
-            
-            
-            
         }
         
         
