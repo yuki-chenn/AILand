@@ -5,5 +5,6 @@ namespace AILand.GamePlay.World
         None,
         Harbor, // 港口
         Tree, // 树
+        RespawnCrystal, // 重生水晶
     }
 }

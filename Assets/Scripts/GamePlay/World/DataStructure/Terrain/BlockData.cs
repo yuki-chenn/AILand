@@ -389,7 +389,7 @@ namespace AILand.GamePlay.World
                 //判断connect
                 if (preset.connectToIsland && !IsConnectToIsland(x, y, z, preset.connectedCubeTypes))
                 {
-                    continue; // 如果需要连接到岛屿，且不连接，则跳过
+                    continue;
                 }
                 
                 // 判断canReplace

@@ -15,5 +15,6 @@ namespace AILand.GamePlay.World
         HardStone,    // 硬石，无法被破坏
         Lava,      // 岩浆
         LavaStone, // 岩浆石
+        Platform,
     }
 }

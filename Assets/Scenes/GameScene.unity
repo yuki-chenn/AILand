@@ -3005,6 +3005,9 @@ MonoBehaviour:
   - prefab: {fileID: 3167108783053267904, guid: 6bbf53c9fdad76b43bdbca969333e4d1, type: 3}
     defaultCapacity: 10
     maxSize: 100
+  - prefab: {fileID: 6505126625474311592, guid: dcbfdcae5ce03d443b87fff4c4be8ab7, type: 3}
+    defaultCapacity: 10
+    maxSize: 100
 --- !u!4 &511311833
 Transform:
   m_ObjectHideFlags: 0
@@ -6314,6 +6317,8 @@ MonoBehaviour:
     so: {fileID: 11400000, guid: 83bbacac37ca57146a43d3f325ea0fb5, type: 2}
   - cubeType: 12
     so: {fileID: 11400000, guid: 9891d47a29b89b94d856689c6a680fca, type: 2}
+  - cubeType: 13
+    so: {fileID: 11400000, guid: 104db1afd6b3a52409a479d0d3413962, type: 2}
   propConfigs:
   - propType: 1
     so: {fileID: 11400000, guid: 727b71b706e441a4991c4964e8ed9dd8, type: 2}
@@ -6322,6 +6327,8 @@ MonoBehaviour:
     so: {fileID: 11400000, guid: fe86d5b7f7831c64a9b025b5a3171324, type: 2}
   - presetType: 2
     so: {fileID: 11400000, guid: 7ce99317f9e67144fbc74cf4556fa786, type: 2}
+  - presetType: 3
+    so: {fileID: 11400000, guid: 9bdc29d42ef79dc40a059f28f5679e8f, type: 2}
   itemConfigs:
   - itemEnum: 0
     so: {fileID: 11400000, guid: 29e6d4c681518d949affedeb6e2efbc6, type: 2}
