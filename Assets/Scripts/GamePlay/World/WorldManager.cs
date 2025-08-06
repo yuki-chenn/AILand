@@ -192,13 +192,13 @@ namespace AILand.GamePlay.World
             return block.DestroyCube(x, y, z);;
         }
 
-        public void PlaceCube(Vector3Int posIndex, CubeType cubeType, BaseCube cubeFocus)
+        public bool PlaceCube(Vector3Int posIndex, CubeType cubeType, BaseCube cubeFocus)
         {
             // TODO : 检查是否能够放置方块
             if (!SOManager.Instance.cubeConfigDict[cubeFocus.CubeType].canPlaceCubeOn)
             {
                 Debug.Log($"Cannot place cube of type {cubeFocus.CubeType}");
-                return;
+                return false;
             }
             
             if(posIndex.x < 0 || posIndex.x >= m_blockWidth ||
@@ -206,7 +206,7 @@ namespace AILand.GamePlay.World
                posIndex.z < 0 || posIndex.z >= m_blockHeight)
             {
                 // 超出范围
-                return;
+                return false;
             }
             
             
@@ -225,11 +225,11 @@ namespace AILand.GamePlay.World
             if (playerIndex0.Equals(posIndex) || playerIndex1.Equals(posIndex))
             {
                 Debug.LogWarning("Player is standing on the block, cannot place cube.");
-                return;
+                return false;
             }
 
             var block = m_worldData.GetBlock(Util.GetBlockIDByWorldPosition(new Vector3(posIndex.x, posIndex.y, posIndex.z), m_blockWidth, m_blockHeight));
-            block.AddCube(posIndex.x, posIndex.y, posIndex.z, cubeType, 0);
+            return block.AddCube(posIndex.x, posIndex.y, posIndex.z, cubeType, 0);
         }
         
 

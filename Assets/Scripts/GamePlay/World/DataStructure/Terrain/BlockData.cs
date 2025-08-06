@@ -214,7 +214,7 @@ namespace AILand.GamePlay.World
             var cell = GetCellData(x, z);
             if (cell == null)
             {
-                Debug.LogError($"DestoryCube error : Cell at {x}, {z} does not exist in block {m_blockID}.");
+                Debug.LogError($"DestroyCube error : Cell at {x}, {z} does not exist in block {m_blockID}.");
                 return false;
             }
             var ok = cell.DestroyCube(y, needLoad);
@@ -224,18 +224,19 @@ namespace AILand.GamePlay.World
             return ok;
         }
         
-        public void AddCube(int x, int y, int z, CubeType cubeType,int rotation,bool needLoad=true)
+        public bool AddCube(int x, int y, int z, CubeType cubeType,int rotation,bool needLoad=true)
         {
             var cell = GetCellData(x, z);
             if (cell == null)
             {
                 Debug.LogError($"AddCube error : Cell at {x}, {z} does not exist in block {m_blockID}.");
-                return;
+                return false;
             }
-            cell.AddCube(y, cubeType, rotation, needLoad);
+            var ok = cell.AddCube(y, cubeType, rotation, needLoad);
             
             // 需要load旁边的cell
             if(needLoad) LoadAroundCells(x, z);
+            return ok;
         }
 
         public void AddProp(PropType propType, Vector3Int index, Quaternion rotation)

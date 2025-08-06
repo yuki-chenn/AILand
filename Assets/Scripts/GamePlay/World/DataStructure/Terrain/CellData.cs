@@ -116,7 +116,7 @@ namespace AILand.GamePlay.World
             if (y < 0 || y >= m_cubes.Count)
             {
                 Debug.LogError(
-                    $"DestoryCube error : Cube at height {y} does not exist in cell {m_index} of block {m_blockData.BlockID}.");
+                    $"DestroyCube error : Cube at height {y} does not exist in cell {m_index} of block {m_blockData.BlockID}.");
                 return false;
             }
             
@@ -125,13 +125,13 @@ namespace AILand.GamePlay.World
             return true;
         }
 
-        public void AddCube(int y, CubeType cubeType, int rotation, bool needLoad = true)
+        public bool AddCube(int y, CubeType cubeType, int rotation, bool needLoad = true)
         {
             if (y < 0 || (y < m_cubes.Count && m_cubes[y].CubeType != CubeType.None))
             {
                 Debug.LogError(
                     $"AddCube error : Cannot add cube at height {y} in cell {m_index} of block {m_blockData.BlockID}.");
-                return;
+                return false;
             }
 
             if (y < m_cubes.Count)
@@ -140,7 +140,7 @@ namespace AILand.GamePlay.World
                 {
                     Debug.LogError(
                         $"AddCube error : Cannot change cube at height {y} in cell {m_index} of block {m_blockData.BlockID}.");
-                    return;
+                    return false;
                 }
                 else
                 {
@@ -158,6 +158,7 @@ namespace AILand.GamePlay.World
             }
 
             if(needLoad) Load();
+            return true;
         }
 
     }

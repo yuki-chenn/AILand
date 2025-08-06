@@ -176,6 +176,46 @@ namespace GamePlay.Player
             return false;
         }
         
+        public bool ConsumeItem(int inventoryId, int itemId, int count=1)
+        {
+            if (count <= 0)
+            {
+                Debug.LogWarning("Cannot consume non-positive amount of items.");
+                return false;
+            }
+            
+            if (!m_inventoryData.allInventorys.ContainsKey(inventoryId))
+            {
+                Debug.LogError($"Inventory ID {inventoryId} does not exist.");
+                return false;
+            }
+
+            var itemList = m_inventoryData.allInventorys[inventoryId];
+            int index = itemList.FindIndex(i => i.itemID == itemId);
+            if (index < 0)
+            {
+                Debug.LogWarning($"Item ID {itemId} not found in inventory {inventoryId}.");
+                return false;
+            }
+
+            var item = itemList[index];
+            if (item.itemCount < count)
+            {
+                Debug.LogWarning($"Not enough items to consume. Available: {item.itemCount}, Required: {count}");
+                return false;
+            }
+
+            item.itemCount -= count;
+            if (item.itemCount <= 0)
+            {
+                item.itemID = 0; // 清空物品
+            }
+            itemList[index] = item;
+
+            BroadcastInventoryChange();
+            return true;
+        }
+        
         public List<ItemData> GetItemsInInventory(int inventoryID = 0)
         {
             if (m_inventoryData.allInventorys.ContainsKey(inventoryID))
@@ -232,6 +272,7 @@ namespace GamePlay.Player
         }
 
         #endregion
+
 
         
     }

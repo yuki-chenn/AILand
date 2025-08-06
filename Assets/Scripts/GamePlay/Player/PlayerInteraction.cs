@@ -175,7 +175,11 @@ namespace AILand.GamePlay
             
                         CubeType placeCubeType = m_currentSelectItem.PlaceCubeType;
                         // 在新位置创建方块
-                        WorldManager.Instance.PlaceCube(gridPosition, placeCubeType, m_cubeFoucs as BaseCube); 
+                        var ok = WorldManager.Instance.PlaceCube(gridPosition, placeCubeType, m_cubeFoucs as BaseCube);
+                        if (ok)
+                        {
+                            DataManager.Instance.PlayerData.ConsumeItem(0,m_currentSelectItem.config.itemID,1);
+                        }
                     }
                 }
             }
