@@ -12,8 +12,6 @@ public class WFCBlock
     private Dictionary<int, List<IslandType>> m_probableType;
     private Dictionary<int, IslandType> m_generatedTypes;
     private Dictionary<IslandType, AdjacencyRule> m_adjacencyRuleDic;
-    
-    private System.Random m_random;
 
     private readonly List<IslandType> allType = Enum.GetValues(typeof(IslandType)).Cast<IslandType>().ToList();
 
@@ -22,7 +20,6 @@ public class WFCBlock
         m_config = wfcConfig;
         m_probableType = new Dictionary<int, List<IslandType>>();
         m_generatedTypes = new Dictionary<int, IslandType>();
-        m_random = seed == -1 ? new System.Random() : new System.Random(seed);
 
         InitAdjacencyRules();
     }
@@ -44,9 +41,9 @@ public class WFCBlock
     {
         if (!m_generatedTypes.ContainsKey(blockId))
         {
-            // ²¨º¯ÊıÌ®Ëõ
+            // æ³¢å‡½æ•°åç¼©
             
-            // È·¶¨Ì®Ëõ·¶Î§
+            // ç¡®å®šåç¼©èŒƒå›´
             List<int> collapsIds = new List<int>();
 
             var blockIndex = Util.GetBlockIndexByID(blockId);
@@ -59,15 +56,15 @@ public class WFCBlock
                 }
             }
 
-            // ³õÊ¼»¯¿ÉÄÜĞÔ
+            // åˆå§‹åŒ–å¯èƒ½æ€§
             foreach (var id in collapsIds)
             {
                 if (!m_probableType.ContainsKey(id))
                 {
-                    // ³õÊ¼»¯ËùÓĞÀàĞÍ
+                    // åˆå§‹åŒ–æ‰€æœ‰ç±»å‹
                     if(id == Constants.FirstBlockID)
                     {
-                        // Èç¹ûid°üº¬ÁËÍæ¼ÒµÄ³õÊ¼µºÓìid£¬ÔòÄ¬ÈÏÖ»ÓĞCustomÀàĞÍ
+                        // å¦‚æœidåŒ…å«äº†ç©å®¶çš„åˆå§‹å²›å±¿idï¼Œåˆ™é»˜è®¤åªæœ‰Customç±»å‹
                         m_probableType[id] = new List<IslandType> { IslandType.Custom };
                     }
                     else
@@ -78,10 +75,10 @@ public class WFCBlock
                 }
             }
 
-            // Ñ­»·Ì®Ëõ£¬Ö±µ½È«²¿Î»ÖÃ¶¼Ì®ËõÎªµ¥Ò»ÀàĞÍ
+            // å¾ªç¯åç¼©ï¼Œç›´åˆ°å…¨éƒ¨ä½ç½®éƒ½åç¼©ä¸ºå•ä¸€ç±»å‹
             while(collapsIds.Count > 0)
             {
-                // ´Ó¿ÉÄÜĞÔÁĞ±íÖĞÑ¡ÔñìØ×îĞ¡µÄÎ»ÖÃ
+                // ä»å¯èƒ½æ€§åˆ—è¡¨ä¸­é€‰æ‹©ç†µæœ€å°çš„ä½ç½®
                 var coId = FindMinEntropyPosition(collapsIds);
                 if(m_generatedTypes.ContainsKey(coId) && m_generatedTypes[coId] != IslandType.None)
                 {
@@ -92,11 +89,11 @@ public class WFCBlock
                     Debug.LogError("No valid position found for collapse.");
                     break;
                 }
-                // Ì®Ëõ¸ÃÎ»ÖÃ
+                // åç¼©è¯¥ä½ç½®
                 CollapsePosition(coId);
-                // ´Ó´ıÌ®ËõÁĞ±íÖĞÒÆ³ı
+                // ä»å¾…åç¼©åˆ—è¡¨ä¸­ç§»é™¤
                 collapsIds.Remove(coId);
-                // ´«²¥Ô¼Êøµ½ÏàÁÚÎ»ÖÃ
+                // ä¼ æ’­çº¦æŸåˆ°ç›¸é‚»ä½ç½®
                 PropagateConstraints(coId, collapsIds);
             }
 
@@ -107,7 +104,7 @@ public class WFCBlock
     }
 
     /// <summary>
-    /// ÕÒµ½ìØ×îĞ¡µÄÎ»ÖÃ
+    /// æ‰¾åˆ°ç†µæœ€å°çš„ä½ç½®
     /// </summary>
     private int FindMinEntropyPosition(in List<int> blockIds)
     {
@@ -117,7 +114,7 @@ public class WFCBlock
         {
             if(m_generatedTypes.ContainsKey(id) && m_generatedTypes[id] != IslandType.None)
             {
-                // ÒÑ¾­Ì®ËõÎªµ¥Ò»ÀàĞÍ£¬Ìø¹ı
+                // å·²ç»åç¼©ä¸ºå•ä¸€ç±»å‹ï¼Œè·³è¿‡
                 continue;
             }
 
@@ -133,12 +130,12 @@ public class WFCBlock
             if(m_probableType[id].Count == minEntropy) candidates.Add(id);
         }
 
-        // Ëæ»úÑ¡ÔñÒ»¸öºòÑ¡Î»ÖÃ
+        // éšæœºé€‰æ‹©ä¸€ä¸ªå€™é€‰ä½ç½®
         return Util.GetRandomElement(candidates);
     }
 
     /// <summary>
-    /// Ì®ËõÖ¸¶¨Î»ÖÃ
+    /// åç¼©æŒ‡å®šä½ç½®
     /// </summary>
     private void CollapsePosition(int blockId)
     {
@@ -150,17 +147,17 @@ public class WFCBlock
             return;
         }
 
-        // Ëæ»úÑ¡ÔñÒ»¸öÀàĞÍ
+        // éšæœºé€‰æ‹©ä¸€ä¸ªç±»å‹
         var type = Util.GetRandomElement(possibleTypes);
 
-        // ÉèÖÃÎªµ¥Ò»ÀàĞÍ
+        // è®¾ç½®ä¸ºå•ä¸€ç±»å‹
         m_probableType[blockId] = new List<IslandType> { type };
         m_generatedTypes[blockId] = type;
         Debug.Log($"Block {blockId} collapsed to type {type}");
     }
 
     /// <summary>
-    /// ´«²¥Ô¼Êøµ½ÏàÁÚÎ»ÖÃ
+    /// ä¼ æ’­çº¦æŸåˆ°ç›¸é‚»ä½ç½®
     /// </summary>
     private void PropagateConstraints(int curBlockId,in List<int> allBlockId)
     {
@@ -169,7 +166,7 @@ public class WFCBlock
     }
 
     /// <summary>
-    /// »ñÈ¡Ö¸¶¨Î»ÖÃµÄËùÓĞÁÚ¾Ó
+    /// è·å–æŒ‡å®šä½ç½®çš„æ‰€æœ‰é‚»å±…
     /// </summary>
     private List<int> GetNeighborsInList(int blockId, in List<int> allBlockId)
     {
@@ -189,7 +186,7 @@ public class WFCBlock
     }
 
     /// <summary>
-    /// »ñÈ¡ÖÜÎ§8¸öÁÚ¾ÓµÄblockIdÁĞ±í
+    /// è·å–å‘¨å›´8ä¸ªé‚»å±…çš„blockIdåˆ—è¡¨
     /// </summary>
     /// <param name="blockId"></param>
     /// <returns></returns>
@@ -202,7 +199,7 @@ public class WFCBlock
         {
             for (int dz = -1; dz <= 1; dz++)
             {
-                if (dx == 0 && dz == 0) continue; // Ìø¹ı×ÔÉí
+                if (dx == 0 && dz == 0) continue; // è·³è¿‡è‡ªèº«
                 int neighborId = Util.GetBlockID(index + new Vector2Int(dx, dz));
                 neighbors.Add(neighborId);
             }
@@ -212,10 +209,10 @@ public class WFCBlock
     }
 
     /// <summary>
-    /// ¸ù¾İdisseminateBlockId¸üĞÂÁÚ¾ÓupdateBlockIdµÄprobableType
+    /// æ ¹æ®disseminateBlockIdæ›´æ–°é‚»å±…updateBlockIdçš„probableType
     /// </summary>
-    /// <param name="updateBlockId">ĞèÒª¸üĞÂµÄblockId</param>
-    /// <param name="disseminateBlockId">Ì®ËõµÄblockId</param>
+    /// <param name="updateBlockId">éœ€è¦æ›´æ–°çš„blockId</param>
+    /// <param name="disseminateBlockId">åç¼©çš„blockId</param>
     private void UpdateNeighborProbableType(int updateBlockId,int disseminateBlockId)
     {
         if(!m_generatedTypes.ContainsKey(disseminateBlockId))
@@ -231,10 +228,10 @@ public class WFCBlock
         }
 
         IslandType disseminateType = m_generatedTypes[disseminateBlockId];
-        // 1. 8 ÁÚ½Ó¹ØÏµ
+        // 1. 8 é‚»æ¥å…³ç³»
         var forbid8 = m_adjacencyRuleDic[disseminateType].forbid8;
         foreach(var type in forbid8) m_probableType[updateBlockId].Remove(type);
-        // 2. 4 ÁÚ½Ó¹ØÏµ
+        // 2. 4 é‚»æ¥å…³ç³»
         if (Is4Adjacent(updateBlockId, disseminateBlockId))
         {
             var forbid4 = m_adjacencyRuleDic[disseminateType].forbid4;
@@ -251,7 +248,7 @@ public class WFCBlock
                 int notWaterCount = CountNotWaterTypeInNeighbors(neighborId);
                 if(8 - notWaterCount <= least)
                 {
-                    // ¿ÉÄÜÊÇwaterµÄÊıÁ¿ÒÑ¾­Ğ¡ÓÚµÈÓÚleast£¬water
+                    // å¯èƒ½æ˜¯waterçš„æ•°é‡å·²ç»å°äºç­‰äºleastï¼Œwater
                     m_probableType[updateBlockId] = new List<IslandType> { IslandType.Water };
                     break;
                 }
@@ -260,7 +257,7 @@ public class WFCBlock
     }
 
     /// <summary>
-    /// ÅĞ¶ÏÁ½¸öÎ»ÖÃÖ®¼äÊÇ·ñÊÇ4ÁÚ½Ó
+    /// åˆ¤æ–­ä¸¤ä¸ªä½ç½®ä¹‹é—´æ˜¯å¦æ˜¯4é‚»æ¥
     /// </summary>
     private bool Is4Adjacent(int id1, int id2)
     {
