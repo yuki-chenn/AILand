@@ -1,13 +1,19 @@
 using AILand.GamePlay.World;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace AILand.Utils
 {
     public static class Util
     {
+
+
+        #region 地形相关
+
         /// <summary>
         /// 计算距离图，计算map中每个为0的点到其他最近的不为0的点的曼哈顿距离
         /// </summary>
@@ -86,8 +92,225 @@ namespace AILand.Utils
             }
 
             return distanceMap;
-
         }
+
+
+        /// <summary>
+        /// 使用Perlin噪声生成平滑的随机曲线
+        /// </summary>
+        /// <param name="width">数组宽度</param>
+        /// <param name="height">数组高度</param>
+        /// <param name="border">边缘宽度</param>
+        /// <param name="curveLength">曲线长度（步数）</param>
+        /// <param name="thickness">曲线粗细</param>
+        /// <param name="stepSize">每步移动距离</param>
+        /// <param name="startX">起始X坐标（-1表示随机）</param>
+        /// <param name="startY">起始Y坐标（-1表示随机）</param>
+        /// <param name="seed">噪声种子（用于生成可重复的结果）</param>
+        /// <returns>绘制了曲线的01矩阵</returns>
+        public static float[,] GetRandomTerrainNoiseMap(int width, int height, int border, int curveLength, int thickness,
+            float stepSize = 1.5f, int startX = -1, int startY = -1, int seed = -1)
+        {
+            float[,] drawCurve = DrawSmoothRandomCurve(
+                width: width - border,
+                height: height - border,
+                curveLength: curveLength,
+                thickness: thickness,
+                stepSize: stepSize,     
+                startX: startX,
+                startY: startY,
+                seed: seed
+            );
+            var distanceMap = ComputeDistanceMap(drawCurve, width, height);
+            float[,] weightMap = new float[width, height];
+
+            float DecayFunction(int distance)
+            {
+                float a = 1.1000f, b = 2.2303f, c = 11.8828f, d = -0.1908f;
+                return (a - d) / (1 + Mathf.Pow(distance / c, b)) + d;
+            }
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    weightMap[x, y] = DecayFunction(distanceMap[x, y]);
+                }
+            }
+            
+            // 再叠加
+            var noiseMap = new PerlinNoise(width, height).NextNoiseMap();
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    noiseMap[x, y] *= weightMap[x, y];
+                    noiseMap[x, y] = Mathf.Clamp01(noiseMap[x, y]);
+                }
+            }
+            return noiseMap;
+        }
+        
+        
+        
+        public static float[,] DrawSmoothRandomCurve(int width, int height, int curveLength, int thickness,
+            float stepSize = 1.5f, int startX = -1, int startY = -1, int seed = -1)
+        {
+            float[,] array = new float[width, height];
+
+            if (seed >= 0)
+            {
+                Random.InitState(seed);
+            }
+
+            // 随机起始点
+            if (startX < 0 || startX >= width) startX = Random.Range(thickness, width - thickness);
+            if (startY < 0 || startY >= height) startY = Random.Range(thickness, height - thickness);
+
+            float currentX = startX;
+            float currentY = startY;
+            float currentDirection = Random.Range(0f, 2f * Mathf.PI); 
+
+            List<Vector2> curvePoints = new List<Vector2>();
+            curvePoints.Add(new Vector2(currentX, currentY));
+
+            float turnRange = 30f * Mathf.Deg2Rad; // 随机转向范围
+            float margin = thickness + 2f; // 边缘检测
+
+            // 曲线路径
+            for (int i = 0; i < curveLength; i++)
+            {
+                float minAngle, maxAngle;
+
+                // 边缘
+                bool nearLeftEdge = currentX < margin;
+                bool nearRightEdge = currentX > width - margin;
+                bool nearBottomEdge = currentY < margin;
+                bool nearTopEdge = currentY > height - margin;
+
+                if (nearLeftEdge || nearRightEdge || nearBottomEdge || nearTopEdge)
+                {
+                    float awayFromEdgeDirection = 0f;
+                    
+                    if (nearLeftEdge && nearBottomEdge)
+                        awayFromEdgeDirection = Mathf.PI * 0.25f; // 右上方
+                    else if (nearRightEdge && nearBottomEdge)
+                        awayFromEdgeDirection = Mathf.PI * 0.75f; // 左上方
+                    else if (nearLeftEdge && nearTopEdge)
+                        awayFromEdgeDirection = Mathf.PI * 1.75f; // 右下方
+                    else if (nearRightEdge && nearTopEdge)
+                        awayFromEdgeDirection = Mathf.PI * 1.25f; // 左下方
+                    else if (nearLeftEdge)
+                        awayFromEdgeDirection = 0f; // 向右
+                    else if (nearRightEdge)
+                        awayFromEdgeDirection = Mathf.PI; // 向左
+                    else if (nearBottomEdge)
+                        awayFromEdgeDirection = Mathf.PI * 0.5f; // 向上
+                    else if (nearTopEdge)
+                        awayFromEdgeDirection = Mathf.PI * 1.5f; // 向下
+
+                    // 远离边缘方向
+                    minAngle = awayFromEdgeDirection - turnRange * 2f;
+                    maxAngle = awayFromEdgeDirection + turnRange * 2f;
+                }
+                else
+                {
+                    // 当前方向左右30度范围
+                    minAngle = currentDirection - turnRange;
+                    maxAngle = currentDirection + turnRange;
+                }
+                
+                float newDirection = Random.Range(minAngle, maxAngle);
+                
+                newDirection = ((newDirection % (2f * Mathf.PI)) + 2f * Mathf.PI) % (2f * Mathf.PI);
+
+                currentDirection = newDirection;
+                
+                Vector2 direction = new Vector2(Mathf.Cos(currentDirection), Mathf.Sin(currentDirection));
+                currentX += direction.x * stepSize;
+                currentY += direction.y * stepSize;
+                
+                currentX = Mathf.Clamp(currentX, thickness, width - thickness - 1);
+                currentY = Mathf.Clamp(currentY, thickness, height - thickness - 1);
+
+                curvePoints.Add(new Vector2(currentX, currentY));
+            }
+            
+            for (int i = 0; i < curvePoints.Count - 1; i++)
+            {
+                DrawThickLine(ref array, width, height, curvePoints[i], curvePoints[i + 1], thickness);
+            }
+
+            return array;
+        }
+
+        /// <summary>
+        /// 绘制指定粗细的直线
+        /// </summary>
+        private static void DrawThickLine(ref float[,] array, int width, int height, Vector2 start, Vector2 end, int thickness)
+        {
+            int x0 = Mathf.RoundToInt(start.x);
+            int y0 = Mathf.RoundToInt(start.y);
+            int x1 = Mathf.RoundToInt(end.x);
+            int y1 = Mathf.RoundToInt(end.y);
+
+            int dx = Mathf.Abs(x1 - x0);
+            int dy = Mathf.Abs(y1 - y0);
+            int sx = x0 < x1 ? 1 : -1;
+            int sy = y0 < y1 ? 1 : -1;
+            int err = dx - dy;
+
+            int x = x0;
+            int y = y0;
+
+            while (true)
+            {
+                DrawThickPoint(ref array, width, height, new Vector2Int(x, y), thickness);
+
+                if (x == x1 && y == y1) break;
+
+                int e2 = 2 * err;
+                if (e2 > -dy)
+                {
+                    err -= dy;
+                    x += sx;
+                }
+                if (e2 < dx)
+                {
+                    err += dx;
+                    y += sy;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 绘制指定粗细的点（整数版本）
+        /// </summary>
+        private static void DrawThickPoint(ref float[,] array, int width, int height, Vector2Int center, int thickness)
+        {
+            int radius = thickness / 2;
+
+            for (int x = -radius; x <= radius; x++)
+            {
+                for (int y = -radius; y <= radius; y++)
+                {
+                    int drawX = center.x + x;
+                    int drawY = center.y + y;
+
+                    // 边界检查
+                    if (drawX >= 0 && drawX < width && drawY >= 0 && drawY < height)
+                    {
+                        // 圆形粗细
+                        float distance = Mathf.Sqrt(x * x + y * y);
+                        if (distance <= radius)
+                        {
+                            array[drawX, drawY] = 1;
+                        }
+                    }
+                }
+            }
+        }
+        
         
         /// <summary>
         /// 灰度纹理转换为二维数组
@@ -135,8 +358,12 @@ namespace AILand.Utils
             
             return texture;
         }
-        
-        
+
+        #endregion
+
+
+        #region block相关
+
         /// <summary>
         /// 获取block的ID
         /// </summary>
@@ -278,7 +505,9 @@ namespace AILand.Utils
             
             return cubes;
         }
+        
 
+        #endregion
 
 
         #region Random

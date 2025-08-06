@@ -337,6 +337,7 @@ public class PixelPainter : MonoBehaviour,
         }
     }
 
+    // 使用Bresenham算法绘制线段
     void DrawLine(Vector2Int a, Vector2Int b, bool isErase)
     {
         int x0 = a.x, y0 = a.y;

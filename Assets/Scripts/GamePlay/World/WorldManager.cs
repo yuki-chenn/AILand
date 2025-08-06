@@ -9,7 +9,7 @@ using AILand.System.EventSystem;
 using AILand.Utils;
 using UnityEngine;
 using EventType = AILand.System.EventSystem.EventType;
-
+using Random = UnityEngine.Random;
 
 
 namespace AILand.GamePlay.World
@@ -96,14 +96,20 @@ namespace AILand.GamePlay.World
             var block = new BlockData(blockId, m_blockWidth, m_blockHeight, islandType);
             m_worldData.AddBlock(blockId, block);
 
-            if(islandType != IslandType.Custom)
+            if(islandType != IslandType.Custom && islandType != IslandType.None && islandType != IslandType.Water)
             {
                 // 自然生成的岛屿
-                // TODO : nosieMap 以及 heightFunc
-                //PCGIslandInfo islandInfo = new PCGIslandInfo();
-                //islandInfo.shapeConfig = new ShapeConfig(0.3f, noiseMap, 10, x => Mathf.RoundToInt(x * 10 - 2));
-                //islandInfo.islandConfig = SOManager.Instance.islandConfigDict[islandType];
-                //block.CreateIsland(islandInfo);
+                PCGIslandInfo islandInfo = new PCGIslandInfo();
+                
+                var islandConfig = Util.CloneSO(SOManager.Instance.islandConfigDict[islandType]);
+                islandInfo.islandConfig = islandConfig;
+                
+                // 随机属性设置
+                var noiseMap = Util.GetRandomTerrainNoiseMap(m_blockWidth, m_blockHeight, 
+                    80, Util.GetRandomInRange(150,250), Util.GetRandomInRange(3,6),Util.GetRandomInRange(4,6));
+                islandInfo.shapeConfig = new ShapeConfig(islandConfig.waterThreshold, noiseMap, islandConfig.maxHeight, islandConfig.noiseToHeightCurve);
+                
+                block.CreateIsland(islandInfo);
             }
 
             return true;
@@ -134,11 +140,12 @@ namespace AILand.GamePlay.World
             }
             
             PCGIslandInfo islandInfo = new PCGIslandInfo();
-            islandInfo.shapeConfig = new ShapeConfig(0.3f, noiseMap, 10, x=> Mathf.RoundToInt(x * 10 - 2));
+            
             var islandConfig = Util.CloneSO(SOManager.Instance.islandConfigDict[block.IslandType]);
             islandConfig.SetPaintCellType(cellTypeMap);
             islandInfo.islandConfig = islandConfig;
-
+            
+            islandInfo.shapeConfig = new ShapeConfig(islandConfig.waterThreshold, noiseMap, islandConfig.maxHeight, islandConfig.noiseToHeightCurve);
             var ok = block.CreateIsland(islandInfo);
 
             if (ok)

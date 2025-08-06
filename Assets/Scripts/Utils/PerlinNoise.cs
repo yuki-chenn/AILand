@@ -37,7 +37,7 @@ public class PerlinNoise
         m_width = width;
         m_height = height;
         
-        SetSeed(seed);
+        if(seed != -1) SetSeed(seed);
         
         m_noiseTexture = new Texture2D(m_width, m_height, TextureFormat.RGBA32, false);
         m_noiseTexture.wrapMode = TextureWrapMode.Clamp;

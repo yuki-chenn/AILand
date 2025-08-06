@@ -25,3 +25,47 @@ MonoBehaviour:
   extraLimitBelow:
     cellType: 0
     heightLimit: 0
+  maxHeight: 10
+  waterThreshold: 0.3
+  noiseToHeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.81141394
+      value: 4.729856
+      inSlope: 16.28905
+      outSlope: 16.28905
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.37596068
+    - serializedVersion: 3
+      time: 0.9471843
+      value: 8.687131
+      inSlope: 16.87274
+      outSlope: 16.87274
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.47334486
+    - serializedVersion: 3
+      time: 1
+      value: 10
+      inSlope: 10
+      outSlope: 10
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

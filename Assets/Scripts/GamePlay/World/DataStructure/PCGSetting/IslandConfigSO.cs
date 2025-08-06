@@ -39,6 +39,12 @@ namespace AILand.GamePlay.World
         [Header("额外的高度配置")] [Tooltip("当高度小于此值时，强制设置为对应的CellType")]
         public ExtraLimit extraLimitBelow;
 
+        [Header("高度映射配置")]
+        [Tooltip("噪声值(0-1)到高度的映射曲线")]
+        public int maxHeight = 10;
+        public float waterThreshold = 0.3f;
+        public AnimationCurve noiseToHeightCurve;
+        
         public int Width => width;
         public int Height => height;
 
@@ -81,7 +87,7 @@ namespace AILand.GamePlay.World
                 }
             }
         }
-
+        
         public void ResizeArray(int newWidth, int newHeight)
         {
             var newArray = new CellType[newWidth * newHeight];
@@ -113,6 +119,12 @@ namespace AILand.GamePlay.World
             if (cellTypesArray == null || cellTypesArray.Length != width * height)
             {
                 InitializeArray();
+            }
+    
+            // 初始化曲线，如果还没有设置的话
+            if (noiseToHeightCurve == null || noiseToHeightCurve.keys.Length == 0)
+            {
+                noiseToHeightCurve = AnimationCurve.Linear(0f, 0f, 1f, maxHeight);
             }
         }
     }
