@@ -46,7 +46,38 @@ namespace AILand.GamePlay
                 return Util.GetBlockIDByWorldPosition(pos, Constants.BlockWidth, Constants.BlockHeight);
             }
         }
-        
+
+
+        public void PlayerDie()
+        {
+            if (DataManager.Instance.PlayerData.CurrentHp > 0) return;
+
+            Debug.Log($"PlayerDie");
+
+            Invoke("PlayerRebirth",1f);
+        }
+
+        public void PlayerRebirth()
+        {
+            Debug.Log($"PlayerRebirth");
+            // 传送玩家到出生点
+            Teleport(new Vector3(100, 100, 100));
+            // 重置玩家状态
+            DataManager.Instance.PlayerData.RestoreAllHp();
+        }
+
+        public void Teleport(Vector3 pos)
+        {
+            if (PlayerComponent == null)
+            {
+                Debug.LogError("Teleport: player is null");
+                return;
+            }
+            PlayerComponent.MoveTo(pos);
+            Debug.Log($"Teleport: 玩家传送到坐标：{pos}");
+        }
+
+
         /// <summary>
         /// 玩家和船交互后上船
         /// </summary>

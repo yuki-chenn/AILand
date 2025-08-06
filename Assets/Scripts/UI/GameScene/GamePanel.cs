@@ -13,6 +13,8 @@ namespace AILand.UI
         private GameObject[] m_goItems = new GameObject[10];
         private Transform[] m_transItemSlots = new Transform[10];
 
+        private Slider m_sliderHp;
+
         private ElementEnergyUI m_elementEnergyUI;
 
         protected override void BindUI()
@@ -23,6 +25,8 @@ namespace AILand.UI
                 m_transItemSlots[i] = m_transInventory10.GetChild(i);
                 m_goItems[i] = m_transItemSlots[i].Find("Item").gameObject;
             }
+
+            m_sliderHp = transform.Find("SliderHpBar").GetComponent<Slider>();
 
             m_elementEnergyUI = transform.Find("ElementEnergy").GetComponent<ElementEnergyUI>();
         }
@@ -42,6 +46,7 @@ namespace AILand.UI
             EventCenter.AddListener(EventType.RefreshBagInventory, Update10Inventory);
             EventCenter.AddListener(EventType.SelectInventoryItemChange,Update10Inventory);
             EventCenter.AddListener<int[]>(EventType.RefreshElementEnergy, UpdateElementEnergy);
+            EventCenter.AddListener(EventType.RefreshPlayerHp, UpdateHpSlider);
         }
 
         protected override void UnbindListeners()
@@ -51,6 +56,7 @@ namespace AILand.UI
             EventCenter.RemoveListener(EventType.RefreshBagInventory, Update10Inventory);
             EventCenter.RemoveListener(EventType.SelectInventoryItemChange,Update10Inventory);
             EventCenter.RemoveListener<int[]>(EventType.RefreshElementEnergy, UpdateElementEnergy);
+            EventCenter.RemoveListener(EventType.RefreshPlayerHp, UpdateHpSlider);
         }
 
         protected override void OnEnable()
@@ -83,6 +89,16 @@ namespace AILand.UI
                 m_goItems[i].SetActive(item.itemID != 0 && item.itemCount > 0);
                 m_goItems[i].GetComponentInChildren<Image>().sprite = itemIcon;
                 m_goItems[i].GetComponentInChildren<Text>().text = item.itemCount.ToString();
+            }
+        }
+
+        private void UpdateHpSlider()
+        {
+            var curHp = DataManager.Instance.PlayerData.CurrentHp;
+            var maxHp = DataManager.Instance.PlayerData.MaxHp;
+            if (m_sliderHp != null)
+            {
+                m_sliderHp.value = curHp / maxHp;
             }
         }
         

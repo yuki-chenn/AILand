@@ -23,21 +23,21 @@ MonoBehaviour:
     leastWaterTypeCount: 4
   - type: 3
     forbid8: 06000000
-    forbid4: 0600000007000000
+    forbid4: 060000000700000003000000
     leastWaterTypeCount: 4
   - type: 4
     forbid8: 03000000
-    forbid4: 0300000006000000
+    forbid4: 030000000600000004000000
     leastWaterTypeCount: 4
   - type: 5
     forbid8: 04000000
-    forbid4: 0400000003000000
+    forbid4: 040000000300000005000000
     leastWaterTypeCount: 4
   - type: 6
     forbid8: 07000000
-    forbid4: 0700000005000000
+    forbid4: 070000000500000006000000
     leastWaterTypeCount: 4
   - type: 7
     forbid8: 05000000
-    forbid4: 0500000004000000
+    forbid4: 050000000400000007000000
     leastWaterTypeCount: 4

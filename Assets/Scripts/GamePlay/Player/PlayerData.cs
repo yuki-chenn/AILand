@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AILand.GamePlay;
 using AILand.GamePlay.InventorySystem;
 using AILand.GamePlay.World;
 using AILand.System.EventSystem;
@@ -9,6 +10,14 @@ namespace GamePlay.Player
 {
     public class PlayerData
     {
+        // 血量
+        private float m_maxHp;
+        public float MaxHp => m_maxHp;
+        private float m_currentHp;
+        public float CurrentHp => m_currentHp;
+
+
+
         // 玩家收集的元素能量
         private ElementalEnergy m_elementalEnergy;
         
@@ -18,9 +27,36 @@ namespace GamePlay.Player
 
         public PlayerData()
         {
+            m_maxHp = 100f; // 初始最大血量
+            RestoreAllHp();
             m_elementalEnergy = new ElementalEnergy();
             m_inventoryData = new InventoryData();
         }
+
+        #region HP相关
+
+        public void ChangeHp(float delta)
+        {
+            m_currentHp += delta;
+            var isDie = m_currentHp <= 0;
+            m_currentHp = Mathf.Clamp(m_currentHp, 0, m_maxHp);
+            BroadcastHpChange();
+            if (isDie) GameManager.Instance.PlayerDie();
+        }
+
+        public void RestoreAllHp()
+        {
+            ChangeHp(m_maxHp);
+        }
+
+        private void BroadcastHpChange()
+        {
+            // 广播血量变化事件
+            EventCenter.Broadcast(EventType.RefreshPlayerHp);
+        }
+
+        #endregion
+
 
         #region Elemental Energy
 

@@ -489,64 +489,64 @@ namespace AILand.GamePlay.World
 
 
 
-        #region ONGUI
+        //#region ONGUI
 
-        private string inputX = "0";
-        private string inputY = "10";
-        private string inputZ = "0";
+        //private string inputX = "0";
+        //private string inputY = "10";
+        //private string inputZ = "0";
 
-        private void OnGUI()
-        {
-            // 输入一个三维坐标并传送
-            GUILayout.BeginArea(new Rect(10, 10, 300, 120));
-            GUILayout.BeginVertical("Box");
+        //private void OnGUI()
+        //{
+        //    // 输入一个三维坐标并传送
+        //    GUILayout.BeginArea(new Rect(10, 10, 300, 120));
+        //    GUILayout.BeginVertical("Box");
     
-            GUILayout.Label("传送坐标：");
+        //    GUILayout.Label("传送坐标：");
     
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("X:", GUILayout.Width(20));
-            inputX = GUILayout.TextField(inputX, GUILayout.Width(60));
-            GUILayout.Label("Y:", GUILayout.Width(20));
-            inputY = GUILayout.TextField(inputY, GUILayout.Width(60));
-            GUILayout.Label("Z:", GUILayout.Width(20));
-            inputZ = GUILayout.TextField(inputZ, GUILayout.Width(60));
-            GUILayout.EndHorizontal();
+        //    GUILayout.BeginHorizontal();
+        //    GUILayout.Label("X:", GUILayout.Width(20));
+        //    inputX = GUILayout.TextField(inputX, GUILayout.Width(60));
+        //    GUILayout.Label("Y:", GUILayout.Width(20));
+        //    inputY = GUILayout.TextField(inputY, GUILayout.Width(60));
+        //    GUILayout.Label("Z:", GUILayout.Width(20));
+        //    inputZ = GUILayout.TextField(inputZ, GUILayout.Width(60));
+        //    GUILayout.EndHorizontal();
     
-            if (GUILayout.Button("传送"))
-            {
-                if (float.TryParse(inputX, out float x) && 
-                    float.TryParse(inputY, out float y) && 
-                    float.TryParse(inputZ, out float z))
-                {
-                    TeleportPlayer(new Vector3(x, y, z));
-                }
-                else
-                {
-                    Debug.LogWarning("请输入有效的数字坐标！");
-                }
-            }
+        //    if (GUILayout.Button("传送"))
+        //    {
+        //        if (float.TryParse(inputX, out float x) && 
+        //            float.TryParse(inputY, out float y) && 
+        //            float.TryParse(inputZ, out float z))
+        //        {
+        //            TeleportPlayer(new Vector3(x, y, z));
+        //        }
+        //        else
+        //        {
+        //            Debug.LogWarning("请输入有效的数字坐标！");
+        //        }
+        //    }
     
-            GUILayout.EndVertical();
-            GUILayout.EndArea();
-        }
+        //    GUILayout.EndVertical();
+        //    GUILayout.EndArea();
+        //}
 
-        private void TeleportPlayer(Vector3 position)
-        {
-            var playerController = GameManager.Instance.player.GetComponent<CharacterController>();
-            if (playerController != null)
-            {
-                playerController.enabled = false;
-                GameManager.Instance.player.transform.position = position;
-                playerController.enabled = true;
-                Debug.Log($"玩家传送到坐标：{position}");
-            }
-            else
-            {
-                Debug.LogError("未找到玩家的CharacterController组件！");
-            }
-        }
+        //private void TeleportPlayer(Vector3 position)
+        //{
+        //    var playerController = GameManager.Instance.player.GetComponent<CharacterController>();
+        //    if (playerController != null)
+        //    {
+        //        playerController.enabled = false;
+        //        GameManager.Instance.player.transform.position = position;
+        //        playerController.enabled = true;
+        //        Debug.Log($"玩家传送到坐标：{position}");
+        //    }
+        //    else
+        //    {
+        //        Debug.LogError("未找到玩家的CharacterController组件！");
+        //    }
+        //}
 
-        #endregion
+        //#endregion
         
         
     }
