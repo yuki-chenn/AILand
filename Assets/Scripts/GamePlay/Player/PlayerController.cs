@@ -47,6 +47,11 @@ namespace AILand.GamePlay.Player
 
         void Update()
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                m_animator.SetTrigger("attackSword");
+            }
+            
             m_inputHorizontal = Input.GetAxis("Horizontal");
             m_inputVertical = Input.GetAxis("Vertical");
             m_inputJump = Input.GetAxis("Jump") == 1f;
