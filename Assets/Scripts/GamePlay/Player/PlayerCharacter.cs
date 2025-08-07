@@ -1,3 +1,4 @@
+using AILand.GamePlay.InventorySystem;
 using AILand.GamePlay.World;
 using AILand.Utils;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace AILand.GamePlay.Player
         public LayerMask detectWaterLayer;
         public LayerMask detectGroundLayer;
 
+        [Header("携带手套")]
+        public GameObject infiniteGauntletGo;
 
         private CharacterController m_characterController;
         private PlayerController m_playerController;
@@ -63,6 +66,20 @@ namespace AILand.GamePlay.Player
                 DataManager.Instance.PlayerData.ChangeHp(-waterDamage * Time.deltaTime);
             }
 
+        }
+        
+        public void ChangeItemOnHand(int itemIndex)
+        {
+            // 切换手中的物品
+            var itemData = DataManager.Instance.PlayerData.GetItemInInventory(0, itemIndex);
+            var item = ItemFactory.GetItemByID(itemData.itemID);
+            if (item.itemEnum == ItemEnum.InfiniteGauntlet)
+            {
+                infiniteGauntletGo.SetActive(true);
+            }else
+            {
+                infiniteGauntletGo.SetActive(false);
+            }
         }
 
 

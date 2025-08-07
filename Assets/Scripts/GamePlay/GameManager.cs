@@ -29,6 +29,7 @@ namespace AILand.GamePlay
                 if (m_curSelectItemIndex != value)
                 {
                     m_curSelectItemIndex = value;
+                    PlayerComponent.ChangeItemOnHand(m_curSelectItemIndex);
                     EventCenter.Broadcast(EventType.SelectInventoryItemChange);
                 }
             }

@@ -19,52 +19,54 @@ namespace AILand.GamePlay.Player
         public float gravity = 9.8f;
         
         
-        float jumpElapsedTime = 0;
+        private float m_jumpElapsedTime = 0;
 
         // Player states
-        bool isJumping = false;
-        bool isSprinting = false;
+        private bool m_isJumping = false;
+        private bool m_isSprinting = false;
 
         // Inputs
-        float inputHorizontal;
-        float inputVertical;
-        bool inputJump;
-        bool inputSprint;
+        private float m_inputHorizontal;
+        private float m_inputVertical;
+        private bool m_inputJump;
+        private bool m_inputRun;
 
-        Animator animator;
-        CharacterController cc;
+        private bool m_isGrounded;
+        private bool m_isWalk;
+
+        private Animator m_animator;
+        private CharacterController m_cc;
+        
         void Start()
         {
-            cc = GetComponent<CharacterController>();
-            animator = GetComponent<Animator>();
-            if (animator == null)
+            m_cc = GetComponent<CharacterController>();
+            m_animator = GetComponent<Animator>();
+            if (m_animator == null)
                 Debug.LogWarning("Hey buddy, you don't have the Animator component in your player. Without it, the animations won't work.");
         }
 
         void Update()
         {
-            inputHorizontal = Input.GetAxis("Horizontal");
-            inputVertical = Input.GetAxis("Vertical");
-            inputJump = Input.GetAxis("Jump") == 1f;
-            inputSprint = Input.GetAxis("Fire3") == 1f;
+            m_inputHorizontal = Input.GetAxis("Horizontal");
+            m_inputVertical = Input.GetAxis("Vertical");
+            m_inputJump = Input.GetAxis("Jump") == 1f;
+            m_inputRun = Input.GetAxis("Fire3") == 1f;
 
-            if ( cc.isGrounded && animator != null )
+            if (m_animator)
             {
-                
-                float minimumSpeed = 0.9f;
-                animator.SetBool("run", cc.velocity.magnitude > minimumSpeed );
-
-                isSprinting = cc.velocity.magnitude > minimumSpeed && inputSprint;
-                animator.SetBool("sprint", isSprinting );
-
+                if (m_isGrounded)
+                {
+                    m_animator.SetBool("walk", m_isWalk);
+                    
+                    m_isSprinting = m_isWalk && m_inputRun;
+                    m_animator.SetBool("run", m_isSprinting );
+                }
+                m_animator.SetBool("air", m_isGrounded == false );
             }
-
-            if( animator != null )
-                animator.SetBool("air", cc.isGrounded == false );
-
-            if (enableJump && inputJump && cc.isGrounded )
+            
+            if (enableJump && m_inputJump && m_isGrounded )
             {
-                isJumping = true;
+                m_isJumping = true;
             }
 
             HeadHittingDetect();
@@ -74,23 +76,23 @@ namespace AILand.GamePlay.Player
         private void FixedUpdate()
         {
             float velocityAdittion = 0;
-            if ( isSprinting )
+            if ( m_isSprinting )
                 velocityAdittion = sprintAdittion;
 
-            float directionX = inputHorizontal * (velocity + velocityAdittion) * Time.deltaTime;
-            float directionZ = inputVertical * (velocity + velocityAdittion) * Time.deltaTime;
+            float directionX = m_inputHorizontal * (velocity + velocityAdittion) * Time.deltaTime;
+            float directionZ = m_inputVertical * (velocity + velocityAdittion) * Time.deltaTime;
             float directionY = 0;
 
-            if ( enableJump && isJumping )
+            if ( enableJump && m_isJumping )
             {
 
-                directionY = Mathf.SmoothStep(jumpForce, jumpForce * 0.30f, jumpElapsedTime / jumpTime) * Time.deltaTime;
+                directionY = Mathf.SmoothStep(jumpForce, jumpForce * 0.30f, m_jumpElapsedTime / jumpTime) * Time.deltaTime;
 
-                jumpElapsedTime += Time.deltaTime;
-                if (jumpElapsedTime >= jumpTime)
+                m_jumpElapsedTime += Time.deltaTime;
+                if (m_jumpElapsedTime >= jumpTime)
                 {
-                    isJumping = false;
-                    jumpElapsedTime = 0;
+                    m_isJumping = false;
+                    m_jumpElapsedTime = 0;
                 }
             }
 
@@ -114,14 +116,19 @@ namespace AILand.GamePlay.Player
                 Quaternion rotation = Quaternion.Euler(0, angle, 0);
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.15f);
             }
-
-
+            
+            
             Vector3 verticalDirection = Vector3.up * directionY;
             Vector3 horizontalDirection = forward + right;
 
             Vector3 moviment = verticalDirection + horizontalDirection;
-            cc.Move( moviment );
-
+            m_cc.Move( moviment );
+            
+            
+            // 状态变化
+            float minimumSpeed = 0.9f;
+            m_isGrounded = m_cc.isGrounded;
+            m_isWalk = m_cc.velocity.magnitude > minimumSpeed;
         }
 
 
@@ -130,13 +137,13 @@ namespace AILand.GamePlay.Player
             if (!enableJump) return;
 
             float headHitDistance = 1.1f;
-            Vector3 ccCenter = transform.TransformPoint(cc.center);
-            float hitCalc = cc.height / 2f * headHitDistance;
+            Vector3 ccCenter = transform.TransformPoint(m_cc.center);
+            float hitCalc = m_cc.height / 2f * headHitDistance;
 
             if (Physics.Raycast(ccCenter, Vector3.up, hitCalc))
             {
-                jumpElapsedTime = 0;
-                isJumping = false;
+                m_jumpElapsedTime = 0;
+                m_isJumping = false;
             }
         }
     }
