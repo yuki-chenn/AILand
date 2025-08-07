@@ -1,21 +1,27 @@
+using System;
 using UnityEngine;
 
 
 [DisallowMultipleComponent]
 public class FloatAndRotate : MonoBehaviour
 {
+    public bool enable = false;
+    
+    
     [Header("漂浮参数")]
-    [Tooltip("漂浮幅度（上下偏移量）")]
+    [Tooltip("漂浮幅度")]
     public float floatAmplitude = 0.5f;     
-    [Tooltip("漂浮频率（次/秒）")]
+    [Tooltip("漂浮频率")]
     public float floatFrequency = 1f;       
 
     [Header("旋转参数")]
-    [Tooltip("每秒自转角速度（度）")]
+    [Tooltip("自转角速度")]
     public Vector3 rotationSpeed = new Vector3(0f, 30f, 0f);
-
+    
     private Vector3 m_startLocalPos;                 // 初始局部坐标
 
+    
+    
     void Start()
     {
         m_startLocalPos = transform.localPosition;
@@ -23,8 +29,19 @@ public class FloatAndRotate : MonoBehaviour
 
     void Update()
     {
+        if (!enable) return;
         DoFloat();
         DoRotate();
+    }
+
+    private void OnDisable()
+    {
+        m_startLocalPos = Vector3.zero;
+    }
+
+    private void OnEnable()
+    {
+        m_startLocalPos = transform.localPosition;
     }
 
     void DoFloat()

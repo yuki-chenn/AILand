@@ -4,6 +4,6 @@ namespace AILand.GamePlay.World
     {
         None,
         Boat,
-        MagicCrystal, // ÄÜ¹»Éú³ÉµºÓìµÄÄ§·¨Ë®¾§
+        MagicCrystal, // èƒ½å¤Ÿç”Ÿæˆå²›å±¿çš„é­”æ³•æ°´æ™¶
     }
 }

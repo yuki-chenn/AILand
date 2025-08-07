@@ -16,7 +16,7 @@ MonoBehaviour:
   - type: 1
     forbid8: 01000000
     forbid4: 01000000
-    leastWaterTypeCount: 5
+    leastWaterTypeCount: 0
   - type: 2
     forbid8: 
     forbid4: 

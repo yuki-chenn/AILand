@@ -10,6 +10,7 @@ namespace AILand.GamePlay.World
         private BlockData m_blockData;
         
         private PropType m_propType;
+        public PropType PropType => m_propType;
         private PropConfigSO m_propConfig;
         
         private Vector3Int m_index;

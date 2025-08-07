@@ -57,6 +57,7 @@ namespace AILand.GamePlay.World
         public bool IsCreated => m_isCreated;
 
         private GameObject m_crystalInstanceGo;
+        public MagicCrystal MagicCrystalComp => m_crystalInstanceGo?.GetComponent<MagicCrystal>();
 
         // 不同CellWater的CellData集合
         public Dictionary<CellWater, List<CellData>> m_cellWaterDic = new();
@@ -100,11 +101,12 @@ namespace AILand.GamePlay.World
 
         private void Initialize()
         {
-            // 如果是最开始的默认岛屿，则添加一个默认的水晶
-            if(m_blockID == Constants.FirstBlockID)
+            // 如果是玩家创建的岛屿，则添加一个默认的水晶
+            if(IsPlayerCreated)
             {
                 var crystalGo = PoolManager.Instance.GetGameObject<MagicCrystal>();
-                crystalGo.GetComponent<MagicCrystal>().Charge(new NormalElement(0,0,0,0,int.MaxValue));
+                if(m_blockID == Constants.FirstBlockID)
+                    crystalGo.GetComponent<MagicCrystal>().Charge(new NormalElement(10,10,10,10,99999));
                 SetCrystalOnPlatform(crystalGo);
             }
         }
@@ -207,7 +209,6 @@ namespace AILand.GamePlay.World
             m_instanceGo.GetComponent<Block>().SetCrystal(crystalGo);
             m_crystalInstanceGo = crystalGo;
         }
-
 
         public bool DestroyCube(int x,int y,int z,bool needLoad=true)
         {

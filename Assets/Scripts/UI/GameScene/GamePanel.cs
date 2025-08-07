@@ -35,6 +35,8 @@ namespace AILand.UI
         {
             base.Start();
             Update10Inventory();
+            UpdateHpSlider();
+            m_elementEnergyUI.UpdateSelectElement();
         }
 
         
@@ -47,6 +49,7 @@ namespace AILand.UI
             EventCenter.AddListener(EventType.SelectInventoryItemChange,Update10Inventory);
             EventCenter.AddListener<int[]>(EventType.RefreshElementEnergy, UpdateElementEnergy);
             EventCenter.AddListener(EventType.RefreshPlayerHp, UpdateHpSlider);
+            EventCenter.AddListener(EventType.SelectElementChange, m_elementEnergyUI.UpdateSelectElement);
         }
 
         protected override void UnbindListeners()
@@ -57,6 +60,7 @@ namespace AILand.UI
             EventCenter.RemoveListener(EventType.SelectInventoryItemChange,Update10Inventory);
             EventCenter.RemoveListener<int[]>(EventType.RefreshElementEnergy, UpdateElementEnergy);
             EventCenter.RemoveListener(EventType.RefreshPlayerHp, UpdateHpSlider);
+            EventCenter.RemoveListener(EventType.SelectElementChange, m_elementEnergyUI.UpdateSelectElement);
         }
 
         protected override void OnEnable()

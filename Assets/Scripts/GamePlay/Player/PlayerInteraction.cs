@@ -2,6 +2,7 @@ using System;
 using AILand.GamePlay.InventorySystem;
 using AILand.GamePlay.World;
 using AILand.GamePlay.World.Cube;
+using AILand.GamePlay.World.Prop;
 using AILand.System.EventSystem;
 using AILand.System.SOManager;
 using AILand.Utils;
@@ -22,7 +23,6 @@ namespace AILand.GamePlay
 
         private IInteractable m_interactableProp;
         
-        
         private Camera playerCamera => GameManager.Instance.mainCamera;
 
         private Ray m_ray
@@ -42,11 +42,21 @@ namespace AILand.GamePlay
         private BaseItem m_currentSelectItem => GameManager.Instance.GetCurrentSelectItem();
         private ItemType m_currentSelectItemType => m_currentSelectItem == null ? ItemType.None : m_currentSelectItem.config.itemType;
 
+        // 鼠标长按充能
+        private bool m_isCharge = false;
+        private float m_chargeTimer = 0f;
+        
         void Update()
         {
+            // 滑动滚轮更改选择
+            HandleScrollInput();
+            
             // 检测周围交互的道具
             DetectInteractableProp();
 
+            // 检测充能
+            DetectCrystalCharge();
+            
             // 检测方块交互
             DetectInteractableCube();
             
@@ -56,16 +66,59 @@ namespace AILand.GamePlay
             // 检测方块破坏
             DetectDestroyCube();
 
+            // 检测数字键选择元素
+            DetectElementSelect();
+            
              // 打开背包
             if (Input.GetKeyDown(KeyCode.B))
             {
                 EventCenter.Broadcast(EventType.OpenBag, 0);
             }
             
-            // 滑动滚轮更改选择
-            HandleScrollInput();
+            
         }
-        
+
+        private void DetectCrystalCharge()
+        {
+            if (m_currentSelectItemType != ItemType.InfiniteGauntlet) return;
+            // 长按鼠标左键为水晶充能
+            if(m_interactableProp is MagicCrystal)
+            {
+                // 检测鼠标按下
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    m_isCharge = true;
+                }
+                
+                // 检测鼠标松开
+                if (Input.GetKeyUp(KeyCode.E))
+                {
+                    m_isCharge = false;
+                }
+            }
+            else
+            {
+                m_isCharge = false;
+            }
+
+            if (m_isCharge && m_interactableProp is MagicCrystal crystal)
+            {
+                if (m_chargeTimer > 0)
+                {
+                    m_chargeTimer -= Time.deltaTime;
+                    return;
+                }
+                // 获取当前选中的元素
+                var element = Util.GetSelectedEnergyType();
+                
+                // 充能水晶
+                Debug.Log($"charging crystal with element: {element}");
+                crystal.Charge(element);
+                DataManager.Instance.PlayerData.ConsumeElementalEnergy(element, 1);
+                m_chargeTimer = 0.1f; // 每0.2秒充能一次
+            }
+        }
+
         private void HandleScrollInput()
         {
             float scroll = Input.GetAxis("Mouse ScrollWheel");
@@ -77,6 +130,25 @@ namespace AILand.GamePlay
             else if (scroll < 0f) // 向下滚动
             {
                 GameManager.Instance.CurSelectItemIndex = (curSelectIndex + 1 ) % 10;
+            }
+            
+            if(scroll != 0f)
+            {
+                m_interactableProp = null;
+                m_cubeFoucs = null;
+            }
+        }
+
+        private void DetectElementSelect()
+        {
+            // 数字键选择元素
+            for (int i = 0; i < 5; i++)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+                {
+                    GameManager.Instance.CurSelectedElementIndex = i;
+                    break;
+                }
             }
         }
         
@@ -146,7 +218,6 @@ namespace AILand.GamePlay
             }
         }
         
-
         private void DetectPlaceCube()
         {
             if (m_currentSelectItemType != ItemType.PlacedCube) return;

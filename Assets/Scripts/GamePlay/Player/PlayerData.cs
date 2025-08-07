@@ -15,7 +15,9 @@ namespace GamePlay.Player
         public float MaxHp => m_maxHp;
         private float m_currentHp;
         public float CurrentHp => m_currentHp;
-
+        
+        private Vector3 m_rebirthPosition;
+        public Vector3 RebirthPosition => m_rebirthPosition;
 
 
         // 玩家收集的元素能量
@@ -29,6 +31,9 @@ namespace GamePlay.Player
         {
             m_maxHp = 100f; // 初始最大血量
             RestoreAllHp();
+
+            m_rebirthPosition = new Vector3(100, 10, 100);
+            
             m_elementalEnergy = new ElementalEnergy();
             m_inventoryData = new InventoryData();
         }
@@ -53,6 +58,12 @@ namespace GamePlay.Player
         {
             // 广播血量变化事件
             EventCenter.Broadcast(EventType.RefreshPlayerHp);
+        }
+        
+        public void SetRebirthPosition(Vector3 position)
+        {
+            m_rebirthPosition = position;
+            Debug.Log($"rebirth position set to: {m_rebirthPosition}");
         }
 
         #endregion
@@ -100,7 +111,7 @@ namespace GamePlay.Player
                     Debug.LogWarning("Unknown energy type.");
                     return;
             }
-            m_elementalEnergy.NormalElement = normalElement;
+            // m_elementalEnergy.NormalElement = normalElement;
             BroadcastElementEnergyChange(delta);
         }
 
@@ -112,7 +123,7 @@ namespace GamePlay.Player
             normalElement.Water += element[2];
             normalElement.Fire += element[3];
             normalElement.Earth += element[4];
-            m_elementalEnergy.NormalElement = normalElement;
+            // m_elementalEnergy.NormalElement = normalElement;
             int[] delta = new int[5] { element.Metal, element.Wood, element.Water, element.Fire, element.Earth };
             BroadcastElementEnergyChange(delta);
         }
@@ -145,6 +156,41 @@ namespace GamePlay.Player
             AddElementalEnergy(normalEnergy);
         }
 
+        public bool ConsumeElementalEnergy(EnergyType type, int count)
+        {
+            if (count <= 0)
+            {
+                Debug.LogWarning("Cannot consume non-positive amount of elemental energy.");
+                return false;
+            }
+
+            int[] delta = new int[5];
+            switch (type)
+            {
+                case EnergyType.Metal:
+                    delta[0] = -count;
+                    break;
+                case EnergyType.Wood:
+                    delta[1] = -count;
+                    break;
+                case EnergyType.Water:
+                    delta[2] = -count;
+                    break;
+                case EnergyType.Fire:
+                    delta[3] = -count;
+                    break;
+                case EnergyType.Earth:
+                    delta[4] = -count;
+                    break;
+                default:
+                    Debug.LogWarning("Unknown energy type.");
+                    return false;
+            }
+            var ok = m_elementalEnergy.ReduceEnergy(type, count);
+            if(ok) BroadcastElementEnergyChange(delta);
+            return ok;
+        }
+        
         private void BroadcastElementEnergyChange(int[] delta)
         {
             // 广播能量变化事件

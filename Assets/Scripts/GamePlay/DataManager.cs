@@ -19,7 +19,7 @@ namespace AILand.GamePlay
         {
             PlayerData.AddItem(1,1);
             PlayerData.AddItem(2,100);
-            PlayerData.AddElementalEnergy(new NormalElement(10,20,30,40,50));
+            PlayerData.AddElementalEnergy(new NormalElement(99999,99999,99999,99999,99999));
         }
     }
 }

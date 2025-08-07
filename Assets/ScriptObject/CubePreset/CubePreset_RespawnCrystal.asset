@@ -19,7 +19,7 @@ MonoBehaviour:
   connectToIsland: 1
   cellWater: 2
   canReplace: 0
-  connectedCubeTypes: 00000000
+  connectedCubeTypes: 03000000040000000500000006000000070000000c000000
   cubes:
   - position: {x: 0, y: 0, z: 0}
     cubeType: 13
@@ -33,4 +33,7 @@ MonoBehaviour:
   - position: {x: 0, y: 3, z: 0}
     cubeType: 1
     rotation: 0
-  props: []
+  props:
+  - position: {x: 0, y: 2, z: 0}
+    rotation: {x: -0, y: -0, z: -0, w: 1}
+    propType: 2

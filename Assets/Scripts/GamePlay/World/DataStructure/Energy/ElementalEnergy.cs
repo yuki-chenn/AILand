@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace AILand.GamePlay.World
 {
@@ -72,5 +73,83 @@ namespace AILand.GamePlay.World
     {
         // 基础元素：金木水火土
         public NormalElement NormalElement { get; set; } = new(0);
+        
+        public void AddEnergy(EnergyType energyType, int amount)
+        {
+            var ne = NormalElement;
+            switch (energyType)
+            {
+                case EnergyType.Metal:
+                    ne.Metal += amount;
+                    break;
+                case EnergyType.Wood:
+                    ne.Wood += amount;
+                    break;
+                case EnergyType.Water:
+                    ne.Water += amount;
+                    break;
+                case EnergyType.Fire:
+                    ne.Fire += amount;
+                    break;
+                case EnergyType.Earth:
+                    ne.Earth += amount;
+                    break;
+            }
+        }
+        
+        public bool ReduceEnergy(EnergyType energyType, int amount)
+        {
+            var ne = NormalElement;
+            switch (energyType)
+            {
+                case EnergyType.Metal:
+                    if (ne.Metal < amount) return false;
+                    ne.Metal -= amount;
+                    break;
+                case EnergyType.Wood:
+                    if (ne.Wood < amount) return false;
+                    ne.Wood -= amount;
+                    break;
+                case EnergyType.Water:
+                    if (ne.Water < amount) return false;
+                    ne.Water -= amount;
+                    break;
+                case EnergyType.Fire:
+                    if (ne.Fire < amount) return false;
+                    ne.Fire -= amount;
+                    break;
+                case EnergyType.Earth:
+                    if (ne.Earth < amount) return false;
+                    ne.Earth -= amount;
+                    break;
+            }
+            return true;
+        }
+
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="desc">true</param>
+        /// <returns></returns>
+        public int[] GetSortedIndex(bool desc=true)
+        {
+            // 将元素排序，并将原先的索引返回
+            int[] sortedIndex = new int[5];
+            for (int i = 0; i < 5; i++)
+            {
+                sortedIndex[i] = i;
+            }
+            if (desc)
+            {
+                Array.Sort(sortedIndex, (a, b) => NormalElement[b].CompareTo(NormalElement[a]));
+            }
+            else
+            {
+                Array.Sort(sortedIndex, (a, b) => NormalElement[a].CompareTo(NormalElement[b]));
+            }
+            return sortedIndex;
+        }
+        
     }
 }

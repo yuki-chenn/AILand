@@ -33,6 +33,20 @@ namespace AILand.GamePlay
                 }
             }
         }
+        
+        private int m_curSelectedElementIndex = 0;
+        public int CurSelectedElementIndex
+        {
+            get => m_curSelectedElementIndex;
+            set
+            {
+                if (m_curSelectedElementIndex != value)
+                {
+                    m_curSelectedElementIndex = value;
+                    EventCenter.Broadcast(EventType.SelectElementChange);
+                }
+            }
+        }
 
         
         
@@ -53,15 +67,14 @@ namespace AILand.GamePlay
             if (DataManager.Instance.PlayerData.CurrentHp > 0) return;
 
             Debug.Log($"PlayerDie");
-
-            Invoke("PlayerRebirth",1f);
+            PlayerRebirth();
         }
 
         public void PlayerRebirth()
         {
             Debug.Log($"PlayerRebirth");
-            // 传送玩家到出生点
-            Teleport(new Vector3(100, 100, 100));
+            // 传送玩家到上次的存档点
+            Teleport(DataManager.Instance.PlayerData.RebirthPosition);
             // 重置玩家状态
             DataManager.Instance.PlayerData.RestoreAllHp();
         }
@@ -73,6 +86,9 @@ namespace AILand.GamePlay
                 Debug.LogError("Teleport: player is null");
                 return;
             }
+            // 需要先load一下
+            WorldManager.Instance.ForceLoadAroundPosition(pos);
+            
             PlayerComponent.MoveTo(pos);
             Debug.Log($"Teleport: 玩家传送到坐标：{pos}");
         }

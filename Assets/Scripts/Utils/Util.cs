@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using AILand.GamePlay;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -533,6 +534,27 @@ namespace AILand.Utils
             }
         }
 
+
+        #endregion
+
+
+        #region Element相关
+        
+        public static EnergyType GetSelectedEnergyType(int selectedIndex=-1)
+        {
+            if (selectedIndex == -1) selectedIndex = GameManager.Instance.CurSelectedElementIndex;
+            switch (selectedIndex)
+            {
+                case 0: return EnergyType.Metal;
+                case 1: return EnergyType.Wood;
+                case 2: return EnergyType.Water;
+                case 3: return EnergyType.Fire;
+                case 4: return EnergyType.Earth;
+                default:
+                    Debug.LogError($"Invalid selected index {selectedIndex}, must be in range [0,4]");
+                    return EnergyType.None;
+            }
+        }
 
         #endregion
 

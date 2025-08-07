@@ -172,7 +172,7 @@ public class PixelPainter : MonoBehaviour,
 
     public void SetTexture(Texture2D tex)
     {
-        if (!tex) { Debug.LogError("Texture cannot be null"); return; }
+        if (!tex) { return; }
         width = tex.width;
         height = tex.height;
         m_texPaint = new Texture2D(width, height, tex.format, false)

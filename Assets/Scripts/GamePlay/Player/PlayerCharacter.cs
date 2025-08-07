@@ -6,7 +6,8 @@ namespace AILand.GamePlay.Player
 {
     public class PlayerCharacter : MonoBehaviour
     {
-        [Header("水体检测")]
+        [Header("水体检测")] 
+        public float waterDamage = 50f;
         public float detectWaterRadius = 0.5f;
         public float detectGroundRadius = 1f;
         public LayerMask detectWaterLayer;
@@ -59,7 +60,7 @@ namespace AILand.GamePlay.Player
             // 如果玩家在水中，持续掉血
             if (m_isInWater)
             {
-                DataManager.Instance.PlayerData.ChangeHp(-20 * Time.deltaTime);
+                DataManager.Instance.PlayerData.ChangeHp(-waterDamage * Time.deltaTime);
             }
 
         }

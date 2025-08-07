@@ -21,17 +21,18 @@ namespace AILand.GamePlay.World.Prop
         
         #region 对象池接口
 
-        public void OnGetFromPool()
+        public virtual void OnGetFromPool()
         {
             if(m_focusOutline) m_focusOutline.enabled = false;
         }
 
-        public void OnReleaseToPool()
+        public virtual void OnReleaseToPool()
         {
+            transform.position = Vector3.zero;
             transform.rotation = Quaternion.identity;
         }
 
-        public void OnDestroyPoolObject()
+        public virtual void OnDestroyPoolObject()
         {
 
         }

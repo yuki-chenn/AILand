@@ -294,14 +294,19 @@ Material:
     - Vector3_8bd0ec5edf584324a2b7b44c1a4a2eb9: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 0.53266287, g: 0.7602492, b: 0.8490566, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorBottom: {r: 1, g: 1, b: 1, a: 0}
     - _Cubemap_Tint: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 1.4051734, g: 2.9587297, b: 12.780389, a: 1}
+    - _GlitterColor: {r: 2, g: 2, b: 2, a: 0}
     - _Inner_Glow_Center: {r: 0, g: 1.06, b: 0, a: 0}
     - _Inner_Glow_Color: {r: 5.0806994, g: 2.132935, b: 4.9821777, a: 0}
+    - _ParallaxColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 0}
     - _Parallax_Offset: {r: 1, g: 1, b: 0, a: 0}
     - _Parallax_Tile: {r: 10, g: 10, b: 0, a: 0}
+    - _RimLightColor: {r: 1, g: 1, b: 1, a: 0}
     - _Roughness_Tile: {r: 4, g: 4, b: 0, a: 0}
     - _Secondary_Normal_Offset: {r: 1, g: 1, b: 0, a: 0}
     - _Secondary_Normal_Tile: {r: 1, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.125534, g: 0.2924528, b: 0.27513105, a: 1}
+    - _TangentSpaceMapColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 0}
   m_BuildTextureStacks: []

@@ -75,9 +75,9 @@ namespace AILand.UI
             m_crystalEnergy = energy;
     
             // 初始化墨水数据
-            
+            m_ppShape.ClearCanvas();
             var inkData = new InkConsumptionData();
-            inkData.AddInk(Color.white, m_crystalEnergy.NormalElement.Sum); // 只有白色
+            inkData.AddInk(Color.white, m_crystalEnergy.NormalElement.Sum * Constants.EnergyInkTimes); // 只有白色
             m_ppShape.SetInkData(inkData);
             
             Show();

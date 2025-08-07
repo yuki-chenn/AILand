@@ -95,6 +95,7 @@ namespace AILand.UI
 
             // 设置mask
             m_ppCellType.SetGrayMask(m_terrainTex);
+            
 
             // 初始化墨水数据
             InitializeInkData();
@@ -112,7 +113,7 @@ namespace AILand.UI
             for (int i = 0; i < 5; i++)
             {
                 float energyAmount = m_crystalEnergy.NormalElement[i];
-                inkData.AddInk(m_energyColors[i], energyAmount);
+                inkData.AddInk(m_energyColors[i], energyAmount * Constants.EnergyInkTimes);
             }
 
             m_ppCellType.SetInkData(inkData);
@@ -179,8 +180,7 @@ namespace AILand.UI
                 
                 if (totalEnergy > 0 && ink != null)
                 {
-                    float remainingRatio = ink.RemainingAmount / totalEnergy;
-                    m_slidersRemainColor[i].value = remainingRatio;
+                    m_slidersRemainColor[i].value = ink.RemainingRatio;
                 }
                 else
                 {

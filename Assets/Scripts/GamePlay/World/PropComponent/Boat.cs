@@ -29,6 +29,12 @@ namespace AILand.GamePlay.World.Prop
                 if (m_closeToIsland && m_interactTimer <= 0f && Input.GetKeyDown(KeyCode.F))
                 {
                     GameManager.Instance.GetOffBoard(gameObject);
+                    
+                    if(hits[0].gameObject.tag.Equals("GeneratePlatform"))
+                    {
+                        gameObject.SetActive(false);
+                    }
+                    
                     m_isOnBorad = false;
                 }
             }

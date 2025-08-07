@@ -24,7 +24,7 @@ MonoBehaviour:
     rangeCount: {x: 15, y: 20}
   - presetType: 3
     fixedCount: 1
-    rangeCount: {x: 15, y: 20}
+    rangeCount: {x: 0, y: 0}
   extraLimitBelow:
     cellType: 0
     heightLimit: 0

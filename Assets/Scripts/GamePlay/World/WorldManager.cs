@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AILand.System.SOManager;
 using AILand.GamePlay.World.Cube;
+using AILand.GamePlay.World.Prop;
 using AILand.System.Base;
 using AILand.System.EventSystem;
 using AILand.Utils;
@@ -117,15 +118,6 @@ namespace AILand.GamePlay.World
 
         public void PlayerCreateIsland(int blockID, float[,] noiseMap, int[,] cellTypeMap)
         {
-            // TODO：传送玩家
-            var playerController = GameManager.Instance.player.GetComponent<CharacterController>();
-            if (playerController != null)
-            {
-                playerController.enabled = false;
-                GameManager.Instance.player.transform.position = new Vector3(100, 100, 100);
-                playerController.enabled = true;
-            }
-            
             var block = m_worldData.GetBlock(blockID);
             if (block == null)
             {
@@ -138,6 +130,11 @@ namespace AILand.GamePlay.World
                 Debug.LogError($"Block {blockID} is not a custom island type.");
                 return;
             }
+            
+            // 传送玩家
+            Vector3 pos = block.WorldPosition + new Vector3(m_blockWidth / 2, 50, m_blockHeight / 2);
+            GameManager.Instance.Teleport(pos);
+            
             
             PCGIslandInfo islandInfo = new PCGIslandInfo();
             
@@ -239,10 +236,22 @@ namespace AILand.GamePlay.World
             return block.AddCube(posIndex.x, posIndex.y, posIndex.z, cubeType, 0);
         }
         
-
+        public MagicCrystal GetBlockMagicCrystalInstance()
+        {
+            var block = m_worldData.GetBlock(GameManager.Instance.CurBlockId);
+            return block?.MagicCrystalComp;
+        }
 
         #region 载入地图
 
+        public void ForceLoadAroundPosition(Vector3 pos)
+        {
+            LoadBlocksAroundPlayer(pos);
+            LoadCubesAroundPlayer(pos, true);
+            LoadPropsAroundPlayer(pos, true);
+            UpdateLowTerrain(pos);
+        }
+        
         // 根据玩家的位置，载入Block
         public void LoadBlocksAroundPlayer(Vector3 playerPosition)
         {
@@ -250,6 +259,14 @@ namespace AILand.GamePlay.World
             int curBlockID = Util.GetBlockIDByWorldPosition(playerPosition, m_blockWidth, m_blockHeight);
             if (curBlockID != m_lastBlockID || m_lastBlockID == int.MinValue)
             {
+                // TODO:将原先block的所有东西都卸载了
+                // for (int i = m_loadedCells.Count - 1; i >= 0; i--)
+                // {
+                //     var cell = m_loadedCells[i];
+                //     cell.Unload();
+                //     m_loadedCells.RemoveAt(i);
+                // }
+                
                 Debug.Log($"Player moved to block {curBlockID}, loading blocks around it.");
 
                 List<int> blocksToLoad = new List<int>();
@@ -430,9 +447,6 @@ namespace AILand.GamePlay.World
                     prop.Load();
                 }
             }
-            
-            
-            
         }
         
         
@@ -463,8 +477,8 @@ namespace AILand.GamePlay.World
                     Debug.LogWarning($"Prop {prop.Index} is loaded but InstanceGo is null.");
                     return false;
                 }
-                dx = Mathf.RoundToInt(prop.InstanceGo.transform.position.x - localIndex.x);
-                dz = Mathf.RoundToInt(prop.InstanceGo.transform.position.z - localIndex.y);
+                dx = Mathf.RoundToInt(prop.InstanceGo.transform.localPosition.x - localIndex.x);
+                dz = Mathf.RoundToInt(prop.InstanceGo.transform.localPosition.z - localIndex.y);
             }
             
             return Math.Abs(dx) <= sight && Math.Abs(dz) <= sight;
@@ -547,7 +561,8 @@ namespace AILand.GamePlay.World
         //}
 
         //#endregion
-        
+
+
         
     }
 }
