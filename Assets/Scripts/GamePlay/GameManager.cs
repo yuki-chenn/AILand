@@ -6,7 +6,6 @@ using AILand.System.EventSystem;
 using AILand.Utils;
 using UnityEngine;
 using EventType = AILand.System.EventSystem.EventType;
-using NotImplementedException = System.NotImplementedException;
 
 namespace AILand.GamePlay
 {
@@ -61,6 +60,39 @@ namespace AILand.GamePlay
                 return Util.GetBlockIDByWorldPosition(pos, Constants.BlockWidth, Constants.BlockHeight);
             }
         }
+
+
+        #region UI
+        // UI
+        private bool m_isShowUI;
+        public bool IsShowUI => m_isShowUI;
+
+
+        protected override void Awake()
+        {
+            base.Awake();
+            EventCenter.AddListener(EventType.OnShowUIPanel, OnUIShow);
+            EventCenter.AddListener(EventType.OnHideUIPanel, OnUIHide);
+        }
+
+        private void OnDestroy()
+        {
+            EventCenter.RemoveListener(EventType.OnShowUIPanel, OnUIShow);
+            EventCenter.RemoveListener(EventType.OnHideUIPanel, OnUIHide);
+        }
+        
+        
+        private void OnUIShow()
+        {
+            m_isShowUI = true;
+        }
+        
+        private void OnUIHide()
+        {
+            m_isShowUI = false;
+        }
+
+        #endregion
 
 
         public void PlayerDie()

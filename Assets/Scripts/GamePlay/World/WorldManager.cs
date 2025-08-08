@@ -168,9 +168,9 @@ namespace AILand.GamePlay.World
             var cubeTrans = cube.transform;
             
             Debug.Log($"Clicked on cube at position: {cubeTrans.position}");
-            int x = Mathf.RoundToInt(cubeTrans.position.x);
-            int y = Mathf.RoundToInt(cubeTrans.position.y);
-            int z = Mathf.RoundToInt(cubeTrans.position.z);
+            int x = Mathf.RoundToInt(cubeTrans.localPosition.x);
+            int y = Mathf.RoundToInt(cubeTrans.localPosition.y);
+            int z = Mathf.RoundToInt(cubeTrans.localPosition.z);
             
             // TODO : 会有破坏不了的方块
             
@@ -196,7 +196,7 @@ namespace AILand.GamePlay.World
             return block.DestroyCube(x, y, z);;
         }
 
-        public bool PlaceCube(Vector3Int posIndex, CubeType cubeType, BaseCube cubeFocus)
+        public bool PlaceCube(Vector3Int worldPosIndex, CubeType cubeType, BaseCube cubeFocus)
         {
             // TODO : 检查是否能够放置方块
             if (!SOManager.Instance.cubeConfigDict[cubeFocus.CubeType].canPlaceCubeOn)
@@ -204,15 +204,6 @@ namespace AILand.GamePlay.World
                 Debug.Log($"Cannot place cube of type {cubeFocus.CubeType}");
                 return false;
             }
-            
-            if(posIndex.x < 0 || posIndex.x >= m_blockWidth ||
-               posIndex.y < 0 || posIndex.y >= Constants.BuildMaxHeight ||
-               posIndex.z < 0 || posIndex.z >= m_blockHeight)
-            {
-                // 超出范围
-                return false;
-            }
-            
             
             // 如果此时玩家和方块碰撞，直接返回
             Vector3 playerPosition = GameManager.Instance.player.transform.position;
@@ -226,14 +217,30 @@ namespace AILand.GamePlay.World
                 Mathf.RoundToInt(playerPosition.y + 2),
                 Mathf.RoundToInt(playerPosition.z));
             
-            if (playerIndex0.Equals(posIndex) || playerIndex1.Equals(posIndex))
+            if (playerIndex0.Equals(worldPosIndex) || playerIndex1.Equals(worldPosIndex))
             {
                 Debug.LogWarning("Player is standing on the block, cannot place cube.");
                 return false;
             }
+            
+            var block = m_worldData.GetBlock(GameManager.Instance.CurBlockId);
+            
+            // 根据block将坐标转换为本地坐标
+            Vector3Int localPosIndex = worldPosIndex - Vector3Int.RoundToInt(block.WorldPosition);
 
-            var block = m_worldData.GetBlock(Util.GetBlockIDByWorldPosition(new Vector3(posIndex.x, posIndex.y, posIndex.z), m_blockWidth, m_blockHeight));
-            return block.AddCube(posIndex.x, posIndex.y, posIndex.z, cubeType, 0);
+            
+            if(localPosIndex.x < 0 || localPosIndex.x >= m_blockWidth ||
+               localPosIndex.y < 0 || localPosIndex.y >= Constants.BuildMaxHeight ||
+               localPosIndex.z < 0 || localPosIndex.z >= m_blockHeight)
+            {
+                // 超出范围
+                return false;
+            }
+            
+            
+            
+
+            return block.AddCube(localPosIndex.x, localPosIndex.y, localPosIndex.z, cubeType, 0);
         }
         
         public MagicCrystal GetBlockMagicCrystalInstance()

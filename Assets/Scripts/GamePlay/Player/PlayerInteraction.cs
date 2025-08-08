@@ -1,5 +1,6 @@
 using System;
 using AILand.GamePlay.InventorySystem;
+using AILand.GamePlay.Player;
 using AILand.GamePlay.World;
 using AILand.GamePlay.World.Cube;
 using AILand.GamePlay.World.Prop;
@@ -45,9 +46,14 @@ namespace AILand.GamePlay
         // 鼠标长按充能
         private bool m_isCharge = false;
         private float m_chargeTimer = 0f;
+
+
+        private PlayerController m_playerController => GetComponent<PlayerController>();
         
         void Update()
         {
+            if (GameManager.Instance.IsShowUI) return;
+            
             // 滑动滚轮更改选择
             HandleScrollInput();
             
@@ -63,8 +69,8 @@ namespace AILand.GamePlay
             // 检测方块放置
             DetectPlaceCube();
             
-            // 检测方块破坏
-            DetectDestroyCube();
+            // 检测手套功能
+            DetectInfiniteGauntlet();
 
             // 检测数字键选择元素
             DetectElementSelect();
@@ -256,7 +262,7 @@ namespace AILand.GamePlay
             }
         }
 
-        private void DetectDestroyCube()
+        private void DetectInfiniteGauntlet()
         {
             if (m_currentSelectItemType != ItemType.InfiniteGauntlet) return;
             
@@ -276,6 +282,14 @@ namespace AILand.GamePlay
                     }
                 }
             }
+
+            // 左键点击攻击
+            if (Input.GetMouseButtonDown(0))
+            {
+                var curSelectElement = Util.GetSelectedEnergyType();
+                m_playerController.UseSkill(curSelectElement);
+            }
+            
         }
         
         

@@ -21,6 +21,7 @@ namespace AILand.GamePlay.Player
         private PlayerController m_playerController;
 
         private bool m_isInWater = false;
+        public bool IsInWater => m_isInWater;
 
 
         private void Awake()
