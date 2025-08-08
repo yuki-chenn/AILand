@@ -14,8 +14,9 @@ namespace AILand.GamePlay.Player
         public LayerMask detectWaterLayer;
         public LayerMask detectGroundLayer;
 
-        [Header("携带手套")]
+        [Header("携带手套和武器")]
         public GameObject infiniteGauntletGo;
+        public GameObject bigSword;
 
         private CharacterController m_characterController;
         private PlayerController m_playerController;

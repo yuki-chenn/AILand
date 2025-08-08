@@ -291,9 +291,15 @@ namespace AILand.GamePlay.Player
             vfx.GetComponent<VfxController>().Play("Restore",transform.position,transform.rotation);
         }
 
+        public void SummonSword()
+        {
+            m_playerCharacter.bigSword.SetActive(true);
+        }
+
         public void EndSkill()
         {
             m_isUsingSkill = false;
+            m_playerCharacter.bigSword.SetActive(false);
         }
         
     }
