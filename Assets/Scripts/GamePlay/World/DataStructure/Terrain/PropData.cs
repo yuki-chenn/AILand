@@ -50,10 +50,12 @@ namespace AILand.GamePlay.World
             var type = m_propConfig.propPrefab.GetComponent<BaseProp>().GetType();
             m_instanceGo = PoolManager.Instance.GetGameObject(type);
             
+            m_instanceGo.SetActive(false);
             m_instanceGo.transform.SetParent(m_blockData.BlockComponent.propHolder);
             m_instanceGo.transform.localPosition = m_localPosition;
             m_instanceGo.transform.localRotation = m_rotation;
             m_instanceGo.name = $"{m_blockData.BlockID}_{m_index.x}_{m_index.z}_{m_index.y}_{m_propType}";
+            m_instanceGo.SetActive(true);
             
             m_isLoad = true;
         }

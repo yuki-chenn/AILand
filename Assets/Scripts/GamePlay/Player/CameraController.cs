@@ -29,7 +29,7 @@ namespace AILand.GamePlay.Player
 
         void Start()
         {
-            m_offsetDistanceY = transform.position.y + 1;
+            m_offsetDistanceY = transform.position.y + 1.5f;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }

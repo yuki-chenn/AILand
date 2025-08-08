@@ -196,12 +196,12 @@ namespace AILand.GamePlay.World.Prop
         public override void OnReleaseToPool()
         {
             base.OnReleaseToPool();
-            m_isNatural = true; // 重置为天然生成
-            m_isCharged = false; // 重置为未充能
-            m_isActive = false; // 重置为未激活
-            m_energy = null; // 清空能量
-            m_frScript.enable = false; // 停止浮动和旋转
-            UpdateCrystalMaterial(); // 更新材质以反映状态变化
+            m_isNatural = true; 
+            m_isCharged = false; 
+            m_isActive = false; 
+            m_energy = null; 
+            m_frScript.enable = false; 
+            UpdateCrystalMaterial(); 
         }
     }
 }
