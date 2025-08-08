@@ -83,6 +83,23 @@ namespace AILand.GamePlay.Player
             }
         }
 
+        public void ChangeElementOnInfiniteGauntlet()
+        {
+            foreach(Transform child in infiniteGauntletGo.transform)
+            {
+                ParticleSystem ps = child.GetComponent<ParticleSystem>();
+                if (ps != null)
+                {
+                    var colorOverLifetime = ps.colorOverLifetime;
+            
+                    // 设置单一颜色
+                    var type = Util.GetSelectedEnergyType();
+                    colorOverLifetime.color = Constants.energyColors[type];
+                }
+            }
+            
+        }
+
 
         public void MoveTo(Vector3 position)
         {

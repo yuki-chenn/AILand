@@ -10878,7 +10878,7 @@ MonoBehaviour:
   detectGroundLayer:
     serializedVersion: 2
     m_Bits: 15360
-  infiniteGauntletGo: {fileID: 0}
+  infiniteGauntletGo: {fileID: 7310658315655099410}
 --- !u!114 &7458144812761165388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10897,6 +10897,7 @@ MonoBehaviour:
   jumpForce: 18
   jumpTime: 0.85
   gravity: 9.8
+  firePoint: {fileID: 5029023746018822196}
 --- !u!1 &6960233479993280598
 GameObject:
   m_ObjectHideFlags: 0
@@ -14400,5 +14401,10 @@ PrefabInstance:
 --- !u!4 &1154991289265314532 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8697537983516389676, guid: 914b749e328e0ee47b25ff61086ef631, type: 3}
+  m_PrefabInstance: {fileID: 7544803450725493704}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7310658315655099410 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 990840032497688538, guid: 914b749e328e0ee47b25ff61086ef631, type: 3}
   m_PrefabInstance: {fileID: 7544803450725493704}
   m_PrefabAsset: {fileID: 0}

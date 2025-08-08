@@ -43,6 +43,7 @@ namespace AILand.GamePlay
                 if (m_curSelectedElementIndex != value)
                 {
                     m_curSelectedElementIndex = value;
+                    PlayerComponent.ChangeElementOnInfiniteGauntlet();
                     EventCenter.Broadcast(EventType.SelectElementChange);
                 }
             }
