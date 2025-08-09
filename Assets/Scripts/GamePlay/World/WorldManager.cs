@@ -509,6 +509,37 @@ namespace AILand.GamePlay.World
         #endregion
 
 
+        #region 路经检查
+
+        
+        /// <summary>
+        /// 判断有没有会碰撞的方块
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public bool HasCollideCube(Vector3 position)
+        {
+            Vector2Int localIndex = new Vector2Int();
+            var blockIndex = Util.GetBlockIndexByWorldPosition(position, m_blockWidth, m_blockHeight,ref localIndex);
+
+            var block = m_worldData.GetBlock(blockIndex);
+            if (block == null)
+            {
+                Debug.LogWarning($"Block {blockIndex} does not exist.");
+                return false;
+            }
+            
+            var cell = block.GetCellData(localIndex.x, localIndex.y);
+            
+            int y = Mathf.CeilToInt(position.y);
+            var cubeData = cell?.GetCubeData(y);
+            
+            if (cubeData == null || cubeData.CubeType == CubeType.None) return false;
+            
+            return cubeData.CubeConfig.hasCollision;
+        }
+
+        #endregion
 
         //#region ONGUI
 

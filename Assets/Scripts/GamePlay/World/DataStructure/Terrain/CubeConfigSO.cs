@@ -31,6 +31,8 @@ namespace AILand.GamePlay.World
         public List<StoredElementEnergy> elementEnergy;
 
         public bool canPlaceCubeOn = true;
+        
+        public bool hasCollision = true;
 
     }
 }

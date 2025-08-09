@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - GeneratePlatform
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -15,13 +16,13 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Player
   - Interactable
   - Cube
   - AriCube
   - Prop
-  - 
-  - 
+  - Enemy
+  - Magic
   - 
   - 
   - 

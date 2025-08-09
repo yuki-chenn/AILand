@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6826984562190577268}
   - component: {fileID: 7124852378492808073}
   - component: {fileID: 1560808431851422832}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: droplets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4861,7 +4861,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4670455620291388816}
   - component: {fileID: 6896007877340297378}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: trail_shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5007,7 +5007,7 @@ GameObject:
   - component: {fileID: 1250272535224077691}
   - component: {fileID: 2612114706553548955}
   - component: {fileID: 3734927844472503426}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5159,7 +5159,7 @@ GameObject:
   - component: {fileID: 372432367265260114}
   - component: {fileID: 896703210074831834}
   - component: {fileID: 5596661013759215839}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: bubbles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10011,7 +10011,9 @@ GameObject:
   - component: {fileID: 7602365458135572838}
   - component: {fileID: 1590802358697050536}
   - component: {fileID: 5120168517648063880}
-  m_Layer: 0
+  - component: {fileID: -458934963709705460}
+  - component: {fileID: 227278132887272738}
+  m_Layer: 15
   m_Name: MagicWater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14920,6 +14922,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 20
   lifeTime: 5
+  explosionVfxName: MagicWaterHit
+  damage: 60
+--- !u!135 &-458934963709705460
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3425323710250614137}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &227278132887272738
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3425323710250614137}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5929639250493675280
 GameObject:
   m_ObjectHideFlags: 0
@@ -14931,7 +14983,7 @@ GameObject:
   - component: {fileID: 3525271337459767374}
   - component: {fileID: 1015121253134119587}
   - component: {fileID: 1405243540993552920}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19849,7 +19901,7 @@ GameObject:
   - component: {fileID: 7828883874571793626}
   - component: {fileID: 5670204042353752664}
   - component: {fileID: 1647954900066550821}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}

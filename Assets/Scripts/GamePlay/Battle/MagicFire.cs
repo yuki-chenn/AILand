@@ -7,6 +7,5 @@ namespace AILand.GamePlay.Battle
     public class MagicFire : BaseMagic
     {
         public GameObject GameObject { get; }
-        
     }
 }

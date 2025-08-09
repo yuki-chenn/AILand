@@ -65,7 +65,7 @@ public class WFCBlock
                     if(id == Constants.FirstBlockID)
                     {
                         // 如果id包含了玩家的初始岛屿id，则默认只有Custom类型
-                        m_probableType[id] = new List<IslandType> { IslandType.Custom };
+                        m_probableType[id] = new List<IslandType> { IslandType.Plain };
                     }
                     else
                     {

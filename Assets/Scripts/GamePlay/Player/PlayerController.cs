@@ -114,7 +114,7 @@ namespace AILand.GamePlay.Player
             float velocityAdittion = 0;
             if ( m_isRunning )
                 velocityAdittion = sprintAdittion;
-
+            
             float directionX = m_inputHorizontal * (velocity + velocityAdittion) * Time.deltaTime;
             float directionZ = m_inputVertical * (velocity + velocityAdittion) * Time.deltaTime;
             float directionY = 0;
@@ -132,10 +132,10 @@ namespace AILand.GamePlay.Player
                 }
             }
 
-            directionY = directionY - gravity * Time.deltaTime;
+            directionY -= gravity * Time.deltaTime;
 
-            Vector3 forward = Camera.main.transform.forward;
-            Vector3 right = Camera.main.transform.right;
+            Vector3 forward = GameManager.Instance.mainCamera.transform.forward;
+            Vector3 right = GameManager.Instance.mainCamera.transform.right;
 
             forward.y = 0;
             right.y = 0;
@@ -143,8 +143,8 @@ namespace AILand.GamePlay.Player
             forward.Normalize();
             right.Normalize();
 
-            forward = forward * directionZ;
-            right = right * directionX;
+            forward *= directionZ;
+            right *= directionX;
 
             if (directionX != 0 || directionZ != 0)
             {

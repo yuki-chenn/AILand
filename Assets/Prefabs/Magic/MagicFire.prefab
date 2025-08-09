@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6597599132299019610}
   - component: {fileID: 8951289221336220676}
   - component: {fileID: 5738461416147857914}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 2210225809602760008}
   - component: {fileID: 1314683863720821254}
   - component: {fileID: 5598336676334035704}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: flares
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5023,7 +5023,7 @@ GameObject:
   - component: {fileID: 3377518683411596150}
   - component: {fileID: 2181125158832030193}
   - component: {fileID: 5334589490606201636}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: head_glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9923,7 +9923,7 @@ GameObject:
   - component: {fileID: 1249318973597573129}
   - component: {fileID: 2335452305925240295}
   - component: {fileID: 4519765826249306340}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14840,7 +14840,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3376813003284903241}
   - component: {fileID: 7190455474556359455}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: trail_glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14987,7 +14987,9 @@ GameObject:
   - component: {fileID: 3375058450371381818}
   - component: {fileID: 69723798704421364}
   - component: {fileID: 8361066106174995762}
-  m_Layer: 0
+  - component: {fileID: 6064766558400626512}
+  - component: {fileID: -2277784964162370254}
+  m_Layer: 15
   m_Name: MagicFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19895,3 +19897,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 25
   lifeTime: 5
+  explosionVfxName: MagicFireHit
+  damage: 120
+--- !u!135 &6064766558400626512
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6069229672164467986}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &-2277784964162370254
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6069229672164467986}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

@@ -16,7 +16,6 @@ namespace AILand.System.CharacterFSM
 
         public CFSMState CurrentState => m_statesIdDictionary[(int)m_currentStateId];
 
-
         protected virtual void Awake()
         {
             foreach (var stateId in states)
