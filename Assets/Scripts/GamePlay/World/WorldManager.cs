@@ -34,7 +34,7 @@ namespace AILand.GamePlay.World
 
         // 上一次所在的block
         private int m_lastBlockID = int.MinValue;
-        private bool m_isLoadLowTerrain = false;
+        private Dictionary<int,bool> m_isLoadLowTerrain = new Dictionary<int, bool>();
 
         protected override void Awake()
         {
@@ -325,15 +325,15 @@ namespace AILand.GamePlay.World
                 // 岛屿数据已经生成
                 
                 // 加载显示远处地形
-                StartCoroutine(LoadBlockLowTerrainTextureCoroutine(blockID));
+                if(!m_isLoadLowTerrain.GetValueOrDefault(blockID,false)) StartCoroutine(LoadBlockLowTerrainTextureCoroutine(blockID, sight));
                 
                 yield break;
             }
         }
         
-        IEnumerator LoadBlockLowTerrainTextureCoroutine(int blockID)
+        IEnumerator LoadBlockLowTerrainTextureCoroutine(int blockID, int sight)
         {
-            m_isLoadLowTerrain = true;
+            m_isLoadLowTerrain[blockID] = true;
             var block = m_worldData.GetBlock(blockID);
             if (block == null)
             {
@@ -374,8 +374,8 @@ namespace AILand.GamePlay.World
             yield return 1;
             heightMap.Apply();
             
-            block.BlockComponent.SetLowTerrainTexture(colorMap, heightMap);
-            m_isLoadLowTerrain = false;
+            block.BlockComponent.SetLowTerrainTexture(colorMap, heightMap, sight);
+            m_isLoadLowTerrain[blockID] = false;
         }
 
         // 根据玩家的位置，载入周围的Cube
@@ -498,10 +498,10 @@ namespace AILand.GamePlay.World
             if (block != null && block.IsCreated)
             {
                 block.BlockComponent.UpdateLowTerrain(playerPosition, sight);
-                if(Time.frameCount % 300 == 0 && !m_isLoadLowTerrain)
+                if(Time.frameCount % 300 == 0 && !m_isLoadLowTerrain[blockId])
                 {
                     // 每隔一段时间重新加载低地形纹理
-                    StartCoroutine(LoadBlockLowTerrainTextureCoroutine(blockId));
+                    StartCoroutine(LoadBlockLowTerrainTextureCoroutine(blockId, sight));
                 }
             }
         }
