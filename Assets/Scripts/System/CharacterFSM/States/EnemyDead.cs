@@ -3,8 +3,7 @@ using AILand.GamePlay.Battle.Enemy;
 namespace AILand.System.CharacterFSM
 {
     
-        [CFSMStateID(CFSMStateID.EnemyDead)]
-
+    [CFSMStateID(CFSMStateID.EnemyDead)]
     public class EnemyDead : CFSMState
     {
         public override CFSMStateID StateID => CFSMStateID.EnemyDead;

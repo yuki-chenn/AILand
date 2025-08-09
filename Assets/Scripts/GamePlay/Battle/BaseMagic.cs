@@ -43,14 +43,14 @@ namespace AILand.GamePlay.Battle
            
             m_lifeTimer -= Time.deltaTime;
             
-            if(Vector3.Distance(transform.position,m_moveTarget) < 0.001f)
+            if(Vector3.Distance(transform.position,m_moveTarget) < 0.01f)
                 OnHit();
 
             if (m_lifeTimer <= 0f) Release();
         }
 
         
-        private void OnCollisionEnter(Collision other)
+        protected virtual void OnCollisionEnter(Collision other)
         {
             Debug.Log($"collide with {other.collider.name}");
             

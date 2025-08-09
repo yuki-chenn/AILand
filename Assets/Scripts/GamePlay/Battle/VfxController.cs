@@ -20,6 +20,8 @@ namespace AILand.GamePlay.Battle
         private Dictionary<string, VfxData> vfxDict;
 
         public GameObject GameObject => gameObject;
+        
+        private bool m_isReleased = false;
 
         private void Awake()
         {
@@ -50,7 +52,7 @@ namespace AILand.GamePlay.Battle
             vfxData.vfxObject.SetActive(true);
             
             // 自动关闭特效
-            Invoke("Realease", vfxData.duration);
+            Invoke("Release", vfxData.duration);
         }
 
         private void StopVfx()
@@ -62,15 +64,16 @@ namespace AILand.GamePlay.Battle
             }
         }
 
-        private void Realease()
+        public void Release()
         {
+            if (m_isReleased) return;
             StopVfx();
             PoolManager.Instance.Release(gameObject);
         }
 
         public void OnGetFromPool()
         {
-            
+            m_isReleased = false;
         }
 
         public void OnReleaseToPool()
@@ -78,6 +81,7 @@ namespace AILand.GamePlay.Battle
             transform.position = Vector3.zero;
             transform.rotation = Quaternion.identity;
             StopVfx();
+            m_isReleased = true;
         }
 
         public void OnDestroyPoolObject()

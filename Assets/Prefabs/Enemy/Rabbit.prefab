@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2113277878234800672}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Ear_R_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,9 +45,9 @@ GameObject:
   - component: {fileID: 1369413968609350533}
   - component: {fileID: 3650728316977530158}
   - component: {fileID: 4821402842595837108}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Rabbit
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 1760793595743424268}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.11}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -110,7 +110,7 @@ MonoBehaviour:
   maxHp: 100
   attack: 10
   chaseRange: 20
-  attackRange: 2.3
+  attackRange: 2
   attackInterval: 1
 --- !u!114 &3650728316977530158
 MonoBehaviour:
@@ -161,7 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4211767547254885521}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6668447676369068273}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Ear_R_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4047094868503494657}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Body1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7154856881133934860}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Body2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2835567830057196001}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Ear_L_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,7 +325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8140219479555083863}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Ear_L_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,7 +357,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5950082003140839462}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Eye_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3897508564887996273}
   - component: {fileID: 7904433460876070289}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: EvilRabbit_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8410136385468501132}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Ear_L_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +518,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1990762135120630681}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Ear_L_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,7 +549,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5977952068883704369}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: RootEvilRabbit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -581,7 +581,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7933626639407151589}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Ear_R_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -613,7 +613,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5446372648922992890}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Ear_R_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -644,7 +644,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8960105287660335452}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Eye_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1144526578266775914}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}

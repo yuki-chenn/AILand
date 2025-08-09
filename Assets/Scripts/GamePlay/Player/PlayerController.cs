@@ -279,9 +279,7 @@ namespace AILand.GamePlay.Player
         
         public void Defense()
         {
-            var vfx = PoolManager.Instance.GetGameObject<VfxController>();
-            vfx.transform.SetParent(transform);
-            vfx.GetComponent<VfxController>().Play("Defense",transform.position,transform.rotation);
+            m_playerCharacter.SetShield();
         }
 
         public void Restore()

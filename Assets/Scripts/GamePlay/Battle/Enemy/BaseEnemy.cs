@@ -1,3 +1,5 @@
+using AILand.GamePlay.Player;
+using AILand.GamePlay.World;
 using AILand.System.CharacterFSM;
 using AILand.System.ObjectPoolSystem;
 using UnityEngine;
@@ -65,6 +67,11 @@ namespace AILand.GamePlay.Battle.Enemy
         // 攻击
         private float m_attackTimer = 0f;
         
+        // 异常状态
+        private bool m_isSlow = false;
+        private GameObject m_vfx;
+        private float m_slowTimer = 0f;
+        
         protected virtual void Awake()
         {
             m_currentHp = maxHp;
@@ -114,6 +121,14 @@ namespace AILand.GamePlay.Battle.Enemy
             
             // timer
             m_attackTimer -= Time.deltaTime;
+            if (m_isSlow && m_slowTimer > 0)
+            {
+                m_slowTimer -= Time.deltaTime;
+            }
+            if (m_isSlow && m_slowTimer <= 0f)
+            {
+                ResetSlow();
+            }
         }
 
 
@@ -122,6 +137,9 @@ namespace AILand.GamePlay.Battle.Enemy
             float velocityAdittion = 0;
             if ( m_fsmSystem.CurrentState.StateID == CFSMStateID.EnemyChase )
                 velocityAdittion = sprintAdittion;
+
+            if (m_isSlow)
+                velocityAdittion -= 1f;
 
             float directionX = m_inputHorizontal * (velocity + velocityAdittion) * Time.deltaTime;
             float directionZ = m_inputVertical * (velocity + velocityAdittion) * Time.deltaTime;
@@ -155,6 +173,32 @@ namespace AILand.GamePlay.Battle.Enemy
             Vector3 moviment = verticalDirection + horizontalDirection;
             m_cc.Move( moviment );
             m_isGrounded = m_cc.isGrounded;
+        }
+
+        public void SetSlow()
+        {
+            m_isSlow = true;
+            m_slowTimer = 3f;
+            if (m_vfx)
+            {
+                PoolManager.Instance.Release(m_vfx);
+                m_vfx = null;
+            }
+        
+            m_vfx = PoolManager.Instance.GetGameObject<VfxController>();
+            m_vfx.transform.SetParent(transform);
+            m_vfx.GetComponent<VfxController>().Play("Slow",transform.position, Quaternion.identity);
+        }
+
+        public void ResetSlow()
+        {
+            if (!m_isSlow) return;
+            m_isSlow = false;
+            if (m_vfx)
+            {
+                m_vfx.GetComponent<VfxController>().Release();
+                m_vfx = null;
+            }
         }
         
         public void Chase()
@@ -191,7 +235,7 @@ namespace AILand.GamePlay.Battle.Enemy
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange,LayerMask.GetMask("Player"));
             if (hitColliders.Length > 0)
             {
-                DataManager.Instance.PlayerData.ChangeHp(-attack);
+                GameManager.Instance.player.GetComponent<PlayerCharacter>().TakeDamageFromEnemy(attack);
             }
             m_animator.SetTrigger("attack");
 
@@ -217,10 +261,26 @@ namespace AILand.GamePlay.Battle.Enemy
                 Die();
             }
         }
+        
+        // 击退效果
+        public void KnockBack(Vector3 sourcePosition, float force)
+        {
+            Vector3 knockbackDirection = (transform.position - sourcePosition).normalized;
+            knockbackDirection.y = 0; // 保持在水平面上
+            m_cc.Move(knockbackDirection * force);
+        }
 
         protected virtual void Die()
         {
             Debug.Log($"Dead");
+            // 全元素加 10
+            DataManager.Instance.PlayerData.AddElementalEnergy(new NormalElement(10));
+            Invoke("Release",2f);
+        }
+
+        private void Release()
+        {
+            PoolManager.Instance.Release(gameObject);
         }
         
         private void HeadHittingDetect()
@@ -252,7 +312,7 @@ namespace AILand.GamePlay.Battle.Enemy
             m_isMoving = false;
             m_chaseTarget = null;
 
-            m_fsmSystem.SetCurrentState(CFSMStateID.NullState);
+            m_fsmSystem.SetCurrentState(m_fsmSystem.initialState);
         }
 
         public void OnDestroyPoolObject()

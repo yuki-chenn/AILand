@@ -1,5 +1,8 @@
+using AILand.GamePlay.Battle;
+using AILand.GamePlay.Battle.Enemy;
 using AILand.GamePlay.InventorySystem;
 using AILand.GamePlay.World;
+using AILand.System.ObjectPoolSystem;
 using AILand.Utils;
 using UnityEngine;
 
@@ -24,6 +27,11 @@ namespace AILand.GamePlay.Player
         private bool m_isInWater = false;
         public bool IsInWater => m_isInWater;
 
+        
+        // 护盾
+        private bool m_isShielded = false;
+        private GameObject m_vfxShield;
+        private float m_shieldTimer = 0f;
 
         private void Awake()
         {
@@ -34,7 +42,100 @@ namespace AILand.GamePlay.Player
         private void Update()
         {
             DetectInOuterWater();
+
+            if (m_isShielded && m_shieldTimer > 0f)
+            {
+                m_shieldTimer -= Time.deltaTime;
+            }
+            
+            if(m_isShielded && m_shieldTimer <= 0f)
+            {
+                ResetShield();
+            }
         }
+        
+        private void OnDrawGizmos()
+        {
+            // 设置Gizmos颜色
+            UnityEngine.Gizmos.color = Color.red;
+    
+            // 计算碰撞盒的中心和大小
+            Vector3 boxCenter = transform.position + transform.forward * 1.5f + new Vector3(0, 1, 0);
+            Vector3 boxSize = new Vector3(3f, 1.6f, 3f); // 注意：Gizmos.DrawWireCube使用全尺寸，不是半尺寸
+    
+            // 绘制线框立方体
+            UnityEngine.Gizmos.DrawWireCube(boxCenter, boxSize);
+        }
+
+        public void SwordAttack()
+        {
+            // 特效
+            var vfx = PoolManager.Instance.GetGameObject<VfxController>();
+            vfx.GetComponent<VfxController>().Play("SwordPower",bigSword.transform.position);
+            
+            // 方块碰撞
+            Collider[] hits = Physics.OverlapBox(transform.position + transform.forward * 1.5f + new Vector3(0,1,0), 
+                new Vector3(1.5f,0.8f,1.5f), Quaternion.identity, 
+                LayerMask.GetMask("Enemy"));
+
+            foreach (var enemy in hits)
+            {
+                if (enemy.transform.CompareTag("Enemy"))
+                {
+                    var enemyComponent = enemy.GetComponent<BaseEnemy>();
+                    if (enemyComponent != null)
+                    {
+                        // 造成伤害
+                        enemyComponent.TakeDamage(100f);
+                        // 击退
+                        enemyComponent.KnockBack(transform.position, 5f);
+                    }
+                }
+            }
+            
+            
+        }
+        
+        public void TakeDamageFromEnemy(float damage)
+        {
+            if (m_isShielded)
+            {
+                // 护盾抵挡伤害
+                Debug.Log("护盾抵挡了伤害");
+                ResetShield();
+                return;
+            }
+            DataManager.Instance.PlayerData.ChangeHp(-damage);
+        }
+        
+        public void SetShield()
+        {
+            m_isShielded = true;
+            m_shieldTimer = 5f;
+            if (m_vfxShield)
+            {
+                PoolManager.Instance.Release(m_vfxShield);
+                m_vfxShield = null;
+            }
+        
+            m_vfxShield = PoolManager.Instance.GetGameObject<VfxController>();
+            m_vfxShield.transform.SetParent(transform);
+            m_vfxShield.GetComponent<VfxController>().Play("Defense",transform.position, Quaternion.identity);
+        }
+        
+        public void ResetShield()
+        {
+            if (!m_isShielded) return;
+            m_isShielded = false;
+            m_shieldTimer = 0f;
+            
+            if (m_vfxShield)
+            {
+                m_vfxShield.GetComponent<VfxController>().Release();
+                m_vfxShield = null;
+            }
+        }
+        
 
         private void DetectInOuterWater()
         {

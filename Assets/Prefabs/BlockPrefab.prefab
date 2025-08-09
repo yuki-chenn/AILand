@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 94231325487066147}
   - component: {fileID: 3954474320793822086}
   - component: {fileID: 1226644002019809100}
+  - component: {fileID: 6972087051341539320}
   m_Layer: 0
   m_Name: LowTerrain
   m_TagString: Untagged
@@ -146,6 +147,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6972087051341539320
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722007816724723353}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7450741763379908841, guid: f16ae89c510871f4383fbc81d5ee6067, type: 3}
 --- !u!1 &7526982404065815134
 GameObject:
   m_ObjectHideFlags: 0

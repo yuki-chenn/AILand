@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8351025959990750043}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4287724753804956487}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Arm_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4061429308429111191}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Arm_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1318549508521181290}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2597838555913382086}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Brow_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 232411882426037369}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Body2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7702173291309141817}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Body1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1307817086827324096}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Eye_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3912457134329915433}
   - component: {fileID: 7084205438977240956}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Skeleton_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,9 +363,9 @@ GameObject:
   - component: {fileID: 4434860858761080795}
   - component: {fileID: 7059335640249156881}
   - component: {fileID: 69220193243631252}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Skeleton
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -379,7 +379,7 @@ Transform:
   m_GameObject: {fileID: 7672407851800552869}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.833}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -428,7 +428,7 @@ MonoBehaviour:
   maxHp: 150
   attack: 15
   chaseRange: 15
-  attackRange: 2.1
+  attackRange: 2
   attackInterval: 1.25
 --- !u!114 &7059335640249156881
 MonoBehaviour:
@@ -479,7 +479,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5361153707202131126}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Brow_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,7 +510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4949032721218092966}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: RootSkeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -542,7 +542,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8395111866093834481}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Eye_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
