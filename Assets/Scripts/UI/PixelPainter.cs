@@ -22,6 +22,7 @@ public class PixelPainter : MonoBehaviour,
 
     [Header("Optional UI Bindings")]
     public Slider sliderBrush;
+    public Text txtBrushSize;
     public Toggle toggleCircleBrush;
 
     [Header("Cursor")]
@@ -85,9 +86,22 @@ public class PixelPainter : MonoBehaviour,
         {
             sliderBrush.SetValueWithoutNotify(brushSize);
             sliderBrush.onValueChanged.AddListener(v =>
+            {
                 brushSize = Mathf.Clamp(Mathf.RoundToInt(v),
-                                        (int)sliderBrush.minValue,
-                                        (int)sliderBrush.maxValue));
+                    (int)sliderBrush.minValue,
+                    (int)sliderBrush.maxValue);
+                
+                if (txtBrushSize)
+                {
+                    txtBrushSize.text = brushSize.ToString();
+                }
+            });
+            
+            if (txtBrushSize)
+            {
+                txtBrushSize.text = brushSize.ToString();
+            }
+            
         }
 
         if (toggleCircleBrush)

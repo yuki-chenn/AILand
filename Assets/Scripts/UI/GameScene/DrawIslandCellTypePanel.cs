@@ -17,6 +17,7 @@ namespace AILand.UI
         private PixelPainter m_ppCellType;
 
         private Slider[] m_slidersRemainColor;
+        private Text[] m_txtRemainColor;
 
         // 地形噪声
         private Texture2D m_terrainTex;
@@ -28,11 +29,11 @@ namespace AILand.UI
         // 五种能量对应的颜色
         private Color[] m_energyColors = new Color[]
         {
-            Color.magenta,   // 金元素
-            Color.green,    // 木元素
-            Color.blue,     // 水元素
-            Color.red,      // 火元素
-            Color.yellow      // 土元素
+            new Color(1.0f,0.96f,0f),    // 金元素
+            new Color(0.46f,1.0f,0f),    // 木元素
+            new Color(0.53f,0.96f,1.0f), // 水元素
+            new Color(0.96f,0.41f,0.33f),// 火元素
+            new Color(0.69f,0.51f,0.28f),// 土元素
         };
 
         private int m_currentSelectedEnergy = 0; // 当前选中的能量类型
@@ -47,13 +48,15 @@ namespace AILand.UI
         {
             m_btnGenerate = transform.Find("BtnGenerate").GetComponent<Button>();
             m_btnClear = transform.Find("BtnClear").GetComponent<Button>();
-            m_ppCellType = transform.Find("PPCellType").GetComponent<PixelPainter>();
+            m_ppCellType = transform.Find("Painter/PPCellType").GetComponent<PixelPainter>();
 
             m_slidersRemainColor = new Slider[5];
-            var sliderRoot = transform.Find("SliderRemainColorRoot");
+            m_txtRemainColor = new Text[5];
+            var sliderRoot = transform.Find("RemainColor/SliderRemainColorRoot");
             for (int i = 0; i < m_slidersRemainColor.Length; i++)
             {
                 m_slidersRemainColor[i] = sliderRoot.GetChild(i).GetComponent<Slider>();
+                m_txtRemainColor[i] = sliderRoot.GetChild(i).Find("TxtAmount").GetComponent<Text>();
 
                 // 添加点击切换事件
                 int index = i;
@@ -147,15 +150,7 @@ namespace AILand.UI
         {
             for (int i = 0; i < m_slidersRemainColor.Length; i++)
             {
-                // TODO: 选中状态还需要修改
-                
-                // 更新 Slider 背景色或边框来表示选中状态
-                var fillImage = m_slidersRemainColor[i].fillRect?.GetComponent<Image>();
-                if (fillImage != null)
-                {
-                    fillImage.color = i == m_currentSelectedEnergy ? m_energyColors[i] : Color.white;
-                }
-                
+                m_slidersRemainColor[i].transform.Find("Selected").gameObject.SetActive(i == m_currentSelectedEnergy);
             }
         }
 
@@ -181,10 +176,12 @@ namespace AILand.UI
                 if (totalEnergy > 0 && ink != null)
                 {
                     m_slidersRemainColor[i].value = ink.RemainingRatio;
+                    m_txtRemainColor[i].text = $"{ink.RemainingAmount:F0}/{ink.totalAmount:F0}";
                 }
                 else
                 {
                     m_slidersRemainColor[i].value = 0f;
+                    m_txtRemainColor[i].text = $"0/0";
                 }
             }
         }

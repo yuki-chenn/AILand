@@ -63,9 +63,9 @@ namespace AILand.UI
         
         protected override void BindUI()
         {
-            m_txtLoadingPercent = transform.Find("TxtLoadingPercent").GetComponent<Text>();
-            m_txtLoading = transform.Find("TxtLoading").GetComponent<Text>();
-            m_sliderLoadingBar = transform.Find("SliderLoadingBar").GetComponent<Slider>();
+            m_txtLoadingPercent = transform.Find("Loading/TxtLoadingPercent").GetComponent<Text>();
+            m_txtLoading = transform.Find("Loading/TxtLoading").GetComponent<Text>();
+            m_sliderLoadingBar = transform.Find("Loading/SliderLoadingBar").GetComponent<Slider>();
         }
         
         protected override void BindListeners()

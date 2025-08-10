@@ -16,8 +16,8 @@ namespace AILand.UI
 
         protected override void BindUI()
         {
-            m_btnStartGame = transform.Find("BtnStartGame").GetComponent<Button>();
-            m_btnExitGame = transform.Find("BtnExitGame").GetComponent<Button>();
+            m_btnStartGame = transform.Find("Btns/BtnStartGame").GetComponent<Button>();
+            m_btnExitGame = transform.Find("Btns/BtnExitGame").GetComponent<Button>();
 
             m_btnStartGame.onClick.AddListener(OnClickStartGameBtn);
             m_btnExitGame.onClick.AddListener(OnClickExitGameBtn);

@@ -15,9 +15,10 @@ namespace AILand.UI
     {
         private Button m_btnGenerate;
         private Button m_btnClear;
+        private Button m_btnClose;
         private PixelPainter m_ppShape;
         private Slider m_sliderRemainColor;  // 剩余颜色的展示slider
-        
+        private Text m_txtAmount;
         
         
         private PerlinNoise pn;
@@ -49,11 +50,14 @@ namespace AILand.UI
 
         protected override void BindUI()
         {
+            m_btnClose = transform.Find("BtnClose").GetComponent<Button>();
             m_btnGenerate = transform.Find("BtnGenerate").GetComponent<Button>();
             m_btnClear = transform.Find("BtnClear").GetComponent<Button>();
-            m_ppShape = transform.Find("PPShape").GetComponent<PixelPainter>();
-            m_sliderRemainColor = transform.Find("SliderRemainColor").GetComponent<Slider>();
+            m_ppShape = transform.Find("Painter/PPShape").GetComponent<PixelPainter>();
+            m_sliderRemainColor = transform.Find("RemainColor/SliderRemainColor").GetComponent<Slider>();
+            m_txtAmount = transform.Find("RemainColor/SliderRemainColor/TxtAmount").GetComponent<Text>();
 
+            m_btnClose.onClick.AddListener(Hide);
             m_btnGenerate.onClick.AddListener(OnBtnGenerateClick);
             m_btnClear.onClick.AddListener(OnBtnClearClick);
             
@@ -90,6 +94,7 @@ namespace AILand.UI
             if (whiteInk != null)
             {
                 m_sliderRemainColor.value = whiteInk.RemainingRatio;
+                m_txtAmount.text = $"{whiteInk.RemainingAmount:F0} / {whiteInk.totalAmount:F0}";
         
                 // 检查墨水是否耗尽
                 if (whiteInk.RemainingAmount <= 0)

@@ -7,6 +7,7 @@ namespace AILand.UI
     public class InventoryPanel : BaseUIPanel
     {
         private Button m_btnClose;
+        private Button m_btnCloseBg;
         
         private InventoryUI m_inventory;
 
@@ -21,10 +22,12 @@ namespace AILand.UI
 
         protected override void BindUI()
         {
-            m_btnClose = transform.Find("BtnClose").GetComponent<Button>();
-            m_inventory = transform.Find("InventoryGrid").GetComponent<InventoryUI>();
+            m_btnClose = transform.Find("Inventory/BtnClose").GetComponent<Button>();
+            m_inventory = transform.Find("Inventory/Grid").GetComponent<InventoryUI>();
+            m_btnCloseBg = transform.Find("BtnCloseBg").GetComponent<Button>();
             
             m_btnClose.onClick.AddListener(Hide);
+            m_btnCloseBg.onClick.AddListener(Hide);
         }
         
         protected override void BindListeners()
