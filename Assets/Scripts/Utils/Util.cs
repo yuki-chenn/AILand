@@ -524,7 +524,12 @@ namespace AILand.Utils
         {
             return Random.Range(min, max);
         }
-        
+
+        public static float GetRandomInRange(float min, float max)
+        {
+            return Random.Range(min, max);
+        }
+
         public static void ShuffleList<T>(List<T> list)
         {
             for (int i = list.Count - 1; i > 0; i--)

@@ -42,9 +42,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3116976644459962285}
   - component: {fileID: 500242128269210093}
-  - component: {fileID: 1369413968609350533}
   - component: {fileID: 3650728316977530158}
   - component: {fileID: 4821402842595837108}
+  - component: {fileID: -4971744897115982294}
   m_Layer: 14
   m_Name: Rabbit
   m_TagString: Enemy
@@ -90,28 +90,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1369413968609350533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1760793595743424268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83824db038c542589e8b489af5a6bea5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocity: 2
-  sprintAdittion: 1.5
-  jumpForce: 18
-  jumpTime: 0.85
-  gravity: 9.8
-  maxHp: 100
-  attack: 10
-  chaseRange: 20
-  attackRange: 2
-  attackInterval: 1
 --- !u!114 &3650728316977530158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +130,28 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.8, z: 0}
+--- !u!114 &-4971744897115982294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760793595743424268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21a5f02b38365647974f8d367cde892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: 2
+  sprintAdittion: 1.5
+  jumpForce: 18
+  jumpTime: 0.85
+  gravity: 9.8
+  maxHp: 100
+  attack: 10
+  chaseRange: 20
+  attackRange: 2
+  attackInterval: 1
 --- !u!1 &1914979092301172982
 GameObject:
   m_ObjectHideFlags: 0

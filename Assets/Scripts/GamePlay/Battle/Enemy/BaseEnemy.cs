@@ -3,7 +3,6 @@ using AILand.GamePlay.World;
 using AILand.System.CharacterFSM;
 using AILand.System.ObjectPoolSystem;
 using UnityEngine;
-using NotImplementedException = System.NotImplementedException;
 
 namespace AILand.GamePlay.Battle.Enemy
 {

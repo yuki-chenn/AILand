@@ -25,6 +25,9 @@ MonoBehaviour:
   - presetType: 3
     fixedCount: 1
     rangeCount: {x: 0, y: 0}
+  - presetType: 4
+    fixedCount: 1
+    rangeCount: {x: 0, y: 0}
   extraLimitBelow:
     cellType: 0
     heightLimit: 0

@@ -360,9 +360,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5827700792883923572}
   - component: {fileID: 411194894372951757}
-  - component: {fileID: 4434860858761080795}
   - component: {fileID: 7059335640249156881}
   - component: {fileID: 69220193243631252}
+  - component: {fileID: 5478106854870117664}
   m_Layer: 14
   m_Name: Skeleton
   m_TagString: Enemy
@@ -408,28 +408,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4434860858761080795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7672407851800552869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83824db038c542589e8b489af5a6bea5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocity: 1.25
-  sprintAdittion: 1.25
-  jumpForce: 17
-  jumpTime: 0.85
-  gravity: 9.8
-  maxHp: 150
-  attack: 15
-  chaseRange: 15
-  attackRange: 2
-  attackInterval: 1.25
 --- !u!114 &7059335640249156881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,6 +448,28 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.8, z: 0}
+--- !u!114 &5478106854870117664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7672407851800552869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc6f1014d1a287b43b9c9ce589e533a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: 1.26
+  sprintAdittion: 1.25
+  jumpForce: 17
+  jumpTime: 0.85
+  gravity: 9.8
+  maxHp: 150
+  attack: 15
+  chaseRange: 15
+  attackRange: 2
+  attackInterval: 1.25
 --- !u!1 &7695434470746747519
 GameObject:
   m_ObjectHideFlags: 0

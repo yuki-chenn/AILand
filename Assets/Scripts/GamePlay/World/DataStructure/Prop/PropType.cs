@@ -5,5 +5,6 @@ namespace AILand.GamePlay.World
         None,
         Boat,
         MagicCrystal, // 能够生成岛屿的魔法水晶
+        Treasure,
     }
 }

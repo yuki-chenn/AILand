@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using AILand.GamePlay.Battle.Enemy;
 using AILand.GamePlay.World;
 using AILand.Utils;
 using UnityEngine;
@@ -46,5 +48,12 @@ public class Constants
         {3, new List<CellType> { CellType.Snow }},
         {4, new List<CellType> { CellType.Lava, CellType.Lavaland }},
         {5, new List<CellType> { CellType.Grassland }},
+    };
+
+    public static readonly List<Type> EnemyTypes = new List<Type> 
+    {
+        typeof(Golem),
+        typeof(Rabbit),
+        typeof(Skeleton)
     };
 }
