@@ -17,6 +17,7 @@ namespace AILand.GamePlay.World
         public Vector3Int Index => m_index;
         
         private Vector3 m_localPosition;
+        public Vector3 LocalPosition => m_localPosition;
         
         private Quaternion m_rotation;
 
@@ -49,6 +50,7 @@ namespace AILand.GamePlay.World
             
             var type = m_propConfig.propPrefab.GetComponent<BaseProp>().GetType();
             m_instanceGo = PoolManager.Instance.GetGameObject(type);
+            m_instanceGo.GetComponent<BaseProp>().SetPropData(this);
             
             m_instanceGo.SetActive(false);
             m_instanceGo.transform.SetParent(m_blockData.BlockComponent.propHolder);

@@ -6,9 +6,9 @@ namespace AILand.GamePlay.Player
     {
         public Transform playerTransform;
         
-        public float velocity = 5f;
+        public float velocity = 10f;
         
-        public float sprintAddition = 3.5f;
+        public float sprintAddition = 10f;
         
         // 船的冲刺
         private bool m_isSprinting = false;

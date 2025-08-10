@@ -105,12 +105,25 @@ namespace AILand.GamePlay.World
             if(IsPlayerCreated)
             {
                 var crystalGo = PoolManager.Instance.GetGameObject<MagicCrystal>();
+                crystalGo.GetComponent<MagicCrystal>().SetPropData(
+                    new MagicCrystalPropData(this, PropType.MagicCrystal, Vector3Int.zero, Quaternion.identity));
                 if(m_blockID == Constants.FirstBlockID)
                     crystalGo.GetComponent<MagicCrystal>().Charge(new NormalElement(10,10,10,10,99999));
                 SetCrystalOnPlatform(crystalGo);
             }
         }
 
+        public void CopyCrystalData()
+        {
+            for (int i = 0; i < m_props.Count; i++)
+            {
+                if(m_props[i].PropType == PropType.MagicCrystal)
+                {
+                    m_props[i] = m_crystalInstanceGo.GetComponent<MagicCrystal>().PropData;
+                    return;
+                }
+            }
+        }
 
         private void InstantiateBlock()
         {
@@ -242,7 +255,26 @@ namespace AILand.GamePlay.World
 
         public void AddProp(PropType propType, Vector3Int index, Quaternion rotation)
         {
-            PropData propData = new PropData(this, propType, index, rotation);
+            // TODO : 这边先用switchcase，应该改成工厂模式
+            PropData propData = null;
+            switch (propType)
+            {
+                case PropType.MagicCrystal:
+                    var data = m_crystalInstanceGo.GetComponent<MagicCrystal>().PropData;
+                    propData = new MagicCrystalPropData(this, propType, index, rotation);
+                    (propData as MagicCrystalPropData).Energy = data.Energy;
+                    (propData as MagicCrystalPropData).IsCharged = data.IsCharged;
+                    (propData as MagicCrystalPropData).IsActive = true;
+                    (propData as MagicCrystalPropData).IsNatural = data.IsNatural;
+                    break;
+                case PropType.Treasure:
+                    propData = new TreasurePropData(this, propType, index, rotation);
+                    break;
+                case PropType.Boat:
+                    propData = new PropData(this, propType, index, rotation);
+                    break;
+            }
+            
             m_props.Add(propData);
         }
         
@@ -475,5 +507,7 @@ namespace AILand.GamePlay.World
             }
             return m_cells[x, z];
         }
+
+        
     }
 }

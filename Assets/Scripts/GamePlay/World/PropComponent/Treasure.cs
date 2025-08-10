@@ -19,18 +19,25 @@ namespace AILand.GamePlay.World.Prop
 
         [Header("敌人召唤出来的位置范围")]
         public float summonRadius = 10f;
+        
+    
+    
+        private TreasurePropData m_propData;
+
+        public override void SetPropData(PropData propData)
+        {
+            m_propData = propData as TreasurePropData;
+            if (m_propData.IsOpen)
+            {
+                GetComponent<Animator>()?.SetTrigger("open");
+            }
+        }
 
 
-        // 触发召唤怪物
-        private bool m_isSummoned = false;
-        
-        // 开启
-        private bool m_isOpen = false;
-        
         private void Update()
         {
 
-            if (!m_isSummoned)
+            if (!m_propData.IsSummoned)
             {
                 if(Vector3.Distance(GameManager.Instance.player.transform.position, transform.position) < triggerRadius)
                 {
@@ -53,7 +60,7 @@ namespace AILand.GamePlay.World.Prop
                 enemyInstance.GetComponent<BaseEnemy>().MoveTo(summonPos);
             }
 
-            m_isSummoned = true;
+            m_propData.IsSummoned = true;
         }
 
         private Vector3 RandomSummonPos(Vector3 centerPos,float radius)
@@ -67,17 +74,16 @@ namespace AILand.GamePlay.World.Prop
         
         public override void Interact()
         {
-            if (m_isOpen) return;
+            if (m_propData.IsOpen) return;
             
-            m_isOpen = true;
+            m_propData.IsOpen = true;
 
-            // TODO : 放个动画打开盖子
+            // 放个动画打开盖子
             ShowAnimationAndEffect();
 
             // 获得元素
             DataManager.Instance.PlayerData.AddElementalEnergy(new NormalElement(100));
             
-            // Invoke("Release",2f);
         }
 
         private void ShowAnimationAndEffect()
@@ -86,11 +92,6 @@ namespace AILand.GamePlay.World.Prop
             var vfx = PoolManager.Instance.GetGameObject<VfxController>();
             vfx.GetComponent<VfxController>().Play("TreasureOpenEffect",transform.position);
         }
-
-
-        public void Release()
-        {
-            PoolManager.Instance.Release(gameObject);
-        }
+        
     }
 }

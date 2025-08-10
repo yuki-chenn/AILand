@@ -15,7 +15,12 @@ namespace AILand.GamePlay.World.Prop
         
         // 防误触的timer
         private float m_interactTimer;
-        
+
+        public override void SetPropData(PropData propData)
+        {
+            // base.SetPropData(propData);
+        }
+
         private void Update()
         {
             if(m_interactTimer > 0) m_interactTimer -= Time.deltaTime;

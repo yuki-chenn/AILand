@@ -13,37 +13,12 @@ namespace AILand.GamePlay.World.Prop
         public override PropType PropType => PropType.MagicCrystal;
         
         private FloatAndRotate m_frScript;
-        
-        // 是否是天然生成的
-        private bool m_isNatural;
-        public bool IsNatural
-        {
-            get => m_isNatural;
-            set => m_isNatural = value;
-        }
 
-        // 是否已经被充能
-        private bool m_isCharged;
-        public bool IsCharged
-        {
-            get => m_isCharged;
-            set => m_isCharged = value;
-        }
-
-        // 是否已激活（已经创建过岛屿）
-        private bool m_isActive;
-        public bool IsActive
-        {
-            get => m_isActive;
-            set => m_isActive = value;
-        }
+        private MagicCrystalPropData m_propData;
+        public MagicCrystalPropData PropData => m_propData;
 
         // 水晶的材质
         private Material m_material;
-
-        private ElementalEnergy m_energy;
-        public ElementalEnergy Energy => m_energy;
-
         
         private string[] shaderColorProperties = 
         {
@@ -66,7 +41,6 @@ namespace AILand.GamePlay.World.Prop
         protected override void Awake()
         {
             base.Awake();
-            m_isNatural = true; // 默认是天然生成的
             m_material = GetComponent<Renderer>().material;
             m_frScript = GetComponent<FloatAndRotate>();
             if(m_frScript == null)
@@ -80,31 +54,41 @@ namespace AILand.GamePlay.World.Prop
             UpdateCrystalMaterial();
         }
 
+        public override void SetPropData(PropData propData)
+        {
+            m_propData = propData as MagicCrystalPropData;
+            UpdateCrystalMaterial();
+            m_frScript.Reset(propData.LocalPosition);
+            m_frScript.enable = m_propData.IsCharged;
+        }
+
 
         /// <summary>
         /// 注入能量
         /// </summary>
         public void Charge(NormalElement element)
         {
-            if(m_energy == null) m_energy = new ElementalEnergy();
-            m_energy.NormalElement = element;
-            m_isCharged = true;
+            if(m_propData.Energy == null) m_propData.Energy = new ElementalEnergy();
+            m_propData.Energy.NormalElement = element;
+            m_propData.IsCharged = true;
             m_frScript.enable = true;
             UpdateCrystalMaterial();
         }
         
         public void Charge(EnergyType energyType, int amount=1)
         {
-            if (m_energy == null) m_energy = new ElementalEnergy();
-            m_energy.AddEnergy(energyType, amount);
-            m_isCharged = true;
+            if (m_propData.Energy == null) m_propData.Energy = new ElementalEnergy();
+            m_propData.Energy.AddEnergy(energyType, amount);
+            m_propData.IsCharged = true;
             m_frScript.enable = true;
             UpdateCrystalMaterial();
         }
 
         private void UpdateCrystalMaterial()
         {
-            if (!m_isCharged || m_energy == null)
+            if (m_propData == null) return;
+            
+            if (!m_propData.IsCharged || m_propData.Energy == null)
             {
                 for (int i = 0; i < 5; i++)
                 {
@@ -113,13 +97,13 @@ namespace AILand.GamePlay.World.Prop
                 return;
             }
             
-            var sortedIndex = m_energy.GetSortedIndex();
+            var sortedIndex = m_propData.Energy.GetSortedIndex();
 
 
 
             for (int i = 0; i < 5; i++)
             {
-                var count = m_energy.NormalElement[sortedIndex[i]];
+                var count = m_propData.Energy.NormalElement[sortedIndex[i]];
                 if(count == 0) break;
                 
                 var energyRatio = Mathf.Clamp01(count / 100f);
@@ -153,16 +137,16 @@ namespace AILand.GamePlay.World.Prop
             if(GameManager.Instance.GetCurrentSelectItem().config.itemType != ItemType.InfiniteGauntlet) return;
             Debug.Log("Interact with Magic Crystal");
             
-            if (!m_isCharged)
+            if (!m_propData.IsCharged)
             {
                 Debug.Log("Magic Crystal is not charged yet.");
                 return;
             }
 
-            if (!m_isActive)
+            if (!m_propData.IsActive)
             {
                 // 激活水晶，创建岛屿
-                EventCenter.Broadcast(EventType.ShowDrawIslandShapePanelUI, m_energy);
+                EventCenter.Broadcast(EventType.ShowDrawIslandShapePanelUI, m_propData.Energy);
             }
             else
             {
@@ -174,34 +158,5 @@ namespace AILand.GamePlay.World.Prop
             
         }
         #endregion
-
-        public override void OnGetFromPool()
-        {
-            base.OnGetFromPool();
-            var magicCrystalComp = WorldManager.Instance?.GetBlockMagicCrystalInstance();
-            if (magicCrystalComp == null)
-            {
-                // Debug.LogError($"MagicCrystal component not found in Block instance.");
-                return;
-            }
-            
-            m_isNatural = magicCrystalComp.IsNatural;
-            m_isCharged = magicCrystalComp.IsCharged;
-            m_isActive = true;
-            m_energy = magicCrystalComp.Energy;
-            m_frScript.enable = m_isCharged;
-            UpdateCrystalMaterial();
-        }
-
-        public override void OnReleaseToPool()
-        {
-            base.OnReleaseToPool();
-            m_isNatural = true; 
-            m_isCharged = false; 
-            m_isActive = false; 
-            m_energy = null; 
-            m_frScript.enable = false; 
-            UpdateCrystalMaterial(); 
-        }
     }
 }

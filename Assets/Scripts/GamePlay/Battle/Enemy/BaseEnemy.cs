@@ -67,6 +67,7 @@ namespace AILand.GamePlay.Battle.Enemy
         private float m_attackTimer = 0f;
         
         // 异常状态
+        private bool m_isDie = false;
         private bool m_isSlow = false;
         private GameObject m_vfx;
         private float m_slowTimer = 0f;
@@ -271,6 +272,9 @@ namespace AILand.GamePlay.Battle.Enemy
 
         protected virtual void Die()
         {
+            if (m_isDie) return;
+            
+            m_isDie = true;
             Debug.Log($"Dead");
             // 全元素加 10
             DataManager.Instance.PlayerData.AddElementalEnergy(new NormalElement(10));

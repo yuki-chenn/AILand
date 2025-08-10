@@ -34,14 +34,20 @@ public class FloatAndRotate : MonoBehaviour
         DoRotate();
     }
 
-    private void OnDisable()
-    {
-        m_startLocalPos = Vector3.zero;
-    }
+    // private void OnDisable()
+    // {
+    //     m_startLocalPos = Vector3.zero;
+    // }
+    //
+    // private void OnEnable()
+    // {
+    //     m_startLocalPos = transform.localPosition;
+    // }
 
-    private void OnEnable()
+    public void Reset(Vector3 localPos)
     {
-        m_startLocalPos = transform.localPosition;
+        enable = false;
+        m_startLocalPos = localPos;
     }
 
     void DoFloat()

@@ -18791,6 +18791,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4378023920036251610, guid: f450d390ba482d04ca73c33f926417ec, type: 3}
+      propertyPath: raycastDistance
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4420286081616265687, guid: f450d390ba482d04ca73c33f926417ec, type: 3}
       propertyPath: m_Layer
       value: 9

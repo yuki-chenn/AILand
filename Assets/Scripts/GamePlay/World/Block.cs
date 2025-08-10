@@ -77,7 +77,7 @@ namespace AILand.GamePlay.World
         }
         
         
-        IEnumerator CreateDeformedMesh(Mesh originalMesh, Texture2D heightTexture, Vector3 playerPos, int sight, int loadFrame = 120)
+        IEnumerator CreateDeformedMesh(Mesh originalMesh, Texture2D heightTexture, Vector3 playerPos, int sight, int loadFrame = 200)
         {
             m_isRecreatingMesh = true;
             if (heightTexture == null) yield break;

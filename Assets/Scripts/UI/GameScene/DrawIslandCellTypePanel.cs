@@ -14,6 +14,7 @@ namespace AILand.UI
     {
         private Button m_btnGenerate;
         private Button m_btnClear;
+        private Button m_btnClose;
         private PixelPainter m_ppCellType;
 
         private Slider[] m_slidersRemainColor;
@@ -46,6 +47,7 @@ namespace AILand.UI
 
         protected override void BindUI()
         {
+            m_btnClose = transform.Find("BtnClose").GetComponent<Button>();
             m_btnGenerate = transform.Find("BtnGenerate").GetComponent<Button>();
             m_btnClear = transform.Find("BtnClear").GetComponent<Button>();
             m_ppCellType = transform.Find("Painter/PPCellType").GetComponent<PixelPainter>();
@@ -72,6 +74,7 @@ namespace AILand.UI
                 eventTrigger.triggers.Add(pointerDown);
             }
 
+            m_btnClose.onClick.AddListener(Hide);
             m_btnGenerate.onClick.AddListener(OnBtnGenerateClick);
             m_btnClear.onClick.AddListener(OnBtnClearClick);
 

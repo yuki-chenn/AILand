@@ -10857,7 +10857,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   rayStartDistance: 4
-  raycastDistance: 3
+  raycastDistance: 4
 --- !u!114 &2972402446566897080
 MonoBehaviour:
   m_ObjectHideFlags: 0

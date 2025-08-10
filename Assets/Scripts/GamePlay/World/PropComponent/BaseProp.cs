@@ -16,7 +16,11 @@ namespace AILand.GamePlay.World.Prop
         {
             m_focusOutline = GetComponent<Outline>();
         }
-        
+
+        public virtual void SetPropData(PropData propData)
+        {
+            throw new NotImplementedException($"{GetType().Name} 必须重写 SetPropData 方法");
+        }
         
         
         #region 对象池接口

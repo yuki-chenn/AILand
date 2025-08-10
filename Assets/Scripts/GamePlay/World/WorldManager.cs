@@ -10,7 +10,6 @@ using AILand.System.EventSystem;
 using AILand.Utils;
 using UnityEngine;
 using EventType = AILand.System.EventSystem.EventType;
-using Random = UnityEngine.Random;
 
 
 namespace AILand.GamePlay.World
@@ -266,14 +265,6 @@ namespace AILand.GamePlay.World
             int curBlockID = Util.GetBlockIDByWorldPosition(playerPosition, m_blockWidth, m_blockHeight);
             if (curBlockID != m_lastBlockID || m_lastBlockID == int.MinValue)
             {
-                // TODO:将原先block的所有东西都卸载了
-                // for (int i = m_loadedCells.Count - 1; i >= 0; i--)
-                // {
-                //     var cell = m_loadedCells[i];
-                //     cell.Unload();
-                //     m_loadedCells.RemoveAt(i);
-                // }
-                
                 Debug.Log($"Player moved to block {curBlockID}, loading blocks around it.");
 
                 List<int> blocksToLoad = new List<int>();
@@ -356,7 +347,7 @@ namespace AILand.GamePlay.World
                     int cy = Mathf.RoundToInt(playerPos.y);
                     var cubeConfig = block.Cells[x, z].TopCube?.CubeConfig;
                     Color mapColor = cubeConfig == null ? Color.clear :
-                        (cy < height - 2 ? cubeConfig.SideColor : cubeConfig.TopColor);
+                        (cy < height - 5 ? cubeConfig.SideColor : cubeConfig.TopColor);
                     heightMap.SetPixel(x, z, heightColor);
                     colorMap.SetPixel(x, z, mapColor);
                 }
