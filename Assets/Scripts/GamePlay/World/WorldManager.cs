@@ -325,13 +325,14 @@ namespace AILand.GamePlay.World
                 // 岛屿数据已经生成
                 
                 // 加载显示远处地形
-                if(!m_isLoadLowTerrain.GetValueOrDefault(blockID,false)) StartCoroutine(LoadBlockLowTerrainTextureCoroutine(blockID, sight));
+                var playerPos = GameManager.Instance.player.transform.position;
+                if (!m_isLoadLowTerrain.GetValueOrDefault(blockID,false)) StartCoroutine(LoadBlockLowTerrainTextureCoroutine(blockID, playerPos, sight));
                 
                 yield break;
             }
         }
         
-        IEnumerator LoadBlockLowTerrainTextureCoroutine(int blockID, int sight)
+        IEnumerator LoadBlockLowTerrainTextureCoroutine(int blockID, Vector3 playerPos, int sight)
         {
             m_isLoadLowTerrain[blockID] = true;
             var block = m_worldData.GetBlock(blockID);
@@ -352,16 +353,10 @@ namespace AILand.GamePlay.World
                         Mathf.Clamp(height, 0F, 5F) / 5F, 
                         Mathf.Clamp(height - 5F, 0F, 10F) / 10F, 
                         Mathf.Clamp(height - 15F, 0F, 35F) / 35F);
-                    // TODO: 测试用
-                    Color mapColor = block.Cells[x, z].TopCube?.CubeType switch
-                    {
-                        CubeType.Sand => Color.yellow,
-                        CubeType.Dirt => new Color(0.545f, 0.271f, 0.075f),
-                        CubeType.Stone => Color.gray,
-                        CubeType.Snow => Color.white,
-                        CubeType.Grass => Color.green,
-                        _ => Color.clear
-                    };
+                    int cy = Mathf.RoundToInt(playerPos.y);
+                    var cubeConfig = block.Cells[x, z].TopCube?.CubeConfig;
+                    Color mapColor = cubeConfig == null ? Color.clear :
+                        (cy < height - 2 ? cubeConfig.SideColor : cubeConfig.TopColor);
                     heightMap.SetPixel(x, z, heightColor);
                     colorMap.SetPixel(x, z, mapColor);
                 }
@@ -374,7 +369,7 @@ namespace AILand.GamePlay.World
             yield return 1;
             heightMap.Apply();
             
-            block.BlockComponent.SetLowTerrainTexture(colorMap, heightMap, sight);
+            block.BlockComponent.SetLowTerrainTexture(colorMap, heightMap, playerPos, sight);
             m_isLoadLowTerrain[blockID] = false;
         }
 
@@ -500,8 +495,9 @@ namespace AILand.GamePlay.World
                 block.BlockComponent.UpdateLowTerrain(playerPosition, sight);
                 if(Time.frameCount % 300 == 0 && !m_isLoadLowTerrain[blockId])
                 {
+                    var playerPos = GameManager.Instance.player.transform.position;
                     // 每隔一段时间重新加载低地形纹理
-                    StartCoroutine(LoadBlockLowTerrainTextureCoroutine(blockId, sight));
+                    StartCoroutine(LoadBlockLowTerrainTextureCoroutine(blockId, playerPos, sight));
                 }
             }
         }

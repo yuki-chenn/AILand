@@ -56,7 +56,7 @@ namespace AILand.GamePlay.World
         
         
         
-        public void SetLowTerrainTexture(Texture color, Texture height, int sight)
+        public void SetLowTerrainTexture(Texture color, Texture height, Vector3 playerPos, int sight)
         {
             
             color.filterMode = FilterMode.Point;
@@ -68,7 +68,6 @@ namespace AILand.GamePlay.World
                 // 生成形变后的网格
                 if (GameManager.Instance.CurBlockId == m_blockData.BlockID && !m_isRecreatingMesh)
                 {
-                    var playerPos = GameManager.Instance.player.transform.position;
                     StartCoroutine(
                         CreateDeformedMesh(
                             lowTerrainRenderer.GetComponent<MeshFilter>().sharedMesh, height as Texture2D, playerPos, sight)

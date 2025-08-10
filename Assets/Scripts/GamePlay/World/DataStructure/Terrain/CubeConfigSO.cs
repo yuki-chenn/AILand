@@ -34,5 +34,8 @@ namespace AILand.GamePlay.World
         
         public bool hasCollision = true;
 
+        public Color TopColor;
+
+        public Color SideColor;
     }
 }

@@ -15,4 +15,8 @@ MonoBehaviour:
   cubeType: 1
   cubePrefab: {fileID: 4383872871049274084, guid: a1da8981ff02692459b66ca67819b941, type: 3}
   canDestroy: 0
+  elementEnergy: []
   canPlaceCubeOn: 0
+  hasCollision: 1
+  TopColor: {r: 1, g: 1, b: 1, a: 0}
+  SideColor: {r: 1, g: 1, b: 1, a: 0}

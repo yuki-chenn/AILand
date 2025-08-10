@@ -19,3 +19,6 @@ MonoBehaviour:
   - energyType: 1
     count: 10
   canPlaceCubeOn: 1
+  hasCollision: 1
+  TopColor: {r: 0.8196079, g: 0.81568635, b: 0.67058825, a: 0}
+  SideColor: {r: 0.5176471, g: 0.5803922, b: 0.4901961, a: 0}

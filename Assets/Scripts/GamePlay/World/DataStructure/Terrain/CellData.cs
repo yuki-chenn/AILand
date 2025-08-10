@@ -34,8 +34,22 @@ namespace AILand.GamePlay.World
         
         public CubeData TopCube => m_cubes.Count > 0 ? m_cubes[m_cubes.Count - 1] : null;
 
-        public int Height => m_cubes.Count;
-
+        public int Height
+        {
+            get
+            {
+                for(int i = m_cubes.Count - 1; i >= 0; i--)
+                {
+                    if (m_cubes[i].CubeType != CubeType.None &&
+                        m_cubes[i].CubeType != CubeType.AirBlock &&
+                        m_cubes[i].CubeType != CubeType.Air )
+                    {
+                        return i + 1; // 返回高度
+                    }
+                }
+                return 0; // 如果没有方块，则高度为0
+            }
+        }
         public CellData(BlockData blockData, Vector2Int index, Vector3 localPosition)
         {
             m_blockData = blockData;

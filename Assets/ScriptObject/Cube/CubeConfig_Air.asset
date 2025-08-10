@@ -18,3 +18,5 @@ MonoBehaviour:
   elementEnergy: []
   canPlaceCubeOn: 0
   hasCollision: 0
+  TopColor: {r: 1, g: 1, b: 1, a: 0}
+  SideColor: {r: 1, g: 1, b: 1, a: 0}
