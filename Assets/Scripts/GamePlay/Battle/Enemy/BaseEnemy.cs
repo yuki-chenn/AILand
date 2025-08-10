@@ -277,6 +277,21 @@ namespace AILand.GamePlay.Battle.Enemy
             Invoke("Release",2f);
         }
 
+        public void MoveTo(Vector3 position)
+        {
+            if (m_cc != null)
+            {
+                m_cc.enabled = false;
+                transform.position = position;
+                m_cc.enabled = true;
+                Debug.Log($"{gameObject.name} 移动到到坐标：{position}");
+            }
+            else
+            {
+                Debug.LogError($"未找到{gameObject.name}的CharacterController组件！");
+            }
+        }
+
         private void Release()
         {
             PoolManager.Instance.Release(gameObject);

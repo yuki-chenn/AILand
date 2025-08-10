@@ -17649,15 +17649,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 155071902485052700, guid: 32ec86701c6cf9e4aa2b079409d9c7ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.80736214
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 155071902485052700, guid: 32ec86701c6cf9e4aa2b079409d9c7ad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.21879908
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 155071902485052700, guid: 32ec86701c6cf9e4aa2b079409d9c7ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5622558
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 155071902485052700, guid: 32ec86701c6cf9e4aa2b079409d9c7ad, type: 3}
       propertyPath: m_LocalRotation.w
@@ -17690,6 +17690,10 @@ PrefabInstance:
     - target: {fileID: 2135853418263823466, guid: 32ec86701c6cf9e4aa2b079409d9c7ad, type: 3}
       propertyPath: m_Name
       value: VfxController (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187810328083557231, guid: 32ec86701c6cf9e4aa2b079409d9c7ad, type: 3}
+      propertyPath: vfxList.Array.data[6].duration
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

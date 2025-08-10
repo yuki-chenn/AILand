@@ -1,6 +1,8 @@
 using AILand.System.ObjectPoolSystem;
 using AILand.Utils;
 using System;
+using AILand.GamePlay.Battle;
+using AILand.GamePlay.Battle.Enemy;
 using UnityEngine;
 
 namespace AILand.GamePlay.World.Prop
@@ -21,13 +23,12 @@ namespace AILand.GamePlay.World.Prop
 
         // 触发召唤怪物
         private bool m_isSummoned = false;
-
-        // 防误触的timer
-        private float m_interactTimer;
+        
+        // 开启
+        private bool m_isOpen = false;
         
         private void Update()
         {
-            if(m_interactTimer > 0) m_interactTimer -= Time.deltaTime;
 
             if (!m_isSummoned)
             {
@@ -49,7 +50,7 @@ namespace AILand.GamePlay.World.Prop
                 var enemyInstance = PoolManager.Instance.GetGameObject(enemyType);
                 // 随机放在宝箱周围
                 var summonPos = RandomSummonPos(transform.position, summonRadius);
-                enemyInstance.transform.position = summonPos;
+                enemyInstance.GetComponent<BaseEnemy>().MoveTo(summonPos);
             }
 
             m_isSummoned = true;
@@ -66,13 +67,30 @@ namespace AILand.GamePlay.World.Prop
         
         public override void Interact()
         {
-            // 防误触
-            m_interactTimer = 0.5f;
+            if (m_isOpen) return;
+            
+            m_isOpen = true;
 
             // TODO : 放个动画打开盖子
+            ShowAnimationAndEffect();
 
             // 获得元素
             DataManager.Instance.PlayerData.AddElementalEnergy(new NormalElement(100));
+            
+            // Invoke("Release",2f);
+        }
+
+        private void ShowAnimationAndEffect()
+        {
+            GetComponent<Animator>()?.SetTrigger("open");
+            var vfx = PoolManager.Instance.GetGameObject<VfxController>();
+            vfx.GetComponent<VfxController>().Play("TreasureOpenEffect",transform.position);
+        }
+
+
+        public void Release()
+        {
+            PoolManager.Instance.Release(gameObject);
         }
     }
 }
