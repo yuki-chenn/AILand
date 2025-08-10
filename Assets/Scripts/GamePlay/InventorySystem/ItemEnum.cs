@@ -5,5 +5,10 @@ namespace AILand.GamePlay.InventorySystem
         None,
         InfiniteGauntlet,
         StoneCube,
+        DirtCube,
+        GrassCube,
+        SandCube,
+        SnowCube,
+        WoodCube
     }
 }

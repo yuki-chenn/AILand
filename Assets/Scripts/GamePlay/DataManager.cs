@@ -1,6 +1,7 @@
 using System;
 using AILand.GamePlay.World;
 using AILand.System.Base;
+using AILand.Utils;
 using GamePlay.Player;
 
 namespace AILand.GamePlay
@@ -18,7 +19,11 @@ namespace AILand.GamePlay
         private void Start()
         {
             PlayerData.AddItem(1,1);
-            PlayerData.AddItem(2,100);
+            for (int i = 2; i <= 7; i++)
+            {
+                PlayerData.AddItem(i,Util.GetRandomInRange(50,100));
+            }
+            
             PlayerData.AddElementalEnergy(new NormalElement(99999,99999,99999,99999,99999));
         }
     }
