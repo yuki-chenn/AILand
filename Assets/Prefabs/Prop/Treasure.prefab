@@ -679,7 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyCountRange: {x: 3, y: 5}
-  triggerRadius: 20
+  triggerRadius: 30
   summonRadius: 10
 --- !u!114 &-8727287854324552846
 MonoBehaviour:

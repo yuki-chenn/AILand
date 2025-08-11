@@ -21,6 +21,7 @@ namespace AILand.System.CharacterFSM
         public override void DoBeforeEntering()
         {
             m_enemy.Animator.SetBool("chase", true);
+            // m_enemy.GetComponent<CharacterController>().enabled = true;
             m_enemy.IsMoving = true;
         }
 

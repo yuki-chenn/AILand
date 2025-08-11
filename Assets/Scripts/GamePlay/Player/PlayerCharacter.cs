@@ -1,10 +1,11 @@
 using AILand.GamePlay.Battle;
 using AILand.GamePlay.Battle.Enemy;
 using AILand.GamePlay.InventorySystem;
-using AILand.GamePlay.World;
+using AILand.System.EventSystem;
 using AILand.System.ObjectPoolSystem;
 using AILand.Utils;
 using UnityEngine;
+using EventType = AILand.System.EventSystem.EventType;
 
 namespace AILand.GamePlay.Player
 {
@@ -37,6 +38,12 @@ namespace AILand.GamePlay.Player
         {
             m_characterController = GetComponent<CharacterController>();
             m_playerController = GetComponent<PlayerController>();
+            EventCenter.AddListener(EventType.RefreshBagInventory, OnInventoryChange);
+        }
+
+        private void OnDestroy()
+        {
+            EventCenter.RemoveListener(EventType.RefreshBagInventory, OnInventoryChange);
         }
 
         private void Update()
@@ -170,7 +177,12 @@ namespace AILand.GamePlay.Player
             }
 
         }
-        
+
+        private void OnInventoryChange()
+        {
+            var itemIndex = GameManager.Instance.CurSelectItemIndex;
+            ChangeItemOnHand(itemIndex);
+        }
         public void ChangeItemOnHand(int itemIndex)
         {
             // 切换手中的物品

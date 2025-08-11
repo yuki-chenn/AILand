@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using AILand.GamePlay;
 using AILand.System.EventSystem;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace AILand.UI
         private PixelPainter m_ppShape;
         private Slider m_sliderRemainColor;  // 剩余颜色的展示slider
         private Text m_txtAmount;
+        private Transform m_smallWarn;
         
         
         private PerlinNoise pn;
@@ -50,6 +52,7 @@ namespace AILand.UI
 
         protected override void BindUI()
         {
+            m_smallWarn = transform.Find("TxtWarn");
             m_btnClose = transform.Find("BtnClose").GetComponent<Button>();
             m_btnGenerate = transform.Find("BtnGenerate").GetComponent<Button>();
             m_btnClear = transform.Find("BtnClear").GetComponent<Button>();
@@ -113,13 +116,36 @@ namespace AILand.UI
             m_ppShape.ClearCanvas();
         }
 
+        private bool m_isWarning = false;
         private void OnBtnGenerateClick()
         {
+            // 检查像素点的数量
+            var count = Util.CountPixelPoints(m_ppShape.GetPaintTexture(),Color.white);
+            Debug.Log($"count:{count}");
+            if (count < 2000)
+            {
+                if(!m_isWarning) StartCoroutine(WarnCoroutine(2));
+                return;
+            }
+            
             var terrainNoiseMap = GenerateTerrainNoiseMap();
             Hide();
             EventCenter.Broadcast(EventType.ShowDrawIslandCellTypePanelUI, terrainNoiseMap, m_crystalEnergy);
         }
-
+        
+        IEnumerator WarnCoroutine(int count)
+        {
+            m_isWarning = true;
+            for(int i = 0; i < count; i++)
+            {
+                m_smallWarn.gameObject.SetActive(true);
+                yield return new WaitForSeconds(0.3f);
+                m_smallWarn.gameObject.SetActive(false);
+                yield return new WaitForSeconds(0.3f);
+            }
+            m_smallWarn.gameObject.SetActive(true);
+            m_isWarning = false;
+        }
 
         /// <summary>
         /// 生成地形的噪声图

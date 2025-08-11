@@ -22,7 +22,9 @@ namespace AILand.GamePlay.World
         
         // 区块宽高
         private int m_width;
+        public int Width => m_width;
         private int m_height;
+        public int Height => m_height;
 
         // block锚点在世界中的位置
         private Vector3 m_worldPosition;

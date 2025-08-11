@@ -32,7 +32,7 @@ namespace GamePlay.Player
             m_maxHp = 100f; // 初始最大血量
             RestoreAllHp();
 
-            m_rebirthPosition = new Vector3(100, 10, 100);
+            m_rebirthPosition = new Vector3(100, 50, 100);
             
             m_elementalEnergy = new ElementalEnergy();
             m_inventoryData = new InventoryData();

@@ -59,6 +59,7 @@ public class PixelPainter : MonoBehaviour,
     public event Action<InkConsumptionData> OnInkConsumptionChanged;
 
     public float[,] GetPaintMap() => Util.GrayTexture2Array(m_texPaint);
+    public Texture2D GetPaintTexture() => m_texPaint;
     public InkConsumptionData GetInkData() => m_inkData;
 
     void Awake()

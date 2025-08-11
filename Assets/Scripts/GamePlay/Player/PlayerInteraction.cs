@@ -81,6 +81,11 @@ namespace AILand.GamePlay
                 EventCenter.Broadcast(EventType.OpenBag, 0);
             }
             
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                EventCenter.Broadcast(EventType.SwitchShowInputHint);
+            }
+            
             
         }
 

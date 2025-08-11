@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using AILand.GamePlay;
 using UnityEngine;
+using NotImplementedException = System.NotImplementedException;
 using Random = UnityEngine.Random;
 
 namespace AILand.Utils
@@ -359,6 +360,26 @@ namespace AILand.Utils
             
             return texture;
         }
+        
+        public static int CountPixelPoints(Texture2D tex, Color targetColor)
+        {
+            if(tex == null) return 0;
+            int count = 0;
+
+            var pcs = tex.GetPixels();
+
+            foreach (var pc in pcs)
+            {
+                if (Mathf.Approximately(pc.r, targetColor.r) &&
+                    Mathf.Approximately(pc.g, targetColor.g) &&
+                    Mathf.Approximately(pc.b, targetColor.b) &&
+                    Mathf.Approximately(pc.a, targetColor.a))
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
 
         #endregion
 
@@ -590,5 +611,7 @@ namespace AILand.Utils
             }
             return dst;
         }
+
+        
     }
 }

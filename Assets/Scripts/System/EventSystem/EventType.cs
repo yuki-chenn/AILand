@@ -37,7 +37,8 @@ namespace AILand.System.EventSystem
         SelectInventoryItemChange, // 选择的背包物品改变
         RefreshElementEnergy,
         RefreshPlayerHp,
-        SelectElementChange
+        SelectElementChange,
+        SwitchShowInputHint
     }
 }
 

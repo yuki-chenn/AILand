@@ -131,7 +131,7 @@ namespace AILand.GamePlay.World
             }
             
             // 传送玩家
-            Vector3 pos = block.WorldPosition + new Vector3(m_blockWidth / 2, 50, m_blockHeight / 2);
+            Vector3 pos = block.WorldPosition + new Vector3(m_blockWidth / 2, 80, m_blockHeight / 2);
             GameManager.Instance.Teleport(pos);
             
             
@@ -339,14 +339,14 @@ namespace AILand.GamePlay.World
             {
                 for (int z = 0; z < m_blockHeight; z++)
                 {
-                    int height = block.Cells[x, z].Height;
+                    int height = block.Cells[x, z].VisualHeight;
                     Color heightColor = new Color(
-                        Mathf.Clamp(height, 0F, 5F) / 5F, 
-                        Mathf.Clamp(height - 5F, 0F, 10F) / 10F, 
-                        Mathf.Clamp(height - 15F, 0F, 35F) / 35F);
+                        Mathf.Clamp(height, 0f, 5f) / 5f, 
+                        Mathf.Clamp(height - 5f, 0f, 10f) / 10f, 
+                        Mathf.Clamp(height - 15f, 0f, 35f) / 35f);
                     int cy = Mathf.RoundToInt(playerPos.y);
                     var cubeConfig = block.Cells[x, z].TopCube?.CubeConfig;
-                    Color mapColor = cubeConfig == null ? Color.clear :
+                    Color mapColor = cubeConfig == null ? new Color(0.22f,0.51f,0.62f) :
                         (cy < height - 5 ? cubeConfig.SideColor : cubeConfig.TopColor);
                     heightMap.SetPixel(x, z, heightColor);
                     colorMap.SetPixel(x, z, mapColor);

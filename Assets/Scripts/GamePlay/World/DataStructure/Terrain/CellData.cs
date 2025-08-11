@@ -32,9 +32,40 @@ namespace AILand.GamePlay.World
         private List<CubeData> m_cubes;
         public List<CubeData> Cubes => m_cubes;
         
-        public CubeData TopCube => m_cubes.Count > 0 ? m_cubes[m_cubes.Count - 1] : null;
+        public CubeData TopCube
+        {
+            get
+            {
+                for(int i=m_cubes.Count-1; i>=0; i--)
+                {
+                    if (m_cubes[i].CubeType != CubeType.None &&
+                        m_cubes[i].CubeType != CubeType.AirBlock &&
+                        m_cubes[i].CubeType != CubeType.Air )
+                    {
+                        return m_cubes[i];
+                    }
+                }
+                return null;
+            }
+        }
+        
+        public int BlockHeight
+        {
+            get
+            {
+                for(int i = m_cubes.Count - 1; i >= 0; i--)
+                {
+                    if (m_cubes[i].CubeType != CubeType.None &&
+                        m_cubes[i].CubeType != CubeType.Air )
+                    {
+                        return i + 1; // 返回高度
+                    }
+                }
+                return 0; // 如果没有方块，则高度为0
+            }
+        }
 
-        public int Height
+        public int VisualHeight
         {
             get
             {

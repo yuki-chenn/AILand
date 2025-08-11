@@ -1,4 +1,5 @@
 using AILand.GamePlay.Battle.Enemy;
+using UnityEngine;
 
 namespace AILand.System.CharacterFSM
 {
@@ -20,6 +21,7 @@ namespace AILand.System.CharacterFSM
         public override void DoBeforeEntering()
         {
             m_enemy.IsMoving = false;
+            // m_enemy.GetComponent<CharacterController>().enabled = false;
         }
         
         public override void Reason()

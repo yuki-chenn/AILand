@@ -32,7 +32,7 @@ MonoBehaviour:
     cellType: 0
     heightLimit: 0
   maxHeight: 10
-  waterThreshold: 0.3
+  waterThreshold: 0.2
   noiseToHeightCurve:
     serializedVersion: 2
     m_Curve:

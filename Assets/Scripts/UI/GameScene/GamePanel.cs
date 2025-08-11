@@ -12,6 +12,7 @@ namespace AILand.UI
         private Transform m_transInventory10;
         private GameObject[] m_goItems = new GameObject[10];
         private Transform[] m_transItemSlots = new Transform[10];
+        private GameObject m_goInputHint;
 
         private Slider m_sliderHp;
 
@@ -29,6 +30,8 @@ namespace AILand.UI
             m_sliderHp = transform.Find("SliderHpBar").GetComponent<Slider>();
 
             m_elementEnergyUI = transform.Find("ElementEnergy").GetComponent<ElementEnergyUI>();
+
+            m_goInputHint = transform.Find("InputHint").gameObject;
         }
         
         protected override void Start()
@@ -50,6 +53,7 @@ namespace AILand.UI
             EventCenter.AddListener<int[]>(EventType.RefreshElementEnergy, UpdateElementEnergy);
             EventCenter.AddListener(EventType.RefreshPlayerHp, UpdateHpSlider);
             EventCenter.AddListener(EventType.SelectElementChange, m_elementEnergyUI.UpdateSelectElement);
+            EventCenter.AddListener(EventType.SwitchShowInputHint, SwitchShowInputHint);
         }
 
         protected override void UnbindListeners()
@@ -61,6 +65,7 @@ namespace AILand.UI
             EventCenter.RemoveListener<int[]>(EventType.RefreshElementEnergy, UpdateElementEnergy);
             EventCenter.RemoveListener(EventType.RefreshPlayerHp, UpdateHpSlider);
             EventCenter.RemoveListener(EventType.SelectElementChange, m_elementEnergyUI.UpdateSelectElement);
+            EventCenter.RemoveListener(EventType.SwitchShowInputHint, SwitchShowInputHint);
         }
 
         protected override void OnEnable()
@@ -71,6 +76,18 @@ namespace AILand.UI
         protected override void OnDisable()
         {
             // 不需要停止camera
+        }
+        
+        private void SwitchShowInputHint()
+        {
+            if (m_goInputHint.activeSelf)
+            {
+                m_goInputHint.SetActive(false);
+            }
+            else
+            {
+                m_goInputHint.SetActive(true);
+            }
         }
 
         private void UpdateElementEnergy(int[] delta)

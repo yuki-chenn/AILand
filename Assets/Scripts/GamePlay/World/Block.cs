@@ -65,14 +65,16 @@ namespace AILand.GamePlay.World
             {
                 lowTerrainRenderer.material.SetTexture("_ColorTex", color);
                 lowTerrainRenderer.material.SetTexture("_HeightTex", height);
+
+                lowTerrainRenderer.enabled = true;
                 // 生成形变后的网格
-                if (GameManager.Instance.CurBlockId == m_blockData.BlockID && !m_isRecreatingMesh)
-                {
-                    StartCoroutine(
-                        CreateDeformedMesh(
-                            lowTerrainRenderer.GetComponent<MeshFilter>().sharedMesh, height as Texture2D, playerPos, sight)
-                    );
-                }
+                // if (GameManager.Instance.CurBlockId == m_blockData.BlockID && !m_isRecreatingMesh)
+                // {
+                //     StartCoroutine(
+                //         CreateDeformedMesh(
+                //             lowTerrainRenderer.GetComponent<MeshFilter>().sharedMesh, height as Texture2D, playerPos, sight)
+                //     );
+                // }
             }
         }
         
