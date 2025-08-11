@@ -47,8 +47,9 @@ namespace AILand.GamePlay
         private bool m_isCharge = false;
         private float m_chargeTimer = 0f;
 
-
         private PlayerController m_playerController => GetComponent<PlayerController>();
+        private PlayerCharacter m_playerCharacter => GetComponent<PlayerCharacter>();
+        
         
         void Update()
         {
@@ -89,6 +90,8 @@ namespace AILand.GamePlay
             
         }
 
+        
+        
         private void DetectCrystalCharge()
         {
             if (m_currentSelectItemType != ItemType.InfiniteGauntlet) return;
@@ -105,6 +108,7 @@ namespace AILand.GamePlay
                 if (Input.GetKeyUp(KeyCode.E))
                 {
                     m_isCharge = false;
+                    SetChargeLine(false);
                 }
             }
             else
@@ -121,6 +125,8 @@ namespace AILand.GamePlay
                 }
                 // 获取当前选中的元素
                 var element = Util.GetSelectedEnergyType();
+
+                SetChargeLine(true);
                 
                 // 充能水晶
                 Debug.Log($"charging crystal with element: {element}");
@@ -128,6 +134,40 @@ namespace AILand.GamePlay
                 DataManager.Instance.PlayerData.ConsumeElementalEnergy(element, 1);
                 m_chargeTimer = 0.1f; // 每0.2秒充能一次
             }
+            else
+            {
+                SetChargeLine(false);
+            }
+        }
+
+        private void SetChargeLine(bool active)
+        {
+            var line = m_playerCharacter.infiniteGauntletGo.transform.Find("Line").gameObject;
+            
+            line.SetActive(active);
+            if (!active) return;
+            
+            var lineRenderer = line.GetComponent<LineRenderer>();
+            if (lineRenderer == null || !(m_interactableProp is MagicCrystal crystal)) 
+            {
+                line.SetActive(false);
+                return;
+            }
+            
+            // 设置线条的起点和终点
+            lineRenderer.positionCount = 2;
+            lineRenderer.SetPosition(0, m_playerCharacter.infiniteGauntletGo.transform.position);
+            lineRenderer.SetPosition(1, crystal.transform.position);
+    
+            // 根据当前选中的元素类型设置颜色
+            var element = Util.GetSelectedEnergyType();
+            Color elementColor = Constants.energyColors[element];
+            Gradient gradient = new Gradient();
+            gradient.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(elementColor, 0.0f), new GradientColorKey(elementColor, 1.0f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) }
+            );
+            lineRenderer.colorGradient = gradient;
         }
 
         private void HandleScrollInput()
