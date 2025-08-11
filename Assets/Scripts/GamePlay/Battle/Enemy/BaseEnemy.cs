@@ -60,7 +60,8 @@ namespace AILand.GamePlay.Battle.Enemy
             set => m_isMoving = value;
         }
 
-        private bool m_isChased = false;
+        private bool m_isLand;
+        
         
         public bool IsDead => m_currentHp <= 0;
         public bool ChasePlayer => m_chaseTarget != null;
@@ -87,7 +88,6 @@ namespace AILand.GamePlay.Battle.Enemy
             if(Vector3.Distance(GameManager.Instance.player.transform.position, transform.position) < chaseRange)
             {
                 m_chaseTarget = GameManager.Instance.player.transform;
-                m_isChased = true;
             }
             else
             {
@@ -137,7 +137,7 @@ namespace AILand.GamePlay.Battle.Enemy
 
         private void FixedUpdate()
         {
-            if (m_isChased && !m_isMoving) return;
+            if (m_isLand && !m_isMoving) return;
             
             float velocityAdittion = 0;
             if ( m_fsmSystem.CurrentState.StateID == CFSMStateID.EnemyChase )
@@ -178,6 +178,7 @@ namespace AILand.GamePlay.Battle.Enemy
             Vector3 moviment = verticalDirection + horizontalDirection;
             m_cc.Move( moviment );
             m_isGrounded = m_cc.isGrounded;
+            if (m_isGrounded) m_isLand = true;
         }
 
         public void SetSlow()
