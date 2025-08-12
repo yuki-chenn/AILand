@@ -25,7 +25,7 @@ namespace AILand.GamePlay.World.Prop
 
         public override void SetPropData(PropData propData)
         {
-            m_propData = propData as TreasurePropData;
+             m_propData = propData as TreasurePropData;
             if (m_propData.IsOpen)
             {
                 GetComponent<Animator>()?.SetTrigger("open");
@@ -91,6 +91,17 @@ namespace AILand.GamePlay.World.Prop
             var vfx = PoolManager.Instance.GetGameObject<VfxController>();
             vfx.GetComponent<VfxController>().Play("TreasureOpenEffect",transform.position);
         }
-        
+
+        public override void OnReleaseToPool()
+        {
+            base.OnReleaseToPool();
+            // 将animator设置到初始状态
+            var animator = GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.Rebind();
+                animator.Update(0f); // 确保动画状态重置
+            }
+        }
     }
 }
