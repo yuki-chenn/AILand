@@ -78,3 +78,7 @@ crashlytics-build.properties
 .vscode/
 .idea/
 .vsconfig
+
+
+Assets/ThirdParty/FreeTestCharacterAsuna/
+Assets/ThirdParty/FreeTestCharacterAsuna.meta
