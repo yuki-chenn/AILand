@@ -14426,6 +14426,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InfinityGauntlet
       objectReference: {fileID: 0}
+    - target: {fileID: 990840032497688538, guid: 914b749e328e0ee47b25ff61086ef631, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8697537983516389676, guid: 914b749e328e0ee47b25ff61086ef631, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.3
