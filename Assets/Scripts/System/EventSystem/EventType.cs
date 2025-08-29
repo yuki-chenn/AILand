@@ -38,7 +38,8 @@ namespace AILand.System.EventSystem
         RefreshElementEnergy,
         RefreshPlayerHp,
         SelectElementChange,
-        SwitchShowInputHint
+        SwitchShowInputHint,
+        PauseGame
     }
 }
 

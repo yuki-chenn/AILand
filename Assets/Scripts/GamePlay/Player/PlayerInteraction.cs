@@ -87,6 +87,12 @@ namespace AILand.GamePlay
                 EventCenter.Broadcast(EventType.SwitchShowInputHint);
             }
             
+            // 暂停游戏
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                EventCenter.Broadcast(EventType.PauseGame);
+                GameManager.Instance.PauseGame();
+            }
             
         }
 

@@ -9,10 +9,13 @@ namespace AILand.GamePlay
     public class DataManager : Singleton<DataManager>
     {
         public PlayerData PlayerData = new PlayerData();
+        
+        public WorldData WorldData;
 
         protected override void Awake()
         {
             base.Awake();
+            WorldData = new WorldData(GameManager.Instance.WFCConfigSO);
             PlayerData.AddInventory();
         }
 

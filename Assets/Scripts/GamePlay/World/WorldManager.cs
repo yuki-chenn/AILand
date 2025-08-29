@@ -23,7 +23,7 @@ namespace AILand.GamePlay.World
         public int sight = 30;
         public int border = 2;
 
-        private WorldData m_worldData;
+        private WorldData m_worldData => DataManager.Instance.WorldData;
         
         private List<CellData> m_loadedCells = new List<CellData>();
 
@@ -39,12 +39,6 @@ namespace AILand.GamePlay.World
         {
             base.Awake();
             BindListeners();
-            InitData();
-        }
-
-        private void InitData()
-        {
-            m_worldData = new WorldData(GameManager.Instance.WFCConfigSO);
         }
         
         private void BindListeners()

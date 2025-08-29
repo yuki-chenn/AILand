@@ -178,5 +178,17 @@ namespace AILand.GamePlay
             var item = DataManager.Instance.PlayerData.GetItemInInventory(0, m_curSelectItemIndex);
             return ItemFactory.GetItemByID(item.itemID);
         }
+
+
+        public void PauseGame()
+        {
+            Time.timeScale = 0f;
+        }
+        
+        public void ResumeGame()
+        {
+            Time.timeScale = 1f;
+        }
+        
     }
 }
